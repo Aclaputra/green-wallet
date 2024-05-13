@@ -31,12 +31,12 @@ services:
     networks:
       - kong-net
 
-  # wallet-service:
-  #   build: ./wallet-service/
-  #   ports:
-  #     - 8081
-  #   networks:
-  #     - kong-net
+  wallet-service:
+    build: ./wallet-service/
+    ports:
+      - 8081:8081
+    networks:
+      - kong-net
 
   kong-migrations:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
