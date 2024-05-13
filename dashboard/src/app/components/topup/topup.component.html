@@ -1,0 +1,36 @@
+<div class="container text-center my-5">
+    <h1>Top Up</h1>
+</div>
+<div class="container my-5 text-center">
+    @for (merchant of merchants.data; track $index) {
+        <div class="dropdown">
+            <button type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" style="width: 22rem; height: 48px; padding: 12px; margin: 6px; background-color: #5DA871;">
+                <div class="row">
+                    <div class="col">
+                        <img [src]="merchant.image" style="height: 20px;" alt="">
+                    </div>
+                    <div class="col">
+                        {{ merchant.name }}
+                    </div>
+                    <div class="col">
+                        <p>></p>
+                    </div>
+                </div>
+            </button>
+            <form class="dropdown-menu p-4">
+              <div class="mb-3 text-center">
+                <label for="exampleDropdownFormEmail2" class="form-label">Nomor akun</label>
+                <p class="fs-4" style="color: orange;" id="myInput">{{ merchant.nomor }}</p>
+              </div>
+              <div class="mb-3 small-font text-center">
+                <p>Saldo maksimum kamu Rp20.000.000.</p>
+                <p class="margin-min">Masimal penambahan saldo adalah Rp {{ 20000000-currentSaldo }}</p>
+                <p class="margin-min">Kamu masih bisa menambahkan saldo hingga {{ (20000000-currentSaldo)*2 }}</p>
+              </div>
+              <div class="container text-center">
+                <button type="submit" class="btn btn-light" (click)="copyText(merchant.nomor)">SALIN KODE</button>
+              </div>
+            </form>
+        </div>
+    }
+</div>
