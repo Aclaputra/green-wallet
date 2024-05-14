@@ -33,6 +33,7 @@ public class AccountDetails {
             inverseJoinColumns = @JoinColumn(name = "role_roleid")
     )
     private Role role;
+
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)

@@ -13,7 +13,7 @@ public interface AccountDetailService {
     void deleteAccount(String email);
     AccountDetails getAccountData(String email);
     // Create Account di handle pas Register User ( sekalian sama user )
-//    void createAccount(AccountDetailDTO accountDetailDTO);
+    void createAccount(AccountDetails account);
     void updateBalance(BalanceDTO balanceDTO);
     void updatePoints(BalanceDTO balanceDTO);
 }

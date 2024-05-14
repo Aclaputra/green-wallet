@@ -50,6 +50,11 @@ public class AccountDetailImpl implements AccountDetailService {
     }
 
     @Override
+    public void createAccount(AccountDetails account) {
+        accountDetailsRepository.save(account);
+    }
+
+    @Override
     public void updateBalance(BalanceDTO balanceDTO) {
         AccountDetails accountDetails = accountDetailsRepository.findByemail(balanceDTO.getData());
         // 1 = Payment / Transfer || 2 = Topup / Recieve Payment
