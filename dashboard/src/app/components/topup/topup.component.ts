@@ -38,6 +38,7 @@ export class TopupComponent {
     ]
   }
 
+  maxSaldo: number = 20000000;
   currentSaldo: number = 0;
 
   @Input() merchant: any;

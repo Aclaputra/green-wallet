@@ -1,13 +1,17 @@
 <div class="container text-center my-5">
-    <h1>Top Up</h1>
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <h1>Top Up</h1>
+        </div>
+    </div>
 </div>
 <div class="container my-5 text-center">
     @for (merchant of merchants.data; track $index) {
         <div class="dropdown">
-            <button type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" style="width: 22rem; height: 48px; padding: 12px; margin: 6px; background-color: #5DA871;">
+            <button type="button" class="button-choose" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                 <div class="row">
                     <div class="col">
-                        <img [src]="merchant.image" style="height: 20px;" alt="">
+                        <img [src]="merchant.image" class="image" alt="">
                     </div>
                     <div class="col">
                         {{ merchant.name }}
@@ -20,12 +24,12 @@
             <form class="dropdown-menu p-4">
               <div class="mb-3 text-center">
                 <label for="exampleDropdownFormEmail2" class="form-label">Nomor akun</label>
-                <p class="fs-4" style="color: orange;" id="myInput">{{ merchant.nomor }}</p>
+                <p class="fs-4 number" id="myInput">{{ merchant.nomor }}</p>
               </div>
               <div class="mb-3 small-font text-center">
-                <p>Saldo maksimum kamu Rp20.000.000.</p>
-                <p class="margin-min">Masimal penambahan saldo adalah Rp {{ 20000000-currentSaldo }}</p>
-                <p class="margin-min">Kamu masih bisa menambahkan saldo hingga {{ (20000000-currentSaldo)*2 }}</p>
+                <p>Saldo maksimum kamu {{(maxSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'})}}</p>
+                <p class="margin-min">Masimal penambahan saldo adalah {{ (maxSaldo-currentSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }}</p>
+                <p class="margin-min">Kamu masih bisa menambahkan saldo hingga {{ ((20000000-currentSaldo)*2).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }}</p>
               </div>
               <div class="container text-center">
                 <button type="submit" class="btn btn-light" (click)="copyText(merchant.nomor)">SALIN KODE</button>
