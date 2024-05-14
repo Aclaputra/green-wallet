@@ -6,8 +6,5 @@ export const routes: Routes = [
         path: 'profile',
         title: 'Profile Page',
         component: ProfileComponent
-    },
-    {
-        
     }
 ];
