@@ -7,11 +7,9 @@ import fullstuck.green.wallet.Model.Response.LoginResponse;
 import fullstuck.green.wallet.Model.Response.RegisterResponse;
 import fullstuck.green.wallet.Service.AuthService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 @AllArgsConstructor
 @RequestMapping("/auth")
