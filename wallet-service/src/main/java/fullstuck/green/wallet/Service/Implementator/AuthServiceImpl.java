@@ -80,7 +80,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(LoginRequest req) {
         try {
-            System.out.println("req: " + req);
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     req.getEmail(),
                     req.getPassword()
@@ -89,16 +88,12 @@ public class AuthServiceImpl implements AuthService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             AppUser appUser = (AppUser) authentication.getPrincipal();
 
-            System.out.println("about to generate token");
-            // generate token
             String token = jwtUtil.generateToken(appUser);
-            System.out.println("token generated: " + token);
             return LoginResponse.builder()
                     .jwtToken(token)
                     .build();
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            throw new Error("Error: " + e.getMessage());
         }
-        return null;
     }
 }

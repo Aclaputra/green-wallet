@@ -29,7 +29,6 @@ public class UserController {
     @PostMapping("/login")
     public JsonResponse<Object> login(@RequestBody LoginRequest request) {
         LoginResponse response = authService.login(request);
-        System.out.println("response: " + response);
         return JsonResponse.builder()
                 .statusCode(200)
                 .data(response)
