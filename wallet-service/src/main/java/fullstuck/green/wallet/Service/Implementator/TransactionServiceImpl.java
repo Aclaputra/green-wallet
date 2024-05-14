@@ -146,14 +146,23 @@ public class TransactionServiceImpl implements TransactionService {
 
 
     @Override
+    @Transactional
     public TransferResponse transfer(TransferRequest req, String accountDetailIdToken) {
+        System.out.println("Transaction token: " + accountDetailIdToken);
+        AccountDetails accountDetails = accountDetailService.getAccountDetailById(accountDetailIdToken);
+        System.out.println("account detail : " + accountDetails);
+        User user = userService.getUserById(accountDetails.getUser().getId());
+        System.out.println("user: " + user);
+
         TransDetail transDetail = TransDetail.builder()
                 .amount(new BigDecimal(req.getAmount()))
                 .type(TransactionType.TRANSFER)
                 .description(req.getDescription())
                 .build();
+        transDetailRepository.save(transDetail);
+
         Transaction transaction = Transaction.builder()
-                .user(userService.getUserById((accountDetailIdToken)))
+                .user(user)
                 .transDetail(transDetail)
                 .build();
 
@@ -166,14 +175,23 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    @Transactional
     public TopupResponse topUp(TopUpRequest req, String accountDetailIdToken) {
+        System.out.println("Transaction token: " + accountDetailIdToken);
+        AccountDetails accountDetails = accountDetailService.getAccountDetailById(accountDetailIdToken);
+        System.out.println("account detail : " + accountDetails);
+        User user = userService.getUserById(accountDetails.getUser().getId());
+        System.out.println("user: " + user);
+
         TransDetail transDetail = TransDetail.builder()
                 .amount(new BigDecimal(req.getAmount()))
                 .type(TransactionType.TRANSFER)
                 .source_id(req.getSourceOfFundId())
                 .build();
+        transDetailRepository.save(transDetail);
+
         Transaction transaction = Transaction.builder()
-                .user(userService.getUserById(accountDetailIdToken))
+                .user(user)
                 .transDetail(transDetail)
                 .build();
 
