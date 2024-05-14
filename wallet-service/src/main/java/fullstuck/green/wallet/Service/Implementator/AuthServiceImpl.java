@@ -13,6 +13,7 @@ import fullstuck.green.wallet.Strings.RoleEnum;
 import fullstuck.green.wallet.security.JWTUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,8 +24,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.Instant;
 import java.util.Date;
+import java.text.ParseException;
 
 @Service
 @RequiredArgsConstructor
@@ -39,23 +40,20 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public RegisterResponse register(RegisterRequest req) throws ResponseStatusException {
-        System.out.println("req service register: " + req);
         try {
             Role role = roleService.getOrSave(RoleEnum.ROLE_USER);
-            System.out.println("get or save");
             Merchant merchant = Merchant.builder().name(req.getUsername()).build();
             Merchant savedMerchant = merchantRepository.save(merchant);
-            System.out.println("MErchant: " + merchant);
-            System.out.println("saved merhchant: " + savedMerchant);
 
+            Date birthDate = DateUtils.parseDate(req.getBirthDate(),
+                    new String[] { "yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy" });
             User user = User.builder()
                     .merchant(merchant)
                     .name(req.getName())
-                    .birthDate(Date.from(Instant.now()))
-                    .phone_number("+6278327924")
+                    .birthDate(birthDate)
+                    .phone_number(req.getPhoneNumber())
                     .build();
             User savedUser = userRepository.save(user);
-            System.out.println("save test" + user);
 
             AccountDetails accountDetails = AccountDetails.builder()
                     .email(req.getEmail())
@@ -64,16 +62,14 @@ public class AuthServiceImpl implements AuthService {
                     .user(user)
                     .build();
 
-            System.out.println(accountDetails);
-
-            // TODO: consumer create on endpoint
             return RegisterResponse.builder()
                     .id(savedUser.getId())
                     .build();
 
         } catch (DataIntegrityViolationException e) {
-            System.out.println("ERROR CATCH");
             throw new ResponseStatusException(HttpStatus.CONFLICT, "user already exist");
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 
