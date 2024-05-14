@@ -16,12 +16,11 @@ import java.util.Map;
 
 @Component
 public class JWTUtil {
-    @Value("${app.greenwallet.jwt.app.name")
+    @Value("${app.greenwallet.jwt.app.name}")
     private String appName;
-//    @Value("${app.greenwallet.jwt.expired")
     @Value("#{new Long('${app.greenwallet.jwt.expired}')}")
     private long jwtExpiration;
-    @Value("app.greenwallet.jwt.jwt-secret")
+    @Value("${app.greenwallet.jwt.jwt-token}")
     private String jwtSecret;
     /**
      * dynamic jwt secret: get from api gateway
