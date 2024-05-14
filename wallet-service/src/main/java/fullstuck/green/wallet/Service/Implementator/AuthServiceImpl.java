@@ -5,10 +5,12 @@ import fullstuck.green.wallet.Model.Request.RegisterRequest;
 import fullstuck.green.wallet.Model.Response.RegisterResponse;
 import fullstuck.green.wallet.Repository.MerchantRepository;
 import fullstuck.green.wallet.Repository.UserRepository;
+import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.AuthService;
 import fullstuck.green.wallet.Service.RoleService;
 import fullstuck.green.wallet.Strings.RoleEnum;
 import fullstuck.green.wallet.security.JWTUtil;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,7 +30,9 @@ public class AuthServiceImpl implements AuthService {
     private final MerchantRepository merchantRepository;
     private final JWTUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final AccountDetailService accountDetailService;
 
+    @Transactional
     public RegisterResponse register(RegisterRequest req) throws ResponseStatusException {
         try {
             Role role = roleService.getOrSave(RoleEnum.ROLE_USER);
@@ -51,6 +55,8 @@ public class AuthServiceImpl implements AuthService {
                     .role(role)
                     .user(user)
                     .build();
+
+            accountDetailService.createAccount(accountDetails);
 
             return RegisterResponse.builder()
                     .id(savedUser.getId())
