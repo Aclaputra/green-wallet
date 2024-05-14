@@ -1,5 +1,6 @@
 package fullstuck.green.wallet.Service;
 
+import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 

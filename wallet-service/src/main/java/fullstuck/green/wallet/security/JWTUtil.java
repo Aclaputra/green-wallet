@@ -27,6 +27,7 @@ public class JWTUtil {
      */
 
     public String generateToken(AppUser appUser) {
+        System.out.println("App use id created to token: " + appUser.getId());
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret.getBytes(StandardCharsets.UTF_8));
         return JWT.create()
                 .withIssuer(appName)
