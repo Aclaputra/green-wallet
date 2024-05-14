@@ -7,10 +7,7 @@ import fullstuck.green.wallet.Model.Response.LoginResponse;
 import fullstuck.green.wallet.Model.Response.RegisterResponse;
 import fullstuck.green.wallet.Service.AuthService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -28,8 +25,10 @@ public class UserController {
                 .build();
     }
 
+    @CrossOrigin
     @PostMapping("/login")
     public JsonResponse<Object> login(@RequestBody LoginRequest request) {
+        System.out.println("Request from angular or postman:" + request);
         LoginResponse response = authService.login(request);
         System.out.println("response: " + response);
         return JsonResponse.builder()
