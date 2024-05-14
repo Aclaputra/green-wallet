@@ -15,5 +15,5 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private RoleEnum role;
+    private RoleEnum name;
 }

@@ -5,18 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6d017dc-ff6c-47c3-9467-3cc7624ee071" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/AccountDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/AppUser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/Merchant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/TransDetail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Strings/ApplicationPath.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Strings/MerchantEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Strings/RoleEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Strings/TransactionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/AccountDetailsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/MerchantRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +22,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -53,7 +47,7 @@
     "Maven.green.wallet [validate].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "basic__entity__model",
+    "git-widget-placeholder": "basic__service",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/natda/Documents/Enigma/Final Project/final-project/wallet-service/src/main/resources/tessdata"

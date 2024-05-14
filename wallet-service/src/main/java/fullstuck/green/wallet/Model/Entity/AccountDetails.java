@@ -28,13 +28,14 @@ public class AccountDetails {
             inverseJoinColumns = @JoinColumn(name = "role_roleid")
     )
     private Role role;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
     private String password;
     private BigDecimal balance = new BigDecimal("0.0");
     private BigDecimal point = new BigDecimal("0.0");
     private Boolean isVerified;
+    private Boolean isDeleted = Boolean.FALSE;
     private Date created_at = Date.from(Instant.now());
     private Date updated_at = Date.from(Instant.now());
     private Date deleted_at;
