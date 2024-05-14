@@ -17,13 +17,15 @@ public class UserServiceImpl implements UserService {
 //    Load by Email ( Due to the naming convention of AppUser in UserDetails from Spring )
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AccountDetails accountDetails = accountDetailsRepository.findByemail(email).orElseThrow(() -> (
-                new UsernameNotFoundException("Invalid user credential"))
-        );
-        return AppUser.builder()
-                .id(accountDetails.getId())
-                .password(accountDetails.getPassword())
-                .role(accountDetails.getRole().getName())
-                .build();
+        AccountDetails accountDetails = accountDetailsRepository.findByemail(email);
+        if(accountDetails == null){
+            throw new UsernameNotFoundException("Account with Email: " + email + " not found !");
+        } else {
+            return AppUser.builder()
+                    .id(accountDetails.getId())
+                    .password(accountDetails.getPassword())
+                    .role(accountDetails.getRole().getName())
+                    .build();
+        }
     }
 }
