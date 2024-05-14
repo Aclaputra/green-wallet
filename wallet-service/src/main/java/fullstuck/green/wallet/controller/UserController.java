@@ -18,10 +18,7 @@ public class UserController {
 
     @PostMapping("/register")
     public JsonResponse<Object> register(@RequestBody RegisterRequest request) {
-        System.out.println("register controller called");
-        // FIXME: something wrong in authservice.register
         RegisterResponse response = authService.register(request);
-        System.out.println("response: " + response);
         return JsonResponse.builder()
                 .statusCode(201)
                 .data(response)

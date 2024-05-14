@@ -24,7 +24,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private final UserService userService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("filter chain called");
         /**
          * UsernamePasswordAuthenticationToken -> validasi token
          * .setDetails() -> menambahkan informasi berupa alamat ip ke security
@@ -51,7 +50,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             e.getMessage();
         }
 
-        System.out.println("filter chain end");
         filterChain.doFilter(request, response);
     }
 }
