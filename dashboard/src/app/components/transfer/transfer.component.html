@@ -1,0 +1,174 @@
+<section class="p-4 p-md-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-5">
+      <div class="card rounded-3">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <h3>Green Wallet</h3>
+            <!-- <h6>To</h6> -->
+          </div>
+          <form action="">
+            <p class="fw-bold mb-4 pb-2">To:</p>
+
+            <div class="d-flex flex-row align-items-center mb-4 pb-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                fill="currentColor"
+                class="bi bi-person-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                />
+              </svg>
+              <div class="flex-fill mx-3">
+                <div class="form-outline">
+                  <input
+                    type="text"
+                    id="formControlLgXc"
+                    class="form-control form-control-lg"
+                    value=""
+                  />
+                  <!-- <label class="form-label" for="formControlLgXc"
+                    >Card Number</label
+                  > -->
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-row align-items-center mb-4 pb-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                fill="currentColor"
+                class="bi bi-cash-stack"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                />
+                <path
+                  d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"
+                />
+              </svg>
+              <div class="flex-fill mx-3">
+                <div class="form-outline">
+                  <input
+                    type="number"
+                    step="1000"
+                    min="0"
+                    name="amount"
+                    id="formControlLgXs"
+                    class="form-control form-control-lg"
+                    value=""
+                    [(ngModel)]="amount"
+                  />
+                  <!-- <label class="form-label" for="formControlLgXs"
+                    >Card Number</label
+                  > -->
+                </div>
+              </div>
+            </div>
+
+            <!-- s -->
+            <div class="form-outline mb-4">
+              <div class="saldo-display">
+                <div class="d-flex justify-content-between">
+                  <p>Current saldo</p>
+                  <p>100000</p>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                  <p>Amount</p>
+                  <p>{{ amount ? amount : 0 }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                  <p>Calculate</p>
+                  <p>100000</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- <p class="fw-bold mb-4">Add new card:</p>
+
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input
+                type="text"
+                id="formControlLgXsd"
+                class="form-control form-control-lg"
+                value="Anna Doe"
+              />
+              <label class="form-label" for="formControlLgXsd"
+                >Cardholder's Name</label
+              >
+            </div>
+
+            <div class="row mb-4">
+              <div class="col-7">
+                <div data-mdb-input-init class="form-outline">
+                  <input
+                    type="text"
+                    id="formControlLgXM"
+                    class="form-control form-control-lg"
+                    value="1234 5678 1234 5678"
+                  />
+                  <label class="form-label" for="formControlLgXM"
+                    >Card Number</label
+                  >
+                </div>
+              </div>
+              <div class="col-3">
+                <div data-mdb-input-init class="form-outline">
+                  <input
+                    type="password"
+                    id="formControlLgExpk"
+                    class="form-control form-control-lg"
+                    placeholder="MM/YYYY"
+                  />
+                  <label class="form-label" for="formControlLgExpk"
+                    >Expire</label
+                  >
+                </div>
+              </div>
+              <div class="col-2">
+                <div data-mdb-input-init class="form-outline">
+                  <input
+                    type="password"
+                    id="formControlLgcvv"
+                    class="form-control form-control-lg"
+                    placeholder="Cvv"
+                  />
+                  <label class="form-label" for="formControlLgcvv">Cvv</label>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="d-grid justify-content-center">
+              <button
+                class="btn btn-success btn-lg btn-block"
+                (click)="transfer()"
+              >
+                Transfer
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-send-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
