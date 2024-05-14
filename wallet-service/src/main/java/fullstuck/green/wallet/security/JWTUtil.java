@@ -29,10 +29,15 @@ public class JWTUtil {
 
     public String generateToken(AppUser appUser) {
 //        String jwtSecret = "secret";
+        System.out.println("genrate token");
+        // algorithm based on jwt secret
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret.getBytes(StandardCharsets.UTF_8));
+        System.out.println("algorithm: " + algorithm);
         return JWT.create()
+                // issuer
                 .withIssuer(appName)
                 .withSubject(appUser.getId())
+                // expiredat static
                 .withExpiresAt(Instant.now().plusSeconds(jwtExpiration))
                 .withIssuedAt(Instant.now())
                 .withClaim("role", appUser.getRole().name())

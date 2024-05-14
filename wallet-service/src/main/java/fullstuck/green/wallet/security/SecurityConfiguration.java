@@ -25,6 +25,7 @@ public class SecurityConfiguration {
     }
     private static final String[] WHITELIST_URL = {
             "/auth/register",
+            "/auth/login"
     };
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
