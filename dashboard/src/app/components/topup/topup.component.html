@@ -1,0 +1,45 @@
+<div class="container text-center my-5">
+    <div class="row justify-content-md-center">
+        <div class="col-md-auto">
+            <h1>Top Up</h1>
+        </div>
+    </div>
+</div>
+<div class="container my-5 text-center">
+    @for (merchant of merchants.data; track $index) {
+        <div class="dropdown">
+            <button type="button" class="button-choose" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+                <div class="row">
+                    <div class="col">
+                        <img [src]="merchant.image" class="image" alt="">
+                    </div>
+                    <div class="col">
+                        {{ merchant.name }}
+                    </div>
+                    <div class="col">
+                        <p>></p>
+                    </div>
+                </div>
+            </button>
+            <form class="dropdown-menu p-4">
+              <div class="mb-3 text-center">
+                <label for="exampleDropdownFormEmail2" class="form-label">Nomor akun</label>
+                <p class="fs-4 number" id="myInput">{{ merchant.nomor }}</p>
+              </div>
+              <div class="mb-3 small-font text-center">
+                <p>Saldo maksimum kamu {{(maxSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'})}}</p>
+                <p class="margin-min">Masimal penambahan saldo adalah {{ (maxSaldo-currentSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }}</p>
+                <p class="margin-min">Kamu masih bisa menambahkan saldo hingga {{ ((20000000-currentSaldo)*2).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }}</p>
+              </div>
+              <div class="container text-center">
+                <button type="submit" class="btn btn-light" (click)="copyText(merchant.nomor)">SALIN KODE</button>
+              </div>
+              <div class="container py-3 medium-font">
+                <p>How to topup?</p>
+                <p>1. Go to merchant {{merchant.name}}</p>
+                <p>2. Give the code to merchant Admin</p>
+              </div>
+            </form>
+        </div>
+    }
+</div>
