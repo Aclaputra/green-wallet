@@ -13,6 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
