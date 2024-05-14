@@ -31,12 +31,12 @@
                       <button class="btn btn-lg btn-block text-black"
                        style="background-color: #D4E13D; border-radius: 15px;" 
                       type="button"
-                      (click)="login()">Login</button>
+                      (click)="login()" routerLink="/dashboard">Login</button>
                     </div>
   
-                    <a class="small text-white" href="#!">Forgot password?</a>
+                    <a class="small text-white" routerLink="/forgot-password">Forgot password?</a>
                     <p class="mb-5 pb-lg-2 text-white">Don't have an account? 
-                        <a class="text-white" href="#!">
+                        <a class="text-white" routerLink="/register">
                         Register here
                         </a>
                     </p>
@@ -51,3 +51,4 @@
       </div>
     </div>
   </section>
+  
