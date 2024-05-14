@@ -12,7 +12,8 @@ public interface AccountDetailService {
     void updateAccountData(String email, AccountDetailDTO accountDetailDTO);
     void deleteAccount(String email);
     AccountDetails getAccountData(String email);
-    void createAccount(AccountDetails accountDetails);
+    // Create Account di handle pas Register User ( sekalian sama user )
+//    void createAccount(AccountDetailDTO accountDetailDTO);
     void updateBalance(BalanceDTO balanceDTO);
     void updatePoints(BalanceDTO balanceDTO);
 }

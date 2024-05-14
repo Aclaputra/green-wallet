@@ -9,6 +9,7 @@ import fullstuck.green.wallet.Strings.MerchantEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.NoSuchElementException;
@@ -19,7 +20,25 @@ public class MerchantServiceImpl implements MerchantService {
     private final MerchantRepository merchantRepository;
 
     @Override
-    public void createMerchant(Merchant merchant) {
+    public void createMerchant(MerchantDTO merchantDTO) {
+        MerchantEnum temp = switch (merchantDTO.getType()) {
+            case 0 -> MerchantEnum.MINI_MARKET;
+            case 1 -> MerchantEnum.DROP_SHIPPER;
+            case 2 -> MerchantEnum.RESELLER;
+            case 3 -> MerchantEnum.OTHER;
+            default -> null;
+        };
+
+        Merchant merchant = Merchant.builder()
+                .name(merchantDTO.getName())
+                .type(temp)
+                .isGreen(Boolean.FALSE)
+                .balance(new BigDecimal("0.0"))
+                .created_at(Date.from(Instant.now()))
+                .updated_at(Date.from(Instant.now()))
+                .deleted_at(null)
+                .isDeleted(Boolean.FALSE)
+                .build();
         merchantRepository.save(merchant);
     }
 
@@ -29,8 +48,8 @@ public class MerchantServiceImpl implements MerchantService {
         if(merchant != null){
             merchant.setName(merchantDTO.getName());
             switch (merchantDTO.getType()){
-                case 0: merchant.setType(MerchantEnum.DROP_SHIPPER); break;
-                case 1: merchant.setType(MerchantEnum.MINI_MARKET); break;
+                case 0: merchant.setType(MerchantEnum.MINI_MARKET); break;
+                case 1: merchant.setType(MerchantEnum.DROP_SHIPPER); break;
                 case 2: merchant.setType(MerchantEnum.RESELLER); break;
                 case 3: merchant.setType(MerchantEnum.OTHER); break;
             }
