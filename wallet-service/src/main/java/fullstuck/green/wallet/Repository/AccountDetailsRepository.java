@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface AccountDetailsRepository extends JpaRepository<AccountDetails, String> {
     AccountDetails findByemail(String email);
     void deleteByemail(String email);
+    AccountDetails findByuser(String id);
 }

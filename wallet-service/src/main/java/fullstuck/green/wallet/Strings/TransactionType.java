@@ -1,7 +1,8 @@
 package fullstuck.green.wallet.Strings;
 
 public enum TransactionType {
-    PAYMENT,
+    PAYMENT_OUT,
     TRANSFER,
+    PAYMENT_IN,
     TOP_UP,
 }
