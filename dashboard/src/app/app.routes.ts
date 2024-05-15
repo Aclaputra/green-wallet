@@ -9,6 +9,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TopupComponent } from './components/topup/topup.component';
 import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
 import { RegisterComponent } from './components/register/register.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
   {
@@ -56,6 +58,11 @@ export const routes: Routes = [
     path: 'register',
     title: 'Register Page',
     component: RegisterComponent,
+  },
+  {
+    path: 'history',
+    title: 'History Page',
+    component: HistoryComponent
   },
   {
     path: 'forgot-password',
