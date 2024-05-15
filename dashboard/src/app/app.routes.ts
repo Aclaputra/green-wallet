@@ -9,6 +9,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TopupComponent } from './components/topup/topup.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,11 @@ export const routes: Routes = [
     path: 'profile',
     title: 'Profile Page',
     component: ProfileComponent
+  },
+  {
+    path: 'history',
+    title: 'History Page',
+    component: HistoryComponent
   },
   {
     path: 'forgot-password',

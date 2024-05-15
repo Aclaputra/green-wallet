@@ -12,7 +12,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class LoginComponent {
   url: string = "http://localhost:8080/auth/login";
-  username: string = "";
+  email: string = "";
   password: string = "";
   token: string = "";
   resp: any ;
@@ -24,7 +24,7 @@ export class LoginComponent {
 
   login() {
     this.httpClient.post(this.url, { 
-      email: this.username.toString(),
+      email: this.email.toString(),
       password: this.password.toString()
      }).subscribe(
       (response) => {
