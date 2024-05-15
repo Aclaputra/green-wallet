@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6d017dc-ff6c-47c3-9467-3cc7624ee071" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/wallet-service/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Request/TopUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Request/TopUpRequest.java" afterDir="false" />
