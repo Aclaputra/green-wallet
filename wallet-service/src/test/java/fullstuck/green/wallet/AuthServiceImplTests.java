@@ -15,8 +15,7 @@ import fullstuck.green.wallet.Service.RoleService;
 import fullstuck.green.wallet.Service.UserService;
 import fullstuck.green.wallet.Strings.RoleEnum;
 import org.apache.commons.lang3.time.DateUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,8 +29,7 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 
@@ -72,17 +70,27 @@ public class AuthServiceImplTests {
     }
 
     @Test
-    public void testRegisterFunction() {
-        RegisterResponse res = authService.register(registerRequest);
-        assertNotNull(res);
-    }
+    public void testAuthentication() {
+        RegisterResponse registerRes = authService
+                .register(registerRequest);
+        assertNotNull(registerRes);
 
-    @Test
-    public void testLoginFunction() {
-        LoginResponse res = authService.login(LoginRequest.builder()
+        LoginResponse loginRes;
+        loginRes = authService.login(LoginRequest.builder()
                 .email("johndoe@example.com")
                 .password("password")
                 .build());
-        assertNotNull(res);
+        assertNotNull(loginRes);
     }
+
+    @Test
+    public void testUserNotFoundExceptionWhileLogin() {
+        assertThrows(Error.class, () -> {
+            authService.login(LoginRequest.builder()
+                    .email("notfound@example.com")
+                    .password("password")
+                    .build());
+        });
+    }
+
 }
