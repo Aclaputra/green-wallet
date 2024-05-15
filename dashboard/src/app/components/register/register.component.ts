@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,12 +11,27 @@ import { RouterLink } from '@angular/router';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+  resp: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
   regist() {
-    this.http.post('http://localhost:8080/auth/register', this.registerForm.value).subscribe((data) => {
-      
-    })
+    this.http.post('http://localhost:8080/auth/register', this.registerForm.value).subscribe(
+      (data) => {
+        this.resp=data;
+        if(this.resp.statusCode==200){
+          this.router.navigate(['/dashboard']);
+        }else{
+          alert("Please input valid data!");
+        }
+    },
+    (error)=>{
+      alert("Please input valid data!");
+      console.error(error);
+    }
+  )
   }
 
   registerForm = new FormGroup({

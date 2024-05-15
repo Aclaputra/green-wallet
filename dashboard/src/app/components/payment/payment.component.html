@@ -1,0 +1,25 @@
+<div class="container my-2 p-5">
+    <div class="card text-center">
+        <div class="card-header color-bg">
+            Payment
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label class="form-label">Merchant Code</label>
+                <input type="text" [(ngModel)]="merchantCode" class="form-control" id="merchant-code" placeholder="813811883">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Amount</label>
+                <input type="text" [(ngModel)]="amount" class="form-control" name="currency-field" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Rp120,000.00">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Info</label>
+                <textarea class="form-control" [(ngModel)]="info" id="exampleFormControlTextarea1" rows="2"></textarea>
+            </div>
+            <a class="btn btn-light" (click)="pay()">Pay</a>
+        </div>
+        <div class="card-footer text-body-secondary color-bg">
+            Green Wallet
+        </div>
+    </div>
+</div>
