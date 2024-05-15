@@ -41,79 +41,6 @@ public class TransactionServiceImpl implements TransactionService {
         return null; // Return null if the token is not present or does not start with "Bearer "
     }
 
-//    @Override
-//    public void addTransaction(TransactionDTO transactionDTO) {
-//        User user;
-//        Merchant merchant;
-//        BigDecimal curr = new BigDecimal("0.0");
-//
-//        TransactionType temp = switch (transactionDTO.getType()) {
-//            case 0 -> TransactionType.PAYMENT_OUT;
-//            case 1 -> TransactionType.TRANSFER;
-//            case 2 -> TransactionType.PAYMENT_IN;
-//            case 3 -> TransactionType.TOP_UP;
-//            default -> null;
-//        };
-//
-//        // getTransForm 1 == User || 2 == merchant
-//        if(transactionDTO.getTransFrom() == 1){
-//            user = userService.getUserById(getUserInfo());
-//            merchant = null;
-//            AccountDetails accountDetails = accountDetailsRepository.findByuser(getUserInfo());
-//
-//            // From user ( Account Details )
-//            // If TransType == Payment / Transfer ( Bakal subtract, else Add )
-//            // && If Balance > Amount mau di subtract
-//            if(temp == TransactionType.PAYMENT_OUT || temp == TransactionType.TRANSFER || accountDetails.getBalance().compareTo(transactionDTO.getAmount()) < 0){
-//                curr = accountDetails.getBalance().subtract(transactionDTO.getAmount());
-//            } else if(temp == TransactionType.PAYMENT_IN || temp == TransactionType.TOP_UP){
-//                curr = accountDetails.getBalance().add(transactionDTO.getAmount());
-//            } else {
-//                throw new IllegalArgumentException("You don't have enough money !");
-//            }
-//
-//        } else if(transactionDTO.getTransFrom() == 2){
-//            user = userService.getUserById(getUserInfo());
-//            merchant = user.getMerchant();
-//
-//            if(merchant == null){
-//                throw new NoSuchElementException("No merchant Id found !");
-//            } else {
-//                // Sama kayak di atas tapi ini pake merchant
-//                if(temp == TransactionType.PAYMENT_OUT || temp == TransactionType.TRANSFER || merchant.getBalance().compareTo(transactionDTO.getAmount()) < 0){
-//                    curr = merchant.getBalance().subtract(transactionDTO.getAmount());
-//                } else if(temp == TransactionType.PAYMENT_IN || temp == TransactionType.TOP_UP){
-//                    curr = merchant.getBalance().add(transactionDTO.getAmount());
-//                } else {
-//                    throw new IllegalArgumentException("You don't have enough money !");
-//                }
-//
-//                user = null;
-//            }
-//        } else {
-//            throw new IllegalArgumentException("Illegal !");
-//        }
-//
-//        TransDetail transDetail = TransDetail.builder()
-//                .type(temp)
-//                .target_id(transactionDTO.getTarget())
-//                .source_id(getUserInfo())
-//                .description(transactionDTO.getDescription())
-//                .amount(transactionDTO.getAmount())
-//                .curr_balance(curr)
-//                .created_at(Date.from(Instant.now()))
-//                .updated_at(Date.from(Instant.now()))
-//                .build();
-//        transDetailRepository.save(transDetail);
-//
-//        Transaction transaction = Transaction.builder()
-//                .user(user)
-//                .merchant(merchant)
-//                .transDetail(transDetail)
-//                .build();
-//        transactionRepository.save(transaction);
-//    }
-
     @Override
     @Transactional
     public List<Transaction> getAllTransaction(String accountIdFromToken) {
@@ -140,14 +67,25 @@ public class TransactionServiceImpl implements TransactionService {
         User user = userService.getUserById(accountDetails.getUser().getId());
         System.out.println("user: " + user);
 
+        System.out.println("target id : " + accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId());
+        System.out.println("ID from accDetail" + accountDetails.getUser().getId());
+
+
         TransDetail transDetail = TransDetail.builder()
-                .amount(new BigDecimal(req.getAmount()))
+                .amount(req.getAmount())
                 .type(TransactionType.TRANSFER)
-                .description(req.getDescription())
-                .updated_at(Date.from(Instant.now()))
+                .source_id(accountDetails.getUser().getId())
+                .target_id(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId())
+                .description(req.getMessage())
+                .curr_balance(accountDetails.getBalance().add(req.getAmount()))
                 .created_at(Date.from(Instant.now()))
+                .updated_at(Date.from(Instant.now()))
+                .amount(req.getAmount())
                 .build();
         transDetailRepository.save(transDetail);
+
+        accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
+        accountDetailService.updateBalance(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId(), req.getAmount(), 2);
 
         Transaction transaction = Transaction.builder()
                 .user(user)
@@ -165,6 +103,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public TopupResponse topUp(TopUpRequest req, String accountDetailIdToken) {
+        // Top up cuma bisa ke akun sendiri ya !
+
         System.out.println("Transaction token: " + accountDetailIdToken);
         AccountDetails accountDetails = accountDetailService.getAccountDetailById(accountDetailIdToken);
         System.out.println("account detail : " + accountDetails);
@@ -172,11 +112,18 @@ public class TransactionServiceImpl implements TransactionService {
         System.out.println("user: " + user);
 
         TransDetail transDetail = TransDetail.builder()
-                .amount(new BigDecimal(req.getAmount()))
-                .type(TransactionType.TRANSFER)
+                .amount(req.getAmount())
+                .type(TransactionType.TOP_UP)
                 .source_id(req.getSourceOfFundId())
+                .target_id(accountDetails.getUser().getId())
+                .description(req.getMessage())
+                .curr_balance(accountDetails.getBalance().add(req.getAmount()))
+                .created_at(Date.from(Instant.now()))
+                .updated_at(Date.from(Instant.now()))
                 .build();
         transDetailRepository.save(transDetail);
+
+        accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 2);
 
         Transaction transaction = Transaction.builder()
                 .user(user)

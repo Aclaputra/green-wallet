@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { LandingComponent } from './components/landing/landing.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TopupComponent } from './components/topup/topup.component';
+import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { HistoryComponent } from './components/history/history.component';
@@ -16,31 +17,47 @@ export const routes: Routes = [
     path: '',
     title: 'Default',
     redirectTo: 'home',
-    pathMatch: 'full'
+    pathMatch: 'full',
+  },
+  {
+    path: 'auth',
+    component: AuthNavComponent,
+    children: [
+      {
+        path: 'profile',
+        title: 'Profile Page',
+        component: ProfileComponent,
+      },
+      {
+        path: 'dashboard',
+        title: 'Dashboard Page',
+        component: DashboardComponent,
+      },
+      {
+        path: 'transfer',
+        title: 'Transfer Page',
+        component: TransferComponent,
+      },
+      {
+        path: 'topup',
+        component: TopupComponent,
+      },
+    ],
   },
   {
     path: 'home',
     title: 'Home',
-    component: LandingComponent
-  },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
+    component: LandingComponent,
   },
   {
     path: 'login',
-    title: 'Login',
-    component: LoginComponent
+    title: 'Login Page',
+    component: LoginComponent,
   },
   {
     path: 'register',
-    title: 'Register',
-    component: RegisterComponent
-  },
-  {
-    path: 'profile',
-    title: 'Profile Page',
-    component: ProfileComponent
+    title: 'Register Page',
+    component: RegisterComponent,
   },
   {
     path: 'history',
@@ -52,19 +69,7 @@ export const routes: Routes = [
     component: ForgotPasswordComponent,
   },
   {
-    path: 'topup',
-    component: TopupComponent
-  },
-  {
-    path: 'transfer',
-    component: TransferComponent,
-  },
-  {
-    path: 'payment',
-    component: PaymentComponent
-  },
-  {
     path: '**',
-    component: NotFoundComponent
-  }
+    component: NotFoundComponent,
+  },
 ];

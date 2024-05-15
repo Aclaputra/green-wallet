@@ -10,5 +10,5 @@ import lombok.*;
 public class MerchantDTO {
     private String name;
     private int type;
-//    private Boolean isGreen;
+//    private String userId;
 }
