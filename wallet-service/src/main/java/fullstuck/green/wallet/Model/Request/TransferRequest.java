@@ -14,4 +14,5 @@ public class TransferRequest {
     private String destination;
     private BigDecimal amount;
     private String message;
+    private int type;
 }

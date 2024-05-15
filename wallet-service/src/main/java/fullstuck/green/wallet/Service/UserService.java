@@ -7,4 +7,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
     User getUserById(String id);
     User getByPhone(String phone);
+    void userUpdateMerchant(User user);
 }

@@ -13,11 +13,11 @@ public interface AccountDetailService {
     AccountDetails getAccountDetailById(String id);
     List<AccountDetails> getAccounts();
     // For Balance, Point, or anything Account Detail related
-    void updateAccountData(String email, AccountDetailDTO accountDetailDTO);
-    void deleteAccount(String email);
+    void updateAccountData(AccountDetails accountDetails);
+    void deleteAccount(String id);
     AccountDetails getAccountData(User user);
     // Create Account di handle pas Register User ( sekalian sama user )
     void createAccount(AccountDetails account);
     void updateBalance(String accountId, BigDecimal amount, int transType);
-    void updatePoints(BalanceDTO balanceDTO);
+    void updatePoints(String accountId, BigDecimal amount, int transType);
 }

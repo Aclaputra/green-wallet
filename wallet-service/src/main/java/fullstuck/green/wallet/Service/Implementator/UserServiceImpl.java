@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.util.Date;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -40,5 +43,11 @@ public class UserServiceImpl implements UserService {
     public User getByPhone(String phone) {
         return userRepository.findByphone(phone);
 //        return null;
+    }
+
+    @Override
+    public void userUpdateMerchant(User user) {
+        user.setUpdated_at(Date.from(Instant.now()));
+        userRepository.save(user);
     }
 }

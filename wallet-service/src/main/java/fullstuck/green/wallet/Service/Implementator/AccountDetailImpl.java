@@ -39,27 +39,18 @@ public class AccountDetailImpl implements AccountDetailService {
     }
 
     @Override
-    public void updateAccountData(String email, AccountDetailDTO accountDetailDTO) {
-        // No if email not found exception, karena kalo mau rubah akun perlu ada akun
-        AccountDetails accountDetails = accountDetailsRepository.findByemail(email);
-        if(accountDetailDTO.getEmail() != null){
-            accountDetails.setEmail(accountDetailDTO.getEmail());
-        } else if (accountDetailDTO.getIsVerified() != null) {
-            accountDetails.setIsVerified(accountDetailDTO.getIsVerified());
-        } else if (accountDetailDTO.getPassword() != null) {
-            accountDetails.setPassword(accountDetailDTO.getPassword());
-        } else if (accountDetailDTO.getRole() != null) {
-//            Pending
-//            accountDetails.setRole(Role.builder().build());
-        }
+    public void updateAccountData(AccountDetails accountDetails) {
+        accountDetails.setUpdated_at(Date.from(Instant.now()));
+        accountDetailsRepository.save(accountDetails);
     }
 
     @Override
-    public void deleteAccount(String email) {
-        AccountDetails accountDetails = accountDetailsRepository.findByemail(email);
+    public void deleteAccount(String id) {
+        AccountDetails accountDetails = accountDetailsRepository.findById(id).get();
         if(!accountDetails.getIsDeleted()){
             accountDetails.setDeleted_at(Date.from(Instant.now()));
             accountDetails.setIsDeleted(Boolean.TRUE);
+            accountDetails.setUpdated_at(Date.from(Instant.now()));
             accountDetailsRepository.save(accountDetails);
         } else {
             throw new IllegalArgumentException("Already deleted !");
@@ -69,7 +60,6 @@ public class AccountDetailImpl implements AccountDetailService {
     @Override
     public AccountDetails getAccountData(User user) {
         return accountDetailsRepository.findByuser(user);
-//        return null;
     }
 
     @Override
@@ -91,21 +81,27 @@ public class AccountDetailImpl implements AccountDetailService {
         } else if (type == 2){
             accountDetails.setBalance(accountDetails.getBalance().add(amount));
         }
+        // Change updated date to now
+        accountDetails.setUpdated_at(Date.from(Instant.now()));
+        accountDetailsRepository.save(accountDetails);
     }
 
     @Override
-    public void updatePoints(BalanceDTO balanceDTO) {
-        AccountDetails accountDetails = accountDetailsRepository.findByemail(balanceDTO.getData());
+    public void updatePoints(String id, BigDecimal amount, int type) {
+        AccountDetails accountDetails = accountDetailsRepository.findById(id).get();
         // 1 = Payment / Transfer || 2 = Topup / Recieve Payment
-        if(balanceDTO.getTransType() == 1){
+        if(type == 1){
             // compareTo : 0 equals parameter || 1 greater than parameter || -1 less than parameter
-            if(accountDetails.getPoint().compareTo(balanceDTO.getAmount()) == -1){
+            if(accountDetails.getPoint().compareTo(amount) < 0){
                 throw new IllegalArgumentException("You don't have enough points !");
             } else {
-                accountDetails.setPoint(accountDetails.getBalance().subtract(balanceDTO.getAmount()));
+                accountDetails.setPoint(accountDetails.getBalance().subtract(amount));
             }
-        } else if (balanceDTO.getTransType() == 2){
-            accountDetails.setPoint(accountDetails.getBalance().add(balanceDTO.getAmount()));
+        } else if (type == 2){
+            accountDetails.setPoint(accountDetails.getBalance().add(amount));
         }
+
+        accountDetails.setUpdated_at(Date.from(Instant.now()));
+        accountDetailsRepository.save(accountDetails);
     }
 }
