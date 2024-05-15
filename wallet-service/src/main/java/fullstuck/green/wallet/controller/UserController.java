@@ -35,10 +35,10 @@ public class UserController {
                 .build();
     }
 
-    @PostMapping("/login")
-    public JsonResponse<Object> login(@RequestBody LoginRequest request) {
-        LoginResponse response = authService.login(request);
-    }
+//    @PostMapping("/login")
+//    public JsonResponse<Object> login(@RequestBody LoginRequest request) {
+//        LoginResponse response = authService.login(request);
+//    }
 
     @GetMapping("/profile")
     public JsonResponse<Object> profileDetail(@RequestHeader("Authorization") String authorizationHeader) {
