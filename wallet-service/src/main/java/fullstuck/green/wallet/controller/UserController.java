@@ -25,21 +25,6 @@ public class UserController {
     private final JWTUtil jwtUtil;
     private final UserService userService;
 
-    @PostMapping("/register")
-    public JsonResponse<Object> register(@RequestBody RegisterRequest request) {
-        RegisterResponse response = authService.register(request);
-        return JsonResponse.builder()
-                .statusCode(201)
-                .data(response)
-                .message("successfully registered")
-                .build();
-    }
-
-//    @PostMapping("/login")
-//    public JsonResponse<Object> login(@RequestBody LoginRequest request) {
-//        LoginResponse response = authService.login(request);
-//    }
-
     @GetMapping("/profile")
     public JsonResponse<Object> profileDetail(@RequestHeader("Authorization") String authorizationHeader) {
         String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
