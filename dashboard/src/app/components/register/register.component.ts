@@ -23,8 +23,6 @@ export class RegisterComponent {
         this.resp=data;
         if(this.resp.statusCode==200){
           this.router.navigate(['/dashboard']);
-        }else{
-          alert("Please input valid data!");
         }
     },
     (error)=>{
