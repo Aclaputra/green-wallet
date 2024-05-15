@@ -29,7 +29,7 @@ public class SecurityConfiguration {
             "/transaction",
             "/transaction/transfer",
             "/transaction/top-up",
-            "/auth/create-merchant"
+            "/auth/create-merchant",
             "/user/profile"
     };
     

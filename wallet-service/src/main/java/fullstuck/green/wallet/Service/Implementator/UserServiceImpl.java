@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
                 .accountId(accountDetails.getId())
                 .name(accountDetails.getUser().getName())
                 .birthDate(String.valueOf(accountDetails.getUser().getBirthDate()))
-                .phoneNumber(accountDetails.getUser().getPhone_number())
+                .phoneNumber(accountDetails.getUser().getPhone())
                 .role(String.valueOf(accountDetails.getRole().getName()))
                 .email(accountDetails.getEmail())
                 .balance(accountDetails.getPoint())

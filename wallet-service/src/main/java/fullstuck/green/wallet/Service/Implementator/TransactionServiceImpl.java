@@ -80,7 +80,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .curr_balance(accountDetails.getBalance().add(req.getAmount()))
                 .created_at(Date.from(Instant.now()))
                 .updated_at(Date.from(Instant.now()))
-                .amount(new BigDecimal(req.getAmount()))
+                .amount(req.getAmount())
                 .build();
         transDetailRepository.save(transDetail);
 
