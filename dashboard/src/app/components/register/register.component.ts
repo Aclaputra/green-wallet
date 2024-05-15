@@ -2,21 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { RouterTestingModule } from "@angular/router/testing";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, RouterTestingModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-
-  constructor(private http: HttpClient) { }
-  regist() {
-    this.http.post('http://localhost:8080/auth/register', this.registerForm.value).subscribe((data) => {
-      
-    })
+  regist() {  
+    console.log(this.registerForm.value);
   }
 
   registerForm = new FormGroup({
