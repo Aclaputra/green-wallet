@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { error } from 'console';
 
 @Component({
   selector: 'app-profile',
@@ -28,6 +27,7 @@ export class ProfileComponent {
   ){}
 
   ngOnInit(){
+    if(typeof window !== "undefined"){}
     const clientHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`

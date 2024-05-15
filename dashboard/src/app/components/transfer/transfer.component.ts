@@ -19,11 +19,35 @@ export class TransferComponent {
   phoneNumber: number =0;
   info: string ="message";
   url: string = "http://localhost:8080/transaction/transfer";
+  urlProfile: string= "http://localhost:8080/user/profile";
+  resp: any;
 
   constructor(
     private transferService: TransferService,
     private http: HttpClient
   ) {}
+
+  ngOnInit(){
+    if(typeof window !== "undefined"){
+      this.getData();
+    }
+  }
+
+  getData(){
+    const clientHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+    });
+    this.http.get(this.urlProfile, { headers: clientHeaders }).subscribe(
+      (data)=>{
+        this.resp=data;
+        this.currentSaldo=this.resp.data.balance
+      },
+      (error)=>{
+        console.error("Error fetch profile:", error);
+      }
+    )
+  }
 
   transfer(): void {
     console.log(this.amount, this.currentSaldo, this.phoneNumber)
