@@ -29,8 +29,10 @@ public class SecurityConfiguration {
             "/transaction",
             "/transaction/transfer",
             "/transaction/top-up",
+            "/auth/create-merchant"
             "/user/profile"
     };
+    
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

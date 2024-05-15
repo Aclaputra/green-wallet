@@ -2,10 +2,18 @@ package fullstuck.green.wallet.Service.Implementator;
 
 import fullstuck.green.wallet.Model.DataTransferObject.BalanceDTO;
 import fullstuck.green.wallet.Model.DataTransferObject.MerchantDTO;
+import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.Merchant;
+import fullstuck.green.wallet.Model.Entity.Role;
+import fullstuck.green.wallet.Model.Entity.User;
+import fullstuck.green.wallet.Repository.AccountDetailsRepository;
 import fullstuck.green.wallet.Repository.MerchantRepository;
+import fullstuck.green.wallet.Repository.RoleRepository;
+import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.MerchantService;
+import fullstuck.green.wallet.Service.UserService;
 import fullstuck.green.wallet.Strings.MerchantEnum;
+import fullstuck.green.wallet.Strings.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,32 +26,59 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class MerchantServiceImpl implements MerchantService {
     private final MerchantRepository merchantRepository;
+    private final UserService userService;
+    private final AccountDetailService accountDetailService;
+    private final RoleRepository roleRepository;
 
     @Override
-    public void createMerchant(MerchantDTO merchantDTO) {
-        MerchantEnum temp = switch (merchantDTO.getType()) {
-            case 0 -> MerchantEnum.MINI_MARKET;
-            case 1 -> MerchantEnum.DROP_SHIPPER;
-            case 2 -> MerchantEnum.RESELLER;
-            case 3 -> MerchantEnum.OTHER;
-            default -> null;
-        };
+    public void createMerchant(MerchantDTO merchantDTO, String id) {
+        System.out.println("Masuk ke create merchant");
+        if(accountDetailService.getAccountDetailById(id).getUser().getMerchant() == null){
+            MerchantEnum temp = switch (merchantDTO.getType()) {
+                case 0 -> MerchantEnum.MINI_MARKET;
+                case 1 -> MerchantEnum.DROP_SHIPPER;
+                case 2 -> MerchantEnum.RESELLER;
+                case 3 -> MerchantEnum.OTHER;
+                default -> null;
+            };
 
-        Merchant merchant = Merchant.builder()
-                .name(merchantDTO.getName())
-                .type(temp)
-                .isGreen(Boolean.FALSE)
-                .balance(new BigDecimal("0.0"))
-                .created_at(Date.from(Instant.now()))
-                .updated_at(Date.from(Instant.now()))
-                .deleted_at(null)
-                .isDeleted(Boolean.FALSE)
-                .build();
-        merchantRepository.save(merchant);
+            // Save newly created merchant
+            Merchant merchant = Merchant.builder()
+                    .name(merchantDTO.getName())
+                    .type(temp)
+                    .isGreen(Boolean.FALSE)
+                    .balance(new BigDecimal("0.0"))
+                    .created_at(Date.from(Instant.now()))
+                    .updated_at(Date.from(Instant.now()))
+                    .deleted_at(null)
+                    .isDeleted(Boolean.FALSE)
+                    .build();
+            merchantRepository.save(merchant);
+
+            // Get user info from Token, update user Merchant from Null to Merchant Id
+            User user = accountDetailService.getAccountDetailById(id).getUser();
+            user.setMerchant(merchant);
+
+            // Save existing update
+            userService.userUpdateMerchant(user);
+
+            AccountDetails accountDetails = accountDetailService.getAccountDetailById(id);
+            Role role = accountDetails.getRole();
+            role.setName(RoleEnum.ROLE_MERCHANT);
+            accountDetails.setRole(role);
+
+            // Update account detail existing role, and update the role into merchant
+            roleRepository.save(role);
+            accountDetailService.updateAccountData(accountDetails);
+
+        } else {
+            throw new IllegalArgumentException("User can only have 1 merchant ! Or Merchant name must be unique");
+        }
     }
 
     @Override
     public void updateMerchant(MerchantDTO merchantDTO) {
+        // Belom di test ga tau work / kaga
         Merchant merchant = merchantRepository.findByname(merchantDTO.getName());
         if(merchant != null){
             merchant.setName(merchantDTO.getName());

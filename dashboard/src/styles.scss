@@ -1,6 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@use "@angular/material" as mat;
+@include mat.core();
+@import "bootstrap/scss/bootstrap";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  --primay-color: #198b0e;
+}
+
+$mat-primary: (
+  main: #198b0e,
+  lighter: #c3e6cb,
+  darker: #198b0e,
+  200: #198b0e,
+  // For slide toggle,
+  contrast:
+    (
+      main: #ffff,
+      lighter: #0000,
+      darker: #ffff,
+    ),
+);
+
+$theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
+$theme-accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $theme-primary,
+      accent: $theme-accent,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($my-theme);
