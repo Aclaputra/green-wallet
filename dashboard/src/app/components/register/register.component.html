@@ -1,0 +1,73 @@
+<section class="" style="background-color: #004029;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-xl-12">
+          <div class="card " style="border-radius: 1rem; background-color: #1ea26279;">
+            <form class="row g-0" [formGroup]="registerForm">
+            <div class="col-lg-12 mt-5">
+                <div class="d-flex align-items-center justify-content-center">
+                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                    <span class="h1 fw-bold text-dark">Logo</span>
+                  </div>
+
+                  <h5 class="fw-normal mb-3 pb-3 px-1 text-white text-center" style="letter-spacing: 1px;">Sign into your account</h5>
+            </div>
+              <div class="col-md-6 col-lg-6 ">
+                <div class="card-body p-4 p-lg-5 text-black">
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label text-white px-1" for="email">Email</label>
+                        <input type="text" id="email" class="form-control form-control-lg" formControlName="email" />
+                    </div>
+                    
+       
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label text-white px-1" for="password">Password</label>
+                        <input type="password" id="password" class="form-control form-control-lg" formControlName="password" />
+                    </div>
+  
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <label class="form-label text-white px-1" for="phone">Mobile Phone</label>
+                        <input type="text" id="phoneNumber" class="form-control form-control-lg" formControlName="phoneNumber" />
+                    </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6">
+                <div class="card-body p-4 p-lg-5 text-black">
+                      <div data-mdb-input-init class="form-outline mb-4">
+                          <label class="form-label text-white px-1" for="name">name</label>
+                          <input type="text" id="name" class="form-control form-control-lg" formControlName="name"/>
+                      </div>         
+         
+                      <div data-mdb-input-init class="form-outline mb-4">
+                          <label class="form-label text-white px-1" for="username">username</label>
+                          <input type="text" id="username" class="form-control form-control-lg"  formControlName="username"/>
+                      </div>
+    
+                      <div data-mdb-input-init class="form-outline mb-4">
+                          <label class="form-label text-white px-1" for="birthDate">Birth Date</label>
+                          <input type="date" id="form2Example27" class="form-control form-control-lg"  formControlName="birthDate"/>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="pt-1 mb-4 d-flex justify-content-center">
+                    <button class="btn btn-lg btn-block text-black"
+                     style="background-color: #D4E13D; border-radius: 15px;" 
+                    type="button"
+                    (click)="regist()" routerLink="/dashboard">Register</button>
+                  </div>
+
+                  <a class="small text-white text-center d-block" routerLink="/forgot-password">Forgot password?</a>
+                  <p class="mb-5 pb-lg-2 text-white text-center">Have an account? 
+                      <a class="text-white" routerLink="/login">
+                      Log in
+                      </a>
+                  </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

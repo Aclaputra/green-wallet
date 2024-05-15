@@ -14,9 +14,12 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "merchant_id")
+    private Merchant merchant;
     @OneToOne
     @JoinColumn(name = "transDetail_id")
     private TransDetail transDetail;

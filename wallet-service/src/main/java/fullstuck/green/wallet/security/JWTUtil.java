@@ -16,28 +16,22 @@ import java.util.Map;
 
 @Component
 public class JWTUtil {
-    @Value("${app.greenwallet.jwt.app.name")
+    @Value("${app.greenwallet.jwt.app.name}")
     private String appName;
-//    @Value("${app.greenwallet.jwt.expired")
     @Value("#{new Long('${app.greenwallet.jwt.expired}')}")
     private long jwtExpiration;
-    @Value("app.greenwallet.jwt.jwt-secret")
+    @Value("${app.greenwallet.jwt.jwt-token}")
     private String jwtSecret;
     /**
      * dynamic jwt secret: get from api gateway
      */
 
     public String generateToken(AppUser appUser) {
-//        String jwtSecret = "secret";
-        System.out.println("genrate token");
-        // algorithm based on jwt secret
+        System.out.println("App use id created to token: " + appUser.getId());
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret.getBytes(StandardCharsets.UTF_8));
-        System.out.println("algorithm: " + algorithm);
         return JWT.create()
-                // issuer
                 .withIssuer(appName)
                 .withSubject(appUser.getId())
-                // expiredat static
                 .withExpiresAt(Instant.now().plusSeconds(jwtExpiration))
                 .withIssuedAt(Instant.now())
                 .withClaim("role", appUser.getRole().name())
@@ -45,7 +39,6 @@ public class JWTUtil {
     }
 
     public boolean verifyJwtToken(String token) {
-//        String jwtSecret = "secret";
         Algorithm algorithm = Algorithm.HMAC256(jwtSecret.getBytes(StandardCharsets.UTF_8));
         JWTVerifier verifier = JWT.require(algorithm).build();
         DecodedJWT decodedJWT = verifier.verify(token);
@@ -53,7 +46,6 @@ public class JWTUtil {
     }
 
     public Map<String, String> getUserInfoByToken(String token) {
-//        String jwtSecret = "secret";
         try {
             Algorithm algorithm = Algorithm.HMAC256(jwtSecret.getBytes(StandardCharsets.UTF_8));
             JWTVerifier verifier = JWT.require(algorithm).build();

@@ -19,9 +19,6 @@ public class TransDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    @OneToOne
-    @JoinColumn(name = "transaction_id")
-    private Transaction transaction;
     private TransactionType type;
     private String target_id;
     private String source_id;
