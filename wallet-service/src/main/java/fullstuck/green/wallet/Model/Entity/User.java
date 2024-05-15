@@ -25,8 +25,8 @@ public class User {
     private String name;
     @Column(nullable = false)
     private Date birthDate;
-    @Column(nullable = false)
-    private String phone_number;
+    @Column(nullable = false, unique = true)
+    private String phone;
     private Date created_at = Date.from(Instant.now());
     private Date updated_at = Date.from(Instant.now());
     private Date deleted_at;
