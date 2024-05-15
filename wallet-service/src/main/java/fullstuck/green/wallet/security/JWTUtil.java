@@ -6,6 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import fullstuck.green.wallet.Model.Entity.AppUser;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -58,4 +59,14 @@ public class JWTUtil {
             throw new RuntimeException();
         }
     }
+
+//    public String extractBearerToken(HttpServletRequest request) {
+//        String authorizationHeader = request.getHeader("Authorization");
+//
+//        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+//            return authorizationHeader.substring(7); // Extract the token
+//        }
+//
+//        return null; // Return null if the token is not present or does not start with "Bearer "
+//    }
 }

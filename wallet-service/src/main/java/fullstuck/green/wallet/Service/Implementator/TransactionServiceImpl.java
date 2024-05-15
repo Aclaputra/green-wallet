@@ -158,6 +158,8 @@ public class TransactionServiceImpl implements TransactionService {
                 .amount(new BigDecimal(req.getAmount()))
                 .type(TransactionType.TRANSFER)
                 .description(req.getDescription())
+                .updated_at(Date.from(Instant.now()))
+                .created_at(Date.from(Instant.now()))
                 .build();
         transDetailRepository.save(transDetail);
 

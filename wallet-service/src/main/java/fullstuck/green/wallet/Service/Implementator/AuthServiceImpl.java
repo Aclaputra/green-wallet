@@ -25,6 +25,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Date;
 import java.text.ParseException;
 
@@ -53,6 +55,8 @@ public class AuthServiceImpl implements AuthService {
                     .merchant(merchant)
                     .name(req.getName())
                     .birthDate(birthDate)
+                    .created_at(Date.from(Instant.now()))
+                    .updated_at(Date.from(Instant.now()))
                     .phone_number(req.getPhoneNumber())
                     .build();
             User savedUser = userRepository.save(user);
@@ -60,10 +64,14 @@ public class AuthServiceImpl implements AuthService {
             AccountDetails accountDetails = AccountDetails.builder()
                     .email(req.getEmail())
                     .password(passwordEncoder.encode(req.getPassword()))
+                    .balance(new BigDecimal("0"))
+                    .point(new BigDecimal("0"))
                     .role(role)
                     .user(user)
+                    .isVerified(false)
+                    .created_at(Date.from(Instant.now()))
+                    .updated_at(Date.from(Instant.now()))
                     .build();
-
             accountDetailService.createAccount(accountDetails);
 
             return RegisterResponse.builder()
