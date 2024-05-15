@@ -26,8 +26,10 @@ public class UserController {
                 .build();
     }
 
+    @CrossOrigin
     @PostMapping("/login")
     public JsonResponse<Object> login(@RequestBody LoginRequest request) {
+        System.out.println("Request from angular or postman:" + request);
         LoginResponse response = authService.login(request);
         return JsonResponse.builder()
                 .statusCode(200)

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TransferService } from '../../services/transfer.service';
-import { error } from 'console';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 
