@@ -10,15 +10,16 @@ import { TopupComponent } from './components/topup/topup.component';
 import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PaymentComponent } from './components/payment/payment.component';
-import { HistoryComponent } from './components/history/history.component';
+import { AuthNavNComponent } from './components/auth-nav-n/auth-nav-n.component';
+// import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    title: 'Default',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
+  // {
+  //   path: '',
+  //   title: 'Default',
+  //   redirectTo: 'home',
+  //   pathMatch: 'full',
+  // },
   {
     path: 'auth',
     component: AuthNavComponent,
@@ -40,33 +41,40 @@ export const routes: Routes = [
       },
       {
         path: 'topup',
+        title: 'Topup',
         component: TopupComponent,
       },
+      {
+        path: 'payment',
+        title: 'Payment',
+        component: PaymentComponent
+      }
     ],
   },
   {
-    path: 'home',
-    title: 'Home',
-    component: LandingComponent,
-  },
-  {
-    path: 'login',
-    title: 'Login Page',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    title: 'Register Page',
-    component: RegisterComponent,
-  },
-  {
-    path: 'history',
-    title: 'History Page',
-    component: HistoryComponent
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent,
+    path: 'nauth',
+    component: AuthNavNComponent,
+    children: [
+      {
+        path: 'home',
+        title: 'Home',
+        component: LandingComponent,
+      },
+      {
+        path: 'login',
+        title: 'Login Page',
+        component: LoginComponent,
+      },
+      {
+        path: 'register',
+        title: 'Register Page',
+        component: RegisterComponent,
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent,
+      },
+    ]
   },
   {
     path: '**',

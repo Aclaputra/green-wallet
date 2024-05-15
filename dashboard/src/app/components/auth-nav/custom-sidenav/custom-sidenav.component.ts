@@ -3,6 +3,7 @@ import { Component, Input, computed, signal } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export type MenuItem = {
   icon: string;
@@ -41,16 +42,58 @@ export class CustomSidenavComponent {
       route: 'profile',
     },
     {
+      icon: 'library_add',
+      label: 'History',
+      route: 'history',
+    },
+    {
       icon: 'money',
       label: 'Transfer',
       route: 'transfer',
     },
     {
-      icon: 'library_add',
+      icon: 'money',
       label: 'Topup',
       route: 'topup',
     },
+    {
+      icon: 'money',
+      label: 'Payment',
+      route: 'payment',
+    }
   ]);
 
   profilePicSize = computed(() => (this.sideNavCollapsed() ? '32' : '100'));
+
+  constructor(
+    private http: HttpClient
+  ){}
+
+  resp: any;
+  urlProfile: string= "http://localhost:8080/user/profile";
+  point: number =0;
+  name: string ="";
+
+  ngOnInit(){
+    if(typeof window !== "undefined"){
+      this.getData();
+    }
+  }
+
+  getData(){
+    const clientHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+    });
+    this.http.get(this.urlProfile, { headers: clientHeaders }).subscribe(
+      (data)=>{
+        this.resp=data;
+        this.point=this.resp.data.point;
+        this.name=this.resp.data.name;
+      },
+      (error)=>{
+        console.error("Error fetch profile:", error);
+      }
+    )
+  }
 }
