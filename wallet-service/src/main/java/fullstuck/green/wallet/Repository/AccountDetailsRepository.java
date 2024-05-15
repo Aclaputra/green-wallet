@@ -8,6 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface AccountDetailsRepository extends JpaRepository<AccountDetails, String> {
+
+//    Optional<AccountDetails> findById(String id);
     AccountDetails findByemail(String email);
-    void deleteByemail(String email);
+//    void deleteByemail(String email);
+//    AccountDetails findByuser(String id);
 }

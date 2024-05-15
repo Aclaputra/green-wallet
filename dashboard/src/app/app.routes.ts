@@ -7,6 +7,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { LandingComponent } from './components/landing/landing.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { TopupComponent } from './components/topup/topup.component';
+import { RegisterComponent } from './components/register/register.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 export const routes: Routes = [
   {
@@ -26,8 +28,13 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    title: 'Login Page',
+    title: 'Login',
     component: LoginComponent
+  },
+  {
+    path: 'register',
+    title: 'Register',
+    component: RegisterComponent
   },
   {
     path: 'profile',
@@ -45,6 +52,10 @@ export const routes: Routes = [
   {
     path: 'transfer',
     component: TransferComponent,
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent
   },
   {
     path: '**',

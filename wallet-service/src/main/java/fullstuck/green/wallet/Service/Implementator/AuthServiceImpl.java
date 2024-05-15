@@ -7,11 +7,11 @@ import fullstuck.green.wallet.Model.Response.LoginResponse;
 import fullstuck.green.wallet.Model.Response.RegisterResponse;
 import fullstuck.green.wallet.Repository.MerchantRepository;
 import fullstuck.green.wallet.Repository.UserRepository;
+import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.AuthService;
 import fullstuck.green.wallet.Service.RoleService;
 import fullstuck.green.wallet.Strings.RoleEnum;
 import fullstuck.green.wallet.security.JWTUtil;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,8 +22,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Date;
 import java.text.ParseException;
 
@@ -35,6 +38,7 @@ public class AuthServiceImpl implements AuthService {
     private final MerchantRepository merchantRepository;
     private final JWTUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final AccountDetailService accountDetailService;
     private final AuthenticationManager authenticationManager;
 
     @Override
@@ -51,6 +55,8 @@ public class AuthServiceImpl implements AuthService {
                     .merchant(merchant)
                     .name(req.getName())
                     .birthDate(birthDate)
+                    .created_at(Date.from(Instant.now()))
+                    .updated_at(Date.from(Instant.now()))
                     .phone_number(req.getPhoneNumber())
                     .build();
             User savedUser = userRepository.save(user);
@@ -58,9 +64,15 @@ public class AuthServiceImpl implements AuthService {
             AccountDetails accountDetails = AccountDetails.builder()
                     .email(req.getEmail())
                     .password(passwordEncoder.encode(req.getPassword()))
+                    .balance(new BigDecimal("0"))
+                    .point(new BigDecimal("0"))
                     .role(role)
                     .user(user)
+                    .isVerified(false)
+                    .created_at(Date.from(Instant.now()))
+                    .updated_at(Date.from(Instant.now()))
                     .build();
+            accountDetailService.createAccount(accountDetails);
 
             return RegisterResponse.builder()
                     .id(savedUser.getId())
@@ -76,7 +88,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(LoginRequest req) {
         try {
-            System.out.println("req: " + req);
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     req.getEmail(),
                     req.getPassword()
@@ -85,16 +96,12 @@ public class AuthServiceImpl implements AuthService {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             AppUser appUser = (AppUser) authentication.getPrincipal();
 
-            System.out.println("about to generate token");
-            // generate token
             String token = jwtUtil.generateToken(appUser);
-            System.out.println("token generated: " + token);
             return LoginResponse.builder()
                     .jwtToken(token)
                     .build();
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            throw new Error("Error: " + e.getMessage());
         }
-        return null;
     }
 }

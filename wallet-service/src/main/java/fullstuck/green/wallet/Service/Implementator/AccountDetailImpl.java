@@ -10,11 +10,31 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
 public class AccountDetailImpl implements AccountDetailService {
     private final AccountDetailsRepository accountDetailsRepository;
+
+    @Override
+    public AccountDetails getAccountDetailById(String id) throws NoSuchElementException{
+        System.out.println("accoun detail by id: " + id);
+        // ?? baru bisa find by id setelah get accounts aneh bin sus
+        getAccounts();
+        return accountDetailsRepository.findById(id).get();
+//        try {
+//            return accountDetailsRepository.findById(id).get();
+//        } catch (NoSuchElementException e) {
+//            throw new Error("Error " + e.getMessage());
+//        }
+    }
+
+    @Override
+    public List<AccountDetails> getAccounts() {
+        return accountDetailsRepository.findAll();
+    }
 
     @Override
     public void updateAccountData(String email, AccountDetailDTO accountDetailDTO) {
@@ -47,6 +67,11 @@ public class AccountDetailImpl implements AccountDetailService {
     @Override
     public AccountDetails getAccountData(String email) {
         return accountDetailsRepository.findByemail(email);
+    }
+
+    @Override
+    public void createAccount(AccountDetails account) {
+        accountDetailsRepository.save(account);
     }
 
     @Override
