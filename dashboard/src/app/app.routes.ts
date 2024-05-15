@@ -11,6 +11,7 @@ import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { AuthNavNComponent } from './components/auth-nav-n/auth-nav-n.component';
+// import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
   // {
