@@ -2,6 +2,7 @@ package fullstuck.green.wallet.Model.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLSelect;
 
@@ -38,11 +39,18 @@ public class AccountDetails {
     private String email;
     @Column(nullable = false)
     private String password;
-    private BigDecimal balance = new BigDecimal("0.0");
-    private BigDecimal point = new BigDecimal("0.0");
+//    @Column(columnDefinition = "numeric(38,2) default 0.0", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal balance;
+//    @Column(columnDefinition = "numeric(38,2) default 0.0", nullable = false)
+    @ColumnDefault("0")
+    private BigDecimal point;
+//    @ColumnDefault("false")
     private Boolean isVerified;
     private Boolean isDeleted = Boolean.FALSE;
+//    @Column(columnDefinition = "timestamp default now()")
     private Date created_at = Date.from(Instant.now());
+//    @Column(columnDefinition = "timestamp default now()")
     private Date updated_at = Date.from(Instant.now());
     private Date deleted_at;
 }
