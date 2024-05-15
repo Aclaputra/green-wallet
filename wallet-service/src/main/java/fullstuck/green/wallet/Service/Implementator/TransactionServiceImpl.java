@@ -154,12 +154,22 @@ public class TransactionServiceImpl implements TransactionService {
         User user = userService.getUserById(accountDetails.getUser().getId());
         System.out.println("user: " + user);
 
+        System.out.println("target id : " + accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId());
+        System.out.println("ID from accDetail" + accountDetails.getUser().getId());
         TransDetail transDetail = TransDetail.builder()
-                .amount(new BigDecimal(req.getAmount()))
+                .amount(req.getAmount())
                 .type(TransactionType.TRANSFER)
-                .description(req.getDescription())
+                .source_id(accountDetails.getUser().getId())
+                .target_id(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId())
+                .description(req.getMessage())
+                .curr_balance(accountDetails.getBalance().add(req.getAmount()))
+                .created_at(Date.from(Instant.now()))
+                .updated_at(Date.from(Instant.now()))
                 .build();
         transDetailRepository.save(transDetail);
+
+        accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
+        accountDetailService.updateBalance(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId(), req.getAmount(), 2);
 
         Transaction transaction = Transaction.builder()
                 .user(user)
@@ -177,6 +187,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public TopupResponse topUp(TopUpRequest req, String accountDetailIdToken) {
+        // Top up cuma bisa ke akun sendiri ya !
+
         System.out.println("Transaction token: " + accountDetailIdToken);
         AccountDetails accountDetails = accountDetailService.getAccountDetailById(accountDetailIdToken);
         System.out.println("account detail : " + accountDetails);
@@ -184,11 +196,18 @@ public class TransactionServiceImpl implements TransactionService {
         System.out.println("user: " + user);
 
         TransDetail transDetail = TransDetail.builder()
-                .amount(new BigDecimal(req.getAmount()))
-                .type(TransactionType.TRANSFER)
+                .amount(req.getAmount())
+                .type(TransactionType.TOP_UP)
                 .source_id(req.getSourceOfFundId())
+                .target_id(accountDetails.getUser().getId())
+                .description(req.getMessage())
+                .curr_balance(accountDetails.getBalance().add(req.getAmount()))
+                .created_at(Date.from(Instant.now()))
+                .updated_at(Date.from(Instant.now()))
                 .build();
         transDetailRepository.save(transDetail);
+
+        accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 2);
 
         Transaction transaction = Transaction.builder()
                 .user(user)

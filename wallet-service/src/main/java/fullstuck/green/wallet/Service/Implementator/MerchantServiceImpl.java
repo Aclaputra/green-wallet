@@ -40,6 +40,9 @@ public class MerchantServiceImpl implements MerchantService {
                 .isDeleted(Boolean.FALSE)
                 .build();
         merchantRepository.save(merchant);
+
+        // TODO: after save merchant, link to User Account !
+        // TODO: create new service to update ONLY merchant from master_user
     }
 
     @Override

@@ -35,4 +35,10 @@ public class UserServiceImpl implements UserService {
     public User getUserById(String id) {
         return userRepository.findById(id).get();
     }
+
+    @Override
+    public User getByPhone(String phone) {
+        return userRepository.findByphone(phone);
+//        return null;
+    }
 }

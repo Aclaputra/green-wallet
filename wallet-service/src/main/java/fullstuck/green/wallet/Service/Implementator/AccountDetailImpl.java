@@ -3,11 +3,13 @@ package fullstuck.green.wallet.Service.Implementator;
 import fullstuck.green.wallet.Model.DataTransferObject.AccountDetailDTO;
 import fullstuck.green.wallet.Model.DataTransferObject.BalanceDTO;
 import fullstuck.green.wallet.Model.Entity.AccountDetails;
+import fullstuck.green.wallet.Model.Entity.User;
 import fullstuck.green.wallet.Repository.AccountDetailsRepository;
 import fullstuck.green.wallet.Service.AccountDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
@@ -65,8 +67,9 @@ public class AccountDetailImpl implements AccountDetailService {
     }
 
     @Override
-    public AccountDetails getAccountData(String email) {
-        return accountDetailsRepository.findByemail(email);
+    public AccountDetails getAccountData(User user) {
+        return accountDetailsRepository.findByuser(user);
+//        return null;
     }
 
     @Override
@@ -75,18 +78,18 @@ public class AccountDetailImpl implements AccountDetailService {
     }
 
     @Override
-    public void updateBalance(BalanceDTO balanceDTO) {
-        AccountDetails accountDetails = accountDetailsRepository.findByemail(balanceDTO.getData());
+    public void updateBalance(String id, BigDecimal amount, int type) {
+        AccountDetails accountDetails = accountDetailsRepository.findById(id).get();
         // 1 = Payment / Transfer || 2 = Topup / Recieve Payment
-        if(balanceDTO.getTransType() == 1){
+        if(type == 1){
             // compareTo : 0 equals parameter || 1 greater than parameter || -1 less than parameter
-            if(accountDetails.getBalance().compareTo(balanceDTO.getAmount()) < 0){
+            if(accountDetails.getBalance().compareTo(amount) < 0){
                 throw new IllegalArgumentException("You don't have enough money !");
             } else {
-                accountDetails.setBalance(accountDetails.getBalance().subtract(balanceDTO.getAmount()));
+                accountDetails.setBalance(accountDetails.getBalance().subtract(amount));
             }
-        } else if (balanceDTO.getTransType() == 2){
-            accountDetails.setBalance(accountDetails.getBalance().add(balanceDTO.getAmount()));
+        } else if (type == 2){
+            accountDetails.setBalance(accountDetails.getBalance().add(amount));
         }
     }
 

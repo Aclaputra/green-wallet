@@ -46,16 +46,16 @@ public class AuthServiceImpl implements AuthService {
     public RegisterResponse register(RegisterRequest req) throws ResponseStatusException {
         try {
             Role role = roleService.getOrSave(RoleEnum.ROLE_USER);
-            Merchant merchant = Merchant.builder().name(req.getUsername()).build();
-            Merchant savedMerchant = merchantRepository.save(merchant);
+//            Merchant merchant = Merchant.builder().name(req.getUsername()).build();
+//            Merchant savedMerchant = merchantRepository.save(merchant);
 
             Date birthDate = DateUtils.parseDate(req.getBirthDate(),
                     new String[] { "yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy" });
             User user = User.builder()
-                    .merchant(merchant)
+                    .merchant(null)
                     .name(req.getName())
                     .birthDate(birthDate)
-                    .phone_number(req.getPhoneNumber())
+                    .phone(req.getPhoneNumber())
                     .created_at(Date.from(Instant.now()))
                     .updated_at(Date.from(Instant.now()))
                     .build();

@@ -2,6 +2,8 @@ package fullstuck.green.wallet.Model.Request;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Data
 @Setter
 @Getter
@@ -10,6 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 public class TransferRequest {
     private String destination;
-    private String amount;
-    private String description;
+    private BigDecimal amount;
+    private String message;
 }
