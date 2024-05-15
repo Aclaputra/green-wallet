@@ -46,8 +46,6 @@ public class AuthServiceImpl implements AuthService {
     public RegisterResponse register(RegisterRequest req) throws ResponseStatusException {
         try {
             Role role = roleService.getOrSave(RoleEnum.ROLE_USER);
-//            Merchant merchant = Merchant.builder().name(req.getUsername()).build();
-//            Merchant savedMerchant = merchantRepository.save(merchant);
 
             Date birthDate = DateUtils.parseDate(req.getBirthDate(),
                     new String[] { "yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy" });
@@ -64,6 +62,8 @@ public class AuthServiceImpl implements AuthService {
             AccountDetails accountDetails = AccountDetails.builder()
                     .email(req.getEmail())
                     .password(passwordEncoder.encode(req.getPassword()))
+                    .balance(new BigDecimal("0"))
+                    .point(new BigDecimal("0"))
                     .role(role)
                     .user(user)
                     .balance(new BigDecimal("0.0"))
@@ -72,9 +72,7 @@ public class AuthServiceImpl implements AuthService {
                     .isDeleted(Boolean.FALSE)
                     .isVerified(Boolean.FALSE)
                     .point(new BigDecimal("0.0"))
-
                     .build();
-
             accountDetailService.createAccount(accountDetails);
 
             return RegisterResponse.builder()

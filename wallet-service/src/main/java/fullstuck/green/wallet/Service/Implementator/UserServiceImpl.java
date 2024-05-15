@@ -3,6 +3,7 @@ package fullstuck.green.wallet.Service.Implementator;
 import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.AppUser;
 import fullstuck.green.wallet.Model.Entity.User;
+import fullstuck.green.wallet.Model.Response.ProfileDetailResponse;
 import fullstuck.green.wallet.Repository.AccountDetailsRepository;
 import fullstuck.green.wallet.Repository.UserRepository;
 import fullstuck.green.wallet.Service.UserService;
@@ -42,12 +43,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByPhone(String phone) {
         return userRepository.findByphone(phone);
-//        return null;
     }
 
     @Override
     public void userUpdateMerchant(User user) {
         user.setUpdated_at(Date.from(Instant.now()));
         userRepository.save(user);
+    }
+
+    public ProfileDetailResponse getProfileDetail(String id) {
+        // ?? gabisa klo gagini 😆
+        accountDetailsRepository.findAll();
+        AccountDetails accountDetails = accountDetailsRepository.findById(id).get();
+
+        return ProfileDetailResponse
+                .builder()
+                .accountId(accountDetails.getId())
+                .name(accountDetails.getUser().getName())
+                .birthDate(String.valueOf(accountDetails.getUser().getBirthDate()))
+                .phoneNumber(accountDetails.getUser().getPhone_number())
+                .role(String.valueOf(accountDetails.getRole().getName()))
+                .email(accountDetails.getEmail())
+                .balance(accountDetails.getPoint())
+                .point(accountDetails.getPoint())
+                .isVerified(accountDetails.getIsVerified())
+                .updatedAt(String.valueOf(accountDetails.getUpdated_at()))
+                .build();
     }
 }

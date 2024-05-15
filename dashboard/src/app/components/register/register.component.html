@@ -17,17 +17,29 @@
                     <div data-mdb-input-init class="form-outline mb-4">
                         <label class="form-label text-white px-1" for="email">Email</label>
                         <input type="text" id="email" class="form-control form-control-lg" formControlName="email" />
+                        @if (registerForm.get('email')?.hasError('required') &&
+                          registerForm.get('email')?.touched) {
+                        <div class="form-error" style="color: red;">Email is required</div>
+                        }
                     </div>
                     
        
                     <div data-mdb-input-init class="form-outline mb-4">
                         <label class="form-label text-white px-1" for="password">Password</label>
                         <input type="password" id="password" class="form-control form-control-lg" formControlName="password" />
+                        @if (registerForm.get('password')?.hasError('required') &&
+                        registerForm.get('password')?.touched) {
+                      <div class="form-error" style="color: red;">Password is required</div>
+                      }
                     </div>
   
                     <div data-mdb-input-init class="form-outline mb-4">
-                        <label class="form-label text-white px-1" for="phone">Mobile Phone</label>
-                        <input type="text" id="phoneNumber" class="form-control form-control-lg" formControlName="phoneNumber" />
+                        <label class="form-label text-white px-1" for="phoneNumber">Mobile Phone</label>
+                        <input [maxlength]="13" type="number" id="phoneNumber" class="form-control form-control-lg" formControlName="phoneNumber" />
+                        @if (registerForm.get('phoneNumber')?.hasError('required') &&
+                        registerForm.get('phoneNumber')?.touched) {
+                          <div class="form-error" style="color: red;">Phone is required</div>
+                        }
                     </div>
                 </div>
               </div>
@@ -36,16 +48,28 @@
                       <div data-mdb-input-init class="form-outline mb-4">
                           <label class="form-label text-white px-1" for="name">name</label>
                           <input type="text" id="name" class="form-control form-control-lg" formControlName="name"/>
+                          @if (registerForm.get('name')?.hasError('required') &&
+                          registerForm.get('name')?.touched) {
+                        <div class="form-error" style="color: red;">Name is required</div>
+                        }
                       </div>         
          
                       <div data-mdb-input-init class="form-outline mb-4">
                           <label class="form-label text-white px-1" for="username">username</label>
                           <input type="text" id="username" class="form-control form-control-lg"  formControlName="username"/>
+                          @if (registerForm.get('username')?.hasError('required') &&
+                          registerForm.get('username')?.touched) {
+                        <div class="form-error" style="color: red;">Username is required</div>
+                        }
                       </div>
     
                       <div data-mdb-input-init class="form-outline mb-4">
                           <label class="form-label text-white px-1" for="birthDate">Birth Date</label>
                           <input type="date" id="form2Example27" class="form-control form-control-lg"  formControlName="birthDate"/>
+                          @if (registerForm.get('birthDate')?.hasError('required') &&
+                          registerForm.get('birthDate')?.touched) {
+                        <div class="form-error" style="color: red;">Birth Date is required</div>
+                          }
                       </div>
                   </div>
               </div>
@@ -55,7 +79,7 @@
                     <button class="btn btn-lg btn-block text-black"
                      style="background-color: #D4E13D; border-radius: 15px;" 
                     type="button"
-                    (click)="regist()" routerLink="/dashboard">Register</button>
+                    (click)="regist()">Register</button>
                   </div>
 
                   <a class="small text-white text-center d-block" routerLink="/forgot-password">Forgot password?</a>
