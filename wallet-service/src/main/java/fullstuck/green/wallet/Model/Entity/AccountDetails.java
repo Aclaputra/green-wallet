@@ -39,18 +39,14 @@ public class AccountDetails {
     private String email;
     @Column(nullable = false)
     private String password;
-//    @Column(columnDefinition = "numeric(38,2) default 0.0", nullable = false)
     @ColumnDefault("0")
     private BigDecimal balance;
-//    @Column(columnDefinition = "numeric(38,2) default 0.0", nullable = false)
     @ColumnDefault("0")
     private BigDecimal point;
-//    @ColumnDefault("false")
+    private String profileImageUrl;
     private Boolean isVerified;
     private Boolean isDeleted = Boolean.FALSE;
-//    @Column(columnDefinition = "timestamp default now()")
     private Date created_at = Date.from(Instant.now());
-//    @Column(columnDefinition = "timestamp default now()")
     private Date updated_at = Date.from(Instant.now());
     private Date deleted_at;
 }
