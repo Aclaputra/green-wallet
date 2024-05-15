@@ -1,40 +1,26 @@
 package fullstuck.green.wallet.Service.Implementator;
 
-import fullstuck.green.wallet.Model.DataTransferObject.TransactionDTO;
 import fullstuck.green.wallet.Model.Entity.*;
 import fullstuck.green.wallet.Model.Request.TopUpRequest;
 import fullstuck.green.wallet.Model.Request.TransferRequest;
 import fullstuck.green.wallet.Model.Response.TopupResponse;
-import fullstuck.green.wallet.Model.Response.TransactionResponse;
 import fullstuck.green.wallet.Model.Response.TransferResponse;
-import fullstuck.green.wallet.Repository.AccountDetailsRepository;
 import fullstuck.green.wallet.Repository.TransDetailRepository;
 import fullstuck.green.wallet.Repository.TransactionRepository;
-import fullstuck.green.wallet.Repository.UserRepository;
 import fullstuck.green.wallet.Service.AccountDetailService;
-import fullstuck.green.wallet.Service.MerchantService;
 import fullstuck.green.wallet.Service.TransactionService;
 import fullstuck.green.wallet.Service.UserService;
-import fullstuck.green.wallet.Strings.MerchantEnum;
 import fullstuck.green.wallet.Strings.TransactionType;
 import fullstuck.green.wallet.security.JWTUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
