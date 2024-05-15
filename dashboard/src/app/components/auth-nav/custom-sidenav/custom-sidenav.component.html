@@ -1,0 +1,31 @@
+<div class="sidenav-header">
+  <img
+    [width]="profilePicSize()"
+    [height]="profilePicSize()"
+    src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202212/messiworldcupkiss-one_one.jpg?VersionId=nV8J5D9Au5Gj0B055xhDiyokfUBzy.eO"
+    alt="profile-picture"
+  />
+  <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
+    <h2>Status green</h2>
+    <p>Name person</p>
+  </div>
+</div>
+
+<mat-nav-list>
+  <a
+    class="menu-item"
+    mat-list-item
+    *ngFor="let item of menuItems()"
+    [routerLink]="item.route"
+    routerLinkActive="selected-menu-item"
+    #rla="routerLinkActive"
+    [activated]="rla.isActive"
+  >
+    <mat-icon
+      [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'"
+      matListItemIcon
+      >{{ item.icon }}</mat-icon
+    >
+    <span matListItemTitle *ngIf="!sideNavCollapsed()">{{ item.label }}</span>
+  </a>
+</mat-nav-list>

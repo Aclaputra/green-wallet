@@ -1,0 +1,25 @@
+mat-toolbar {
+  position: relative;
+  z-index: 5;
+}
+
+.content {
+  padding: 24px;
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 64px);
+}
+
+mat-sidenav,
+mat-sidenav-content {
+  transition: all 500ms ease-in-out;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logout-button {
+  margin-right: 20px;
+}
