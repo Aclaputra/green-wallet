@@ -22,6 +22,7 @@ export class LoginComponent {
   constructor(private httpClient: HttpClient, private router: Router, private toastr: ToastrService) {}
 
   login() {
+    console.log(this.username, this.password);
     this.httpClient
       .post(this.url, {
         email: this.email.toString(),
@@ -29,6 +30,7 @@ export class LoginComponent {
       })
       .subscribe(
         (response) => {
+          console.log(response);
           this.resp = response;
           this.token = this.resp.data.jwtToken;
           window.localStorage.setItem('grn-tkn', this.token);

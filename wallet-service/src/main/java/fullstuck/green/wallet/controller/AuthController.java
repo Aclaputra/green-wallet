@@ -28,6 +28,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public JsonResponse<Object> login(@RequestBody LoginRequest request) {
+        System.out.println(request);
         LoginResponse response = authService.login(request);
         return JsonResponse.builder()
                 .statusCode(200)

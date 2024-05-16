@@ -42,9 +42,9 @@ export class CustomSidenavComponent {
       route: 'profile',
     },
     {
-      icon: 'history',
-      label: 'History',
-      route: 'history',
+      icon: 'money',
+      label: 'Topup',
+      route: 'topup',
     },
     {
       icon: 'library_add',
@@ -52,15 +52,15 @@ export class CustomSidenavComponent {
       route: 'transfer',
     },
     {
-      icon: 'account_balance_wallet',
-      label: 'Topup',
-      route: 'topup',
-    },
-    {
       icon: 'money',
       label: 'Payment',
       route: 'payment',
     },
+    {
+      icon: 'library_add',
+      label: 'History',
+      route: 'history',
+    }
   ]);
 
   profilePicSize = computed(() => (this.sideNavCollapsed() ? '32' : '100'));
