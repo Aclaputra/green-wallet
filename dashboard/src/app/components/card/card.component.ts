@@ -18,6 +18,6 @@ export class CardComponent {
     const modalRef = this.modal.open(DetailsComponent);
     modalRef.componentInstance.project = this.item;
   }
-  @Input() item = {} as History;
+  @Input() item!:  History;
 
 }

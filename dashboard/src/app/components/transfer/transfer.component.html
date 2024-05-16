@@ -4,7 +4,7 @@
       <div class="card-wallet rounded-3">
         <div class="card-body p-4">
           <div class="text-center mb-4">
-            <h3>Green Wallet</h3>
+            <p class="fs-3">Transfer</p>
           </div>
           <form action="">
             <p class="fw-bold mb-4 pb-2">To:</p>
@@ -83,12 +83,12 @@
                 </div>
                 <div class="d-flex justify-content-between border-bottom">
                   <p>Amount</p>
-                  <p>{{ amount ? amount : 0 }}</p>
+                  <p>{{ amount>=0 ? amount : "Amount cannot min!" }}</p>
                 </div>
 
                 <div class="d-flex justify-content-between mt-3">
                   <p>Calculate</p>
-                  <p>{{ currentSaldo-amount }}</p>
+                  <p>{{ currentSaldo-amount<-1 || amount<0 ? "Money not enough!" : currentSaldo-amount}}</p>
                 </div>
               </div>
             </div>
@@ -98,6 +98,7 @@
                 type="submit"
                 class="btn btn-success btn-lg btn-block"
                 (click)="transfer()"
+                [disabled]="amount<0 || amount>currentSaldo ? true : false"
               >
                 Transfer
                 <svg
