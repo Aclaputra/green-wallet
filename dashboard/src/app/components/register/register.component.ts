@@ -14,6 +14,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 })
 export class RegisterComponent {
   resp: any;
+  myDate: string= "";
+  dateFormat: string=this.myDate.toString().substring(8,10)+"-"+this.myDate.toString().substring(5,7)+"-"+this.myDate.toString().substring(0,4);
+  data: any;
 
   constructor(
     private register: RegisterService,
@@ -36,6 +39,15 @@ export class RegisterComponent {
       })
     }
   
+  }
+
+  test(){
+    console.log(this.myDate)
+    console.log(this.dateFormat)
+    this.data=this.registerForm.value
+    console.log(this.data)
+    this.data.birthDate=this.dateFormat
+    console.log(this.data)
   }
 
   registerForm = new FormGroup({

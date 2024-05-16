@@ -4,7 +4,7 @@
         <div class="card-wallet rounded-3">
           <div class="card-body p-4">
             <div class="text-center mb-4">
-              <h3>Top Up</h3>
+              <p class="fs-3">Top Up</p>
             </div>
             <form action="">
               <div class="d-grid justify-content-center">
@@ -32,7 +32,7 @@
                         <div class="mb-3 small-font text-center">
                             <p>Saldo maksimum kamu {{(maxSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'})}}</p>
                             <p class="margin-min">Masimal penambahan saldo adalah {{ (maxSaldo-currentSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }}</p>
-                            <p class="margin-min">Kamu masih bisa menambahkan saldo hingga {{ ((20000000-currentSaldo)*2).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }}</p>
+                            <p class="margin-min">Kamu masih bisa menambahkan saldo hingga {{ ((20000000-currentSaldo)*2).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }} bulan ini.</p>
                         </div>
                         <div class="container text-center">
                             <button type="submit" class="btn btn-light" (click)="copyText(merchant.nomor)">SALIN KODE</button>
