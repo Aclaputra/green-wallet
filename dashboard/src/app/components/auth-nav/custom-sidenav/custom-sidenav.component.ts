@@ -47,7 +47,7 @@ export class CustomSidenavComponent {
       route: 'topup',
     },
     {
-      icon: 'library_add',
+      icon: 'money',
       label: 'Transfer',
       route: 'transfer',
     },
