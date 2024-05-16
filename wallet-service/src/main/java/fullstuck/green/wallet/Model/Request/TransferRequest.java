@@ -11,8 +11,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransferRequest {
+    // Transfer : Destination == No telp
+    // Payment : Destination == Nama merchant
     private String destination;
     private BigDecimal amount;
     private String message;
-    private int type;
 }
