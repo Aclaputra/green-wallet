@@ -1,25 +1,97 @@
-<div class="container my-2 p-5">
-    <div class="card text-center">
-        <div class="card-header color-bg">
-            Payment
-        </div>
-        <div class="card-body">
-            <div class="mb-3">
-                <label class="form-label">Partner Code</label>
-                <input type="text" [(ngModel)]="merchantCode" class="form-control" id="merchant-code" placeholder="813811883">
+<section class="p-4 p-md-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-5">
+      <div class="card-wallet rounded-3">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <h3>Green Wallet</h3>
+          </div>
+          <form action="">
+            <p class="fw-bold mb-4 pb-2">To:</p>
+
+            <div class="d-flex flex-column align-items-center mb-4 pb-1">
+              <p>Partner Code</p>
+              <div class="flex-fill mx-3">
+                <div class="form-outline">
+                  <input
+                    title="Phone"
+                    type="number"
+                    name="amount"
+                    id="formControlLgX"
+                    class="form-control form-control-lg"
+                    value=""
+                    [(ngModel)]="partnerCode"
+                  />
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-                <label class="form-label">Amount</label>
-                <input type="text" [(ngModel)]="amount" class="form-control" name="currency-field" id="currency-field" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Rp120,000.00">
+
+            <div class="d-flex flex-column align-items-center mb-4 pb-1">
+              <p>Amount</p>
+              <div class="flex-fill mx-3">
+                <div class="form-outline">
+                  <input
+                    title="Amount"
+                    type="number"
+                    step="1000"
+                    min="0"
+                    name="amount"
+                    id="formControlLgXs"
+                    class="form-control form-control-lg"
+                    value=""
+                    [(ngModel)]="amount"
+                  />
+                </div>
+              </div>
             </div>
+
             <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Info</label>
-                <textarea class="form-control" [(ngModel)]="info" id="exampleFormControlTextarea1" rows="2"></textarea>
+              <label for="exampleFormControlTextarea1" class="form-label">Info</label>
+              <textarea [ngModelOptions]="{standalone: true}" class="form-control"  [(ngModel)]="info" id="exampleFormControlTextarea1" rows="2"></textarea>
             </div>
-            <a class="btn btn-light" (click)="pay()">Pay</a>
+
+            <div class="form-outline mb-4">
+              <div class="saldo-display">
+                <div class="d-flex justify-content-between">
+                  <p>Current saldo</p>
+                  <p>{{ currentSaldo }}</p>
+                </div>
+                <div class="d-flex justify-content-between border-bottom">
+                  <p>Amount</p>
+                  <p>{{ amount ? amount : 0 }}</p>
+                </div>
+
+                <div class="d-flex justify-content-between mt-3">
+                  <p>Calculate</p>
+                  <p>{{ currentSaldo-amount }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid justify-content-center">
+              <button
+                type="submit"
+                class="btn btn-success btn-lg btn-block"
+                (click)="pay()"
+              >
+                Pay
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-send-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </form>
         </div>
-        <div class="card-footer text-body-secondary color-bg">
-            Green Wallet
-        </div>
+      </div>
     </div>
-</div>
+  </div>
+</section>

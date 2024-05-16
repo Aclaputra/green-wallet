@@ -60,30 +60,20 @@ export class TransferComponent {
       destination: this.phoneNumber.toString(),
       amount: this.amount.toString(),
       description: this.info
-  }
+    }
 
-    this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
-      (response)=>{
-        console.log(response);
-      },
-      (error)=>{
-        console.error("Error transfer:", error);
-      }
-    )
-    // this.transferService
-    //   .transferFunds(
-    //     'http://localhost:8081/transfer',
-    //     this.senderId,
-    //     this.receiverId,
-    //     this.amount
-    //   )
-    //   .subscribe({
-    //     next: (data) => {
-    //       console.log(data);
-    //     },
-    //     error: (error) => {
-    //       console.error(error);
-    //     },
-    //   });
+    if(this.phoneNumber==this.resp.data.phoneNumber){
+      alert("Your just input other phone member");
+    }else{
+      this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
+        (response)=>{
+          console.log(response);
+          alert("Transfer success!");
+        },
+        (error)=>{
+          console.error("Error transfer:", error);
+        }
+      )
+    }
   }
 }

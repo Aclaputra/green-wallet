@@ -21,6 +21,7 @@ export class LoginComponent {
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   login() {
+    console.log(this.username, this.password);
     this.httpClient
       .post(this.url, {
         email: this.username.toString(),

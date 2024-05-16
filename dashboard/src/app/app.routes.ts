@@ -11,15 +11,15 @@ import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { AuthNavNComponent } from './components/auth-nav-n/auth-nav-n.component';
-// import { HistoryComponent } from './components/history/history.component';
+import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   title: 'Default',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full',
-  // },
+  {
+    path: '',
+    title: 'Default',
+    redirectTo: 'nauth',
+    pathMatch: 'full',
+  },
   {
     path: 'auth',
     component: AuthNavComponent,
@@ -48,6 +48,11 @@ export const routes: Routes = [
         path: 'payment',
         title: 'Payment',
         component: PaymentComponent
+      },
+      {
+        path: 'history',
+        title: 'History',
+        component: HistoryComponent
       }
     ],
   },
