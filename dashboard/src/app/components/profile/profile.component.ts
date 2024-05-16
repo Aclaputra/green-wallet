@@ -41,10 +41,13 @@ export class ProfileComponent {
           this.name=this.resp.data.name;
           this.email=this.resp.data.email;
           this.phone=this.resp.data.phoneNumber;
-          this.bod=this.resp.data.birthDate;
+          this.bod=this.resp.data.birthDate.toString().substring(0,10);
         },
         (error)=>{
           console.error("Error fetch profile:", error);
+          if(error.status==403){
+            window.localStorage.clear();
+          }
         }
       )
     }

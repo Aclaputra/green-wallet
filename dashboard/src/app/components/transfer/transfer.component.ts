@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { TransferService } from '../../services/transfer.service';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transfer',
@@ -25,10 +23,8 @@ export class TransferComponent {
   resp: any;
 
   constructor(
-    private transferService: TransferService,
     private http: HttpClient,
     private toastr: ToastrService,
-    private router: Router
   ) {}
 
   ngOnInit(){
@@ -49,6 +45,9 @@ export class TransferComponent {
       },
       (error)=>{
         console.error("Error fetch profile:", error);
+        if(error.status==403){
+          window.localStorage.clear();
+        }
       }
     )
   }
@@ -72,7 +71,7 @@ export class TransferComponent {
       this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
         (response)=>{
           console.log(response);
-          this.toastr.success("Transfer successfuly", 'Success');
+          this.toastr.success(`Success transfer Rp${clientBody.amount} to ${clientBody.destination}`, 'Success');
           setInterval(()=>{
             location.reload();
           }, 2000)
@@ -87,4 +86,5 @@ export class TransferComponent {
       )
     }
   }
+
 }
