@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AuthNavComponent } from './auth-nav.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AuthNavComponent', () => {
   let component: AuthNavComponent;
@@ -8,7 +9,13 @@ describe('AuthNavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AuthNavComponent]
+      imports: [AuthNavComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+            
+        }
+      ]
     })
     .compileComponents();
     

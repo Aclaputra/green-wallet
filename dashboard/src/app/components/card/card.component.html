@@ -1,9 +1,9 @@
 <div class="card shadow text-center mb-3" style="max-width: 350px; min-width: 350px;">
     <div class="card-body">
         <h3 class="card-title text-dark">
-            {{item.transDetail.created_at|date}}
+            {{item.transDetail?.created_at|date}}
         </h3>
-        <h4>{{item.transDetail.description}}</h4>
+        <h4>{{item.transDetail?.description}}</h4>
         
     </div>
   

@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserService } from './user.service';
+import { RegisterService } from './register.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('UserService', () => {
-  let service: UserService;
+describe('RegisterService', () => {
+  let service: RegisterService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -12,7 +12,7 @@ describe('UserService', () => {
         HttpClientTestingModule
       ],
     });
-    service = TestBed.inject(UserService);
+    service = TestBed.inject(RegisterService);
   });
 
   it('should be created', () => {
