@@ -1,4 +1,4 @@
-package fullstuck.green.wallet.controller;
+package fullstuck.green.wallet.Controller;
 
 import fullstuck.green.wallet.Model.Entity.Transaction;
 import fullstuck.green.wallet.Model.Response.JsonResponse;
@@ -8,12 +8,10 @@ import fullstuck.green.wallet.Model.Request.TransferRequest;
 import fullstuck.green.wallet.Model.Response.TransferResponse;
 import fullstuck.green.wallet.Service.TransactionService;
 import fullstuck.green.wallet.security.JWTUtil;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @RestController

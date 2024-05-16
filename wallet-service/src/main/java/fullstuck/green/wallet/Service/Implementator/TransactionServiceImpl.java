@@ -31,16 +31,6 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransDetailRepository transDetailRepository;
     private final JWTUtil jwtUtil;
 
-    public String extractBearerToken(HttpServletRequest request) {
-        String authorizationHeader = request.getHeader("Authorization");
-
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7); // Extract the token
-        }
-
-        return null; // Return null if the token is not present or does not start with "Bearer "
-    }
-
     @Override
     @Transactional
     public List<Transaction> getAllTransaction(String accountIdFromToken) {
@@ -61,15 +51,8 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional
     public TransferResponse transfer(TransferRequest req, String accountDetailIdToken) {
-        System.out.println("Transaction token: " + accountDetailIdToken);
         AccountDetails accountDetails = accountDetailService.getAccountDetailById(accountDetailIdToken);
-        System.out.println("account detail : " + accountDetails);
         User user = userService.getUserById(accountDetails.getUser().getId());
-        System.out.println("user: " + user);
-
-        System.out.println("target id : " + accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId());
-        System.out.println("ID from accDetail" + accountDetails.getUser().getId());
-
 
         TransDetail transDetail = TransDetail.builder()
                 .amount(req.getAmount())

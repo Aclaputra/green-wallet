@@ -1,14 +1,9 @@
-package fullstuck.green.wallet.controller;
+package fullstuck.green.wallet.Controller;
 
 import fullstuck.green.wallet.Model.DataTransferObject.MerchantDTO;
-import fullstuck.green.wallet.Model.Request.LoginRequest;
-import fullstuck.green.wallet.Model.Request.RegisterRequest;
 import fullstuck.green.wallet.Model.Response.JsonResponse;
-import fullstuck.green.wallet.Model.Response.LoginResponse;
-import fullstuck.green.wallet.Model.Response.RegisterResponse;
 import fullstuck.green.wallet.Service.AuthService;
 import fullstuck.green.wallet.Service.MerchantService;
-import fullstuck.green.wallet.Model.Response.JsonResponse;
 import fullstuck.green.wallet.Model.Response.ProfileDetailResponse;
 import fullstuck.green.wallet.Service.UserService;
 import fullstuck.green.wallet.security.JWTUtil;
