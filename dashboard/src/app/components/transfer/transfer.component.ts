@@ -45,6 +45,9 @@ export class TransferComponent {
       },
       (error)=>{
         console.error("Error fetch profile:", error);
+        if(error.status==403){
+          window.localStorage.clear();
+        }
       }
     )
   }

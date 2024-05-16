@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,12 +8,15 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule,],
+  imports: [RouterLink, ReactiveFormsModule, NgIf],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   resp: any;
+  myDate: string= "";
+  dateFormat: string=this.myDate.toString().substring(8,10)+"-"+this.myDate.toString().substring(5,7)+"-"+this.myDate.toString().substring(0,4);
+  data: any;
 
   constructor(
     private http: HttpClient,
@@ -37,6 +41,15 @@ export class RegisterComponent {
       })
     }
   
+  }
+
+  test(){
+    console.log(this.myDate)
+    console.log(this.dateFormat)
+    this.data=this.registerForm.value
+    console.log(this.data)
+    this.data.birthDate=this.dateFormat
+    console.log(this.data)
   }
 
   registerForm = new FormGroup({
