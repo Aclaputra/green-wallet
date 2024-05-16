@@ -6,6 +6,11 @@
 @include mat.core();
 @import "bootstrap/scss/bootstrap";
 
+:root {
+  --red-chart: #dc3545;
+  --green-chart: #198b0e;
+}
+
 html,
 body {
   height: 100%;

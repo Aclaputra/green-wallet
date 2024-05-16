@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
                 .phoneNumber(accountDetails.getUser().getPhone())
                 .role(String.valueOf(accountDetails.getRole().getName()))
                 .email(accountDetails.getEmail())
-                .balance(accountDetails.getPoint())
+                .balance(accountDetails.getBalance())
                 .point(accountDetails.getPoint())
                 .isVerified(accountDetails.getIsVerified())
                 .updatedAt(String.valueOf(accountDetails.getUpdated_at()))
