@@ -1,4 +1,4 @@
-package fullstuck.green.wallet.controller;
+package fullstuck.green.wallet.Controller;
 
 import fullstuck.green.wallet.Model.Request.LoginRequest;
 import fullstuck.green.wallet.Model.Request.RegisterRequest;

@@ -56,6 +56,7 @@ public class AuthServiceImpl implements AuthService {
                     .phone(req.getPhoneNumber())
                     .created_at(Date.from(Instant.now()))
                     .updated_at(Date.from(Instant.now()))
+                    .isDeleted(Boolean.FALSE)
                     .build();
             User savedUser = userRepository.save(user);
 
