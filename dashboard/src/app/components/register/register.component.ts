@@ -1,13 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { RegisterService } from '../../services/register.service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule,],
+  imports: [RouterLink, ReactiveFormsModule,RouterTestingModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -15,25 +16,23 @@ export class RegisterComponent {
   resp: any;
 
   constructor(
-    private http: HttpClient,
-    private router: Router,
+    private register: RegisterService,
+    private router: Router, 
     private toastr: ToastrService
   ) { }
   regist() {
     if(this.registerForm.valid){
-      this.http.post('http://localhost:8080/auth/register', this.registerForm.value).subscribe({
+      this.register.registUser(this.registerForm.value).subscribe({
         next: (data) => {
-          this.resp = data;
-          if(this.resp.statusCode == 201){
+          this.resp = data
+          if (this.resp.statusCode == 201) {
             this.router.navigate(['/nauth/login']);
-            this.toastr.success('Registered successfully', 'Success');
+            this.toastr.success('Register success!');
           }
         },
         error: (error) => {
-          if(error.status == 403){
-            this.toastr.error("Data already exists", 'Error'); 
-          }
-        },
+          this.toastr.error('Register failed!');
+        }
       })
     }
   
@@ -49,3 +48,5 @@ export class RegisterComponent {
   })
 
 }
+
+// 
