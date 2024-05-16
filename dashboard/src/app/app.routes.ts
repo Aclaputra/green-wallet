@@ -11,33 +11,31 @@ import { AuthNavComponent } from './components/auth-nav/auth-nav.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { AuthNavNComponent } from './components/auth-nav-n/auth-nav-n.component';
+import { HistoryComponent } from './components/history/history.component';
+import { authGuard } from './guards/auth.guard';
 // import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
-  // {
-  //   path: '',
-  //   title: 'Default',
-  //   redirectTo: 'home',
-  //   pathMatch: 'full',
-  // },
+  {
+    path: '',
+    title: 'Default',
+    redirectTo: 'nauth',
+    pathMatch: 'full',
+  },
   {
     path: 'auth',
     component: AuthNavComponent,
+    canActivateChild: [authGuard],
     children: [
-      {
-        path: 'profile',
-        title: 'Profile Page',
-        component: ProfileComponent,
-      },
       {
         path: 'dashboard',
         title: 'Dashboard Page',
         component: DashboardComponent,
       },
       {
-        path: 'transfer',
-        title: 'Transfer Page',
-        component: TransferComponent,
+        path: 'profile',
+        title: 'Profile Page',
+        component: ProfileComponent,
       },
       {
         path: 'topup',
@@ -48,6 +46,16 @@ export const routes: Routes = [
         path: 'payment',
         title: 'Payment',
         component: PaymentComponent
+      },
+      {
+        path: 'transfer',
+        title: 'Transfer Page',
+        component: TransferComponent,
+      },
+      {
+        path: 'history',
+        title: 'History',
+        component: HistoryComponent
       }
     ],
   },

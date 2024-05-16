@@ -1,8 +1,16 @@
 section {
   // background-image: url(https://mdbcdn.b-cdn.net/img/Photos/Others/background3.webp);
-  background-color: rgb(93, 168, 113);
+  // background-color: rgb(93, 168, 113);
 
   .saldo-display {
     text-align: right;
   }
+}
+
+.card-wallet{
+	background-color: #fff;
+	width: 280px;
+	border-radius: 33px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	padding: 2rem !important;
 }

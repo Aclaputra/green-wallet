@@ -28,16 +28,6 @@ public class TransactionServiceImpl implements TransactionService {
     private final TopupPartnerService topupPartnerService;
     private final MerchantService merchantService;
 
-    public String extractBearerToken(HttpServletRequest request) {
-        String authorizationHeader = request.getHeader("Authorization");
-
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7); // Extract the token
-        }
-
-        return null; // Return null if the token is not present or does not start with "Bearer "
-    }
-
     @Override
     @Transactional
     public List<Transaction> getAllTransaction(String accountIdFromToken) {

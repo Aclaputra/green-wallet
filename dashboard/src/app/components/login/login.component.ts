@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,16 +19,18 @@ export class LoginComponent {
   token: string = '';
   resp: any;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router, private toastr: ToastrService) {}
 
   login() {
+    console.log(this.username, this.password);
     this.httpClient
       .post(this.url, {
-        email: this.username.toString(),
+        email: this.email.toString(),
         password: this.password.toString(),
       })
       .subscribe(
         (response) => {
+          console.log(response);
           this.resp = response;
           this.token = this.resp.data.jwtToken;
           window.localStorage.setItem('grn-tkn', this.token);
@@ -37,13 +40,11 @@ export class LoginComponent {
 
           if (this.resp.statusCode == 200) {
             this.router.navigate(['auth/dashboard']);
-          } else {
-            alert('Please input valid credential!');
+            this.toastr.success('Login success!');
           }
         },
         (error) => {
-          alert('Please input valid credential!');
-          console.error('Error', error);
+          this.toastr.error('Login failed!');
         }
       );
   }

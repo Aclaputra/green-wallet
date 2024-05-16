@@ -27,25 +27,26 @@ export class ProfileComponent {
   ){}
 
   ngOnInit(){
-    if(typeof window !== "undefined"){}
-    const clientHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
-    });
-    this.http.get(this.url, { headers: clientHeaders }).subscribe(
-      (data)=>{
-        console.log(data);
-        this.resp=data;
-        console.log(this.resp.statusCode)
-        this.balance=this.resp.data.balance;
-        this.name=this.resp.data.name;
-        this.email=this.resp.data.email;
-        this.phone=this.resp.data.phoneNumber;
-        this.bod=this.resp.data.birthDate;
-      },
-      (error)=>{
-        console.error("Error fetch profile:", error);
-      }
-    )
+    if(typeof window !== "undefined"){
+      const clientHeaders = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+      });
+      this.http.get(this.url, { headers: clientHeaders }).subscribe(
+        (data)=>{
+          console.log(data);
+          this.resp=data;
+          console.log(this.resp.statusCode)
+          this.balance=this.resp.data.balance;
+          this.name=this.resp.data.name;
+          this.email=this.resp.data.email;
+          this.phone=this.resp.data.phoneNumber;
+          this.bod=this.resp.data.birthDate;
+        },
+        (error)=>{
+          console.error("Error fetch profile:", error);
+        }
+      )
+    }
   }
 }
