@@ -22,6 +22,7 @@ class RegisterRequestTest {
         requestGetSet.setEmail(request.getEmail());
         requestGetSet.setPassword(request.getPassword());
         requestGetSet.setBirthDate(request.getBirthDate());
+        requestGetSet.setPhoneNumber(request.getPhoneNumber());
         assertNotNull(requestGetSet);
         assertNotNull(request);
     }

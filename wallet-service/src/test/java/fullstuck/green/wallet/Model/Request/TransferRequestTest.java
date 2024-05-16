@@ -11,13 +11,11 @@ class TransferRequestTest {
     void testTransferReqeuest() {
         TransferRequest transferRequest = TransferRequest.builder()
                 .destination("2971092732")
-                .type(1)
                 .amount(new BigDecimal("10000"))
                 .message("success")
                 .build();
         TransferRequest transferRequestGetSet = new TransferRequest();
         transferRequestGetSet.setAmount(transferRequest.getAmount());
-        transferRequestGetSet.setType(transferRequest.getType());
         transferRequestGetSet.setMessage(transferRequest.getMessage());
         transferRequestGetSet.setDestination(transferRequest.getDestination());
 
