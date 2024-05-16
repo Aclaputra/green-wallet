@@ -11,6 +11,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
+  email: string = "";
   url: string = 'http://localhost:8080/auth/login';
   username: string = '';
   password: string = '';
