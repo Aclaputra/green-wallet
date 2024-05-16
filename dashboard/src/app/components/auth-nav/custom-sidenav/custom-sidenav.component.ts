@@ -47,7 +47,7 @@ export class CustomSidenavComponent {
       route: 'topup',
     },
     {
-      icon: 'money',
+      icon: 'library_add',
       label: 'Transfer',
       route: 'transfer',
     },
@@ -65,35 +65,33 @@ export class CustomSidenavComponent {
 
   profilePicSize = computed(() => (this.sideNavCollapsed() ? '32' : '100'));
 
-  constructor(
-    private http: HttpClient
-  ){}
+  constructor(private http: HttpClient) {}
 
   resp: any;
-  urlProfile: string= "http://localhost:8080/user/profile";
-  point: number =0;
-  name: string ="";
+  urlProfile: string = 'http://localhost:8080/user/profile';
+  point: number = 0;
+  name: string = '';
 
-  ngOnInit(){
-    if(typeof window !== "undefined"){
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
       this.getData();
     }
   }
 
-  getData(){
+  getData() {
     const clientHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+      Authorization: `Bearer ${window.localStorage.getItem('grn-tkn')}`,
     });
     this.http.get(this.urlProfile, { headers: clientHeaders }).subscribe(
-      (data)=>{
-        this.resp=data;
-        this.point=this.resp.data.point;
-        this.name=this.resp.data.name;
+      (data) => {
+        this.resp = data;
+        this.point = this.resp.data.point;
+        this.name = this.resp.data.name;
       },
-      (error)=>{
-        console.error("Error fetch profile:", error);
+      (error) => {
+        console.error('Error fetch profile:', error);
       }
-    )
+    );
   }
 }

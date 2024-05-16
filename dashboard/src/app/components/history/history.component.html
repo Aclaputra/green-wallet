@@ -2,11 +2,10 @@
     <div  class="container py-5">
       <div class="row pt-5 col-md-6 col-sm-6">
         <h1>Your transfer history </h1>
-        @for (item of history; track $index) {
+        @for (item of histories.data; track $index) {
           <div class="col-lg-6 col-md-6 mb-4" style="max-width: 380px; min-width: 380px;">
             <!-- <app-cards [id]="card.id" [name]="card.name" [image]="card.images.lg" [fullName]="card.biography.fullName" [occupation]="card.work.occupation"></app-cards> -->
-            <app-card [project]="item"></app-card>
-  
+            <app-card [item]="item"></app-card>
           </div>
         }
       </div>      

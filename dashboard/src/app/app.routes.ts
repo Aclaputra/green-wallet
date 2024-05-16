@@ -13,6 +13,7 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { AuthNavNComponent } from './components/auth-nav-n/auth-nav-n.component';
 import { HistoryComponent } from './components/history/history.component';
 import { authGuard } from './guards/auth.guard';
+// import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
   {

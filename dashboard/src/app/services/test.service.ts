@@ -1,56 +1,23 @@
 import { Injectable } from '@angular/core';
 import { History } from '../models/History';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestService {
+  url = 'http://localhost:8080/transaction'
 
-  constructor() { }
-  project: History[] = [
-    {
-      id: 1,
-      name: 'History1',
-      description: 'Sky Book Application',
-      link: 'https://github.com/MuhamadFaheem/sky-book-application',
-    },
-    {
-      id: 2,
-      name: 'History2',
-      description: 'Desc history 2',
-      link: 'https://github.com/MuhamadFaheem/TA-201943502149',
-    },
-    {
-      id: 3,
-      name: 'History 3',
-      description: 'Desc History 3',
-      link: 'https://github.com/MuhamadFaheem/analisis-covid-capstone',
-    },
-    {
-      id: 4,
-      name: 'History 4',
-      description: 'Desc History 4',
-      link: 'https://github.com/MuhamadFaheem/analisis-covid-capstone',
-    },
-    {
-      id: 5,
-      name: 'History 5',
-      description: 'Desc History 5',
-      link: 'https://github.com/MuhamadFaheem/analisis-covid-capstone',
-    },
-    {
-      id: 6,
-      name: 'History 6',
-      description: 'Desc histoy 5',  
-      link: 'https://github.com/MuhamadFaheem/analisis-covid-capstone',
-    }
-  ]
+  constructor(private http: HttpClient) { }
 
-  getProjects(): History[] {
-    return this.project
-  }
-  getProject(id: number): History{
-    return this.project.find(project => project.id === id)!
+  fetchData(): Observable<History[]> {
+    if(typeof window !== "undefined"){}
+    const clientHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+    });
+    return this.http.get<History[]>(this.url, { headers: clientHeaders });
   }
 }
