@@ -3,6 +3,8 @@ import { TransferService } from '../../services/transfer.service';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transfer',
@@ -24,7 +26,9 @@ export class TransferComponent {
 
   constructor(
     private transferService: TransferService,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(){
@@ -60,30 +64,27 @@ export class TransferComponent {
       destination: this.phoneNumber.toString(),
       amount: this.amount.toString(),
       description: this.info
-  }
+    }
 
-    this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
-      (response)=>{
-        console.log(response);
-      },
-      (error)=>{
-        console.error("Error transfer:", error);
-      }
-    )
-    // this.transferService
-    //   .transferFunds(
-    //     'http://localhost:8081/transfer',
-    //     this.senderId,
-    //     this.receiverId,
-    //     this.amount
-    //   )
-    //   .subscribe({
-    //     next: (data) => {
-    //       console.log(data);
-    //     },
-    //     error: (error) => {
-    //       console.error(error);
-    //     },
-    //   });
+    if(this.phoneNumber==this.resp.data.phoneNumber){
+      alert("Your just input other phone member");
+    }else{
+      this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
+        (response)=>{
+          console.log(response);
+          this.toastr.success("Transfer successfuly", 'Success');
+          setInterval(()=>{
+            location.reload();
+          }, 2000)
+        },
+        (error)=>{
+          console.error("Error transfer:", error);
+          this.toastr.error("Make sure your phone number is member!", "Error");
+          setInterval(()=>{
+            location.reload();
+          }, 2000)
+        }
+      )
+    }
   }
 }

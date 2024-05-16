@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { RouterTestingModule } from "@angular/router/testing";
 
 @Component({
   selector: 'app-register',
@@ -26,7 +25,7 @@ export class RegisterComponent {
         next: (data) => {
           this.resp = data;
           if(this.resp.statusCode == 201){
-            this.router.navigate(['/login']);
+            this.router.navigate(['/nauth/login']);
             this.toastr.success('Registered successfully', 'Success');
           }
         },

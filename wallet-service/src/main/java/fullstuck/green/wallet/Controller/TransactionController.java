@@ -53,4 +53,15 @@ public class TransactionController {
                 .data(res)
                 .build();
     }
+
+    @GetMapping("/get")
+    public JsonResponse<Object> history(@RequestHeader("Authorization") String authorizationHeader) {
+        String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
+        List<Transaction> data = transactionService.getAllTransaction(userIdFromToken);
+        return JsonResponse.builder()
+                .statusCode(200)
+                .message("GET Data")
+                .data(data)
+                .build();
+    }
 }

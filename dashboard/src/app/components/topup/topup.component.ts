@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-topup',
   standalone: true,
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './topup.component.html',
   styleUrl: './topup.component.scss'
 })
@@ -50,4 +51,6 @@ export class TopupComponent {
       console.error("Failed to Copy")
     })
   }
+
+  test(){}
 }
