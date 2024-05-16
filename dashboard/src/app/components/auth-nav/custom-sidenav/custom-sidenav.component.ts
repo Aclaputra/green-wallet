@@ -42,9 +42,9 @@ export class CustomSidenavComponent {
       route: 'profile',
     },
     {
-      icon: 'library_add',
-      label: 'History',
-      route: 'history',
+      icon: 'money',
+      label: 'Topup',
+      route: 'topup',
     },
     {
       icon: 'money',
@@ -53,13 +53,13 @@ export class CustomSidenavComponent {
     },
     {
       icon: 'money',
-      label: 'Topup',
-      route: 'topup',
-    },
-    {
-      icon: 'money',
       label: 'Payment',
       route: 'payment',
+    },
+    {
+      icon: 'library_add',
+      label: 'History',
+      route: 'history',
     }
   ]);
 

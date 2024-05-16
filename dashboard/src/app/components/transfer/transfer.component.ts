@@ -3,6 +3,8 @@ import { TransferService } from '../../services/transfer.service';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transfer',
@@ -24,7 +26,9 @@ export class TransferComponent {
 
   constructor(
     private transferService: TransferService,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(){
@@ -68,10 +72,17 @@ export class TransferComponent {
       this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
         (response)=>{
           console.log(response);
-          alert("Transfer success!");
+          this.toastr.success("Transfer successfuly", 'Success');
+          setInterval(()=>{
+            location.reload();
+          }, 2000)
         },
         (error)=>{
           console.error("Error transfer:", error);
+          this.toastr.error("Make sure your phone number is member!", "Error");
+          setInterval(()=>{
+            location.reload();
+          }, 2000)
         }
       )
     }

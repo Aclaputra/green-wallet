@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { AuthNavNComponent } from './components/auth-nav-n/auth-nav-n.component';
 import { HistoryComponent } from './components/history/history.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -23,21 +24,17 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: AuthNavComponent,
+    canActivateChild: [authGuard],
     children: [
-      {
-        path: 'profile',
-        title: 'Profile Page',
-        component: ProfileComponent,
-      },
       {
         path: 'dashboard',
         title: 'Dashboard Page',
         component: DashboardComponent,
       },
       {
-        path: 'transfer',
-        title: 'Transfer Page',
-        component: TransferComponent,
+        path: 'profile',
+        title: 'Profile Page',
+        component: ProfileComponent,
       },
       {
         path: 'topup',
@@ -48,6 +45,11 @@ export const routes: Routes = [
         path: 'payment',
         title: 'Payment',
         component: PaymentComponent
+      },
+      {
+        path: 'transfer',
+        title: 'Transfer Page',
+        component: TransferComponent,
       },
       {
         path: 'history',
