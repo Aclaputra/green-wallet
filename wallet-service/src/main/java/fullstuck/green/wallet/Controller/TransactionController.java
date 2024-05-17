@@ -70,6 +70,8 @@ public class TransactionController {
 
     @PostMapping(ApplicationPath.TOPUP)
     public JsonResponse<Object> topup(@RequestBody TopUpRequest req, @RequestHeader("Authorization") String authorizationHeader) {
+        System.out.println(req);
+        System.out.println(authorizationHeader);
         String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
         TopupResponse res = transactionService.topUp(req, userIdFromToken);
         return JsonResponse.builder()
