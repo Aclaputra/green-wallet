@@ -20,7 +20,7 @@ export interface Options {
   reportProgress?: boolean;
   responseType?: 'json';
   withCredentials?: boolean;
-  transferCache?:
+  cache?:
     | {
         includeHeaders?: string[];
       }

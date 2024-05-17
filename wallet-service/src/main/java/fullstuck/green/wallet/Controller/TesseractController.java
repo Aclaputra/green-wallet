@@ -1,6 +1,6 @@
 package fullstuck.green.wallet.Controller;
 
-import fullstuck.green.wallet.Service.TesseractOCRService;
+import fullstuck.green.wallet.Service.Implementator.TesseractOCRService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

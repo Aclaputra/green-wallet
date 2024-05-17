@@ -3,12 +3,10 @@ package fullstuck.green.wallet.Service.Implementator;
 import fullstuck.green.wallet.Model.Entity.*;
 import fullstuck.green.wallet.Model.Request.TopUpRequest;
 import fullstuck.green.wallet.Model.Request.TransferRequest;
-import fullstuck.green.wallet.Model.Response.TopupResponse;
-import fullstuck.green.wallet.Model.Response.TransferResponse;
+import fullstuck.green.wallet.Model.Response.*;
 import fullstuck.green.wallet.Repository.TransactionRepository;
 import fullstuck.green.wallet.Service.*;
 import fullstuck.green.wallet.Strings.TransactionType;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,8 +31,16 @@ public class TransactionServiceImpl implements TransactionService {
     public List<Transaction> getAllTransaction(String accountIdFromToken) {
         AccountDetails accountDetails = accountDetailService.getAccountDetailById(accountIdFromToken);
         User user = userService.getUserById(accountDetails.getUser().getId());
-        return transactionRepository.findAllByuser(user);
+//        return transactionRepository.findAllByuser(user);
+        return null;
 //        return transactionRepository.findByUserId(user.getId());
+    }
+
+    @Override
+    public List<CustomHistoryInterface> findAllCustom(String userIdFromToken) {
+        System.out.println("TEST ????");
+        AccountDetails accountDetails = accountDetailService.getAccountDetailById(userIdFromToken);
+        return transactionRepository.findAllCustom(accountDetails.getUser().getId());
     }
 
     @Override
@@ -45,7 +51,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransDetail transDetail = TransDetail.builder()
                 .amount(req.getAmount())
-                .type(TransactionType.TRANSFER)
+                .type(TransactionType.TRANSFER.toString())
                 .source_id(accountDetails.getUser().getId())
                 .target_id(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId())
                 .description(req.getMessage())
@@ -84,7 +90,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransDetail transDetail = TransDetail.builder()
                 .amount(req.getAmount())
-                .type(TransactionType.TOP_UP)
+                .type(TransactionType.TOP_UP.toString())
                 .source_id(topupPartnerService.getPartnerId(req.getSourceOfFundId()))
                 .target_id(accountDetails.getUser().getId())
                 .description(req.getMessage())
@@ -121,7 +127,7 @@ public class TransactionServiceImpl implements TransactionService {
         if(merchant.getId() != null){
             TransDetail transDetail = TransDetail.builder()
                     .amount(req.getAmount())
-                    .type(TransactionType.PAYMENT)
+                    .type(TransactionType.PAYMENT.toString())
                     .source_id(accountDetails.getUser().getId())
                     .target_id(merchant.getId())
                     .description(req.getMessage())
@@ -159,7 +165,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         TransDetail transDetail = TransDetail.builder()
                 .amount(req.getAmount())
-                .type(TransactionType.TRANSFER)
+                .type(TransactionType.TRANSFER.toString())
                 .source_id(merchant.getId())
                 .target_id(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId())
                 .description(req.getMessage())
@@ -187,7 +193,16 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public Transaction getById(String id) {
-        return transactionRepository.findById(id).get();
+    public HistoryDetailResponse getById(String id) {
+        Transaction transaction = transactionRepository.findById(id).get();
+        return HistoryDetailResponse.builder()
+                .transType(transaction.getTransDetail().getType().toString())
+                .transDate(transaction.getTransDetail().getCreated_at())
+                .message(transaction.getTransDetail().getDescription())
+                .target(transaction.getTransDetail().getTarget_id())
+                .source(transaction.getTransDetail().getSource_id())
+                .amount(transaction.getTransDetail().getAmount())
+                .currBalance(transaction.getTransDetail().getCurr_balance())
+                .build();
     }
 }

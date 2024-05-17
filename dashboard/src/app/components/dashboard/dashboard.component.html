@@ -1,7 +1,7 @@
 <p-chart type="bar" [data]="data" [options]="options"></p-chart>
 
 <div class="card-container">
-  <mat-card class="card-class">
+  <!-- <mat-card class="card-class">
     <mat-card-header>
       <mat-card-title>Average transaction</mat-card-title>
       <mat-card-subtitle>description</mat-card-subtitle>
@@ -10,17 +10,17 @@
       <h1>2.000.000</h1>
     </mat-card-content>
     <mat-card-footer>
-      <!-- <mat-icon>bar_chart</mat-icon> -->
+      <mat-icon>bar_chart</mat-icon>
     </mat-card-footer>
-  </mat-card>
+  </mat-card> -->
 
   <mat-card class="card-class">
     <mat-card-header>
-      <mat-card-title>Income per month</mat-card-title>
+      <mat-card-title>Income {{ currentMonth }}</mat-card-title>
       <mat-card-subtitle>description</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <h1>2.000.000</h1>
+      <h1>{{ incomePerMonth | currency : "Rp. " }}</h1>
     </mat-card-content>
     <mat-card-footer>
       <!-- <mat-icon>bar_chart</mat-icon> -->
@@ -29,11 +29,11 @@
 
   <mat-card class="card-class">
     <mat-card-header>
-      <mat-card-title>Outcome per month</mat-card-title>
+      <mat-card-title>Outcome {{ currentMonth }}</mat-card-title>
       <mat-card-subtitle>description</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <h1>2.000.000</h1>
+      <h1>{{ outcomePerMonth | currency : "Rp. " }}</h1>
     </mat-card-content>
     <mat-card-footer>
       <!-- <mat-icon>bar_chart</mat-icon> -->
@@ -42,11 +42,11 @@
 
   <mat-card class="card-class">
     <mat-card-header>
-      <mat-card-title>Average transaction</mat-card-title>
+      <mat-card-title>Difference</mat-card-title>
       <mat-card-subtitle>description</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <h1>2.000.000</h1>
+      <h1>{{ incomePerMonth - outcomePerMonth | currency : "Rp. " }}</h1>
     </mat-card-content>
     <mat-card-footer>
       <!-- <mat-icon>bar_chart</mat-icon> -->

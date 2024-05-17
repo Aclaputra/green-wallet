@@ -2,21 +2,17 @@ package fullstuck.green.wallet.Controller;
 
 import fullstuck.green.wallet.Model.DataTransferObject.UniversalIDDto;
 import fullstuck.green.wallet.Model.Entity.Transaction;
-import fullstuck.green.wallet.Model.Response.JsonResponse;
+import fullstuck.green.wallet.Model.Response.*;
 import fullstuck.green.wallet.Model.Request.TopUpRequest;
-import fullstuck.green.wallet.Model.Response.TopupResponse;
 import fullstuck.green.wallet.Model.Request.TransferRequest;
-import fullstuck.green.wallet.Model.Response.TransferResponse;
 import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.TransactionService;
 import fullstuck.green.wallet.Strings.ApplicationPath;
 import fullstuck.green.wallet.security.JWTUtil;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -87,8 +83,9 @@ public class TransactionController {
 
     @GetMapping(ApplicationPath.HISTORY + ApplicationPath.ALL)
     public JsonResponse<Object> history(@RequestHeader("Authorization") String authorizationHeader) {
+        System.out.println(ApplicationPath.TRANSACTION+ApplicationPath.HISTORY+ApplicationPath.ALL);
         String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
-        List<Transaction> data = transactionService.getAllTransaction(userIdFromToken);
+        List<CustomHistoryInterface> data = transactionService.findAllCustom(userIdFromToken);
         return JsonResponse.builder()
                 .statusCode(200)
                 .message("Found !")
@@ -98,11 +95,24 @@ public class TransactionController {
 
     @GetMapping(ApplicationPath.HISTORY + ApplicationPath.ID)
     public JsonResponse<Object> historyById(@RequestBody UniversalIDDto req) {
-        Transaction transaction = transactionService.getById(req.getId());
+        System.out.println("TEST");
+        HistoryDetailResponse historyDetailResponse = transactionService.getById(req.getId());
         return JsonResponse.builder()
                 .statusCode(200)
                 .message("Found !")
-                .data(transaction)
+                .data(historyDetailResponse)
+                .build();
+    }
+
+    // Jangan dipake cuma copas get yg di atas
+    @GetMapping(ApplicationPath.HISTORY + ApplicationPath.PAGES)
+    public JsonResponse<Object> historyPagination(@RequestHeader("Authorization") String authorizationHeader) {
+        String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
+        List<Transaction> data = transactionService.getAllTransaction(userIdFromToken);
+        return JsonResponse.builder()
+                .statusCode(200)
+                .message("Found !")
+                .data(data)
                 .build();
     }
 }

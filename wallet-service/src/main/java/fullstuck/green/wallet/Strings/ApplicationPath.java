@@ -16,6 +16,6 @@ public class ApplicationPath {
     public final static String CUSTOM = "/{value}";
     public final static String MERCHANT = "/merchant";
     public final static String ALL = "/all";
-//    public final static String  = "";
+    public final static String PAGES = "/page";
 //    public final static String  = "";
 }

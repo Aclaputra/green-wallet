@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TopupComponent } from './topup.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TopupComponent', () => {
   let component: TopupComponent;
@@ -8,16 +9,15 @@ describe('TopupComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TopupComponent]
+      imports: [TopupComponent, HttpClientTestingModule ]
     })
     .compileComponents();
-    
     fixture = TestBed.createComponent(TopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  beforeEach(()=>{
+  beforeEach(() => {
     fixture = TestBed.createComponent(TopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -27,12 +27,11 @@ describe('TopupComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should copy text to clipboard', ()=>{
+  it('should copy text to clipboard', () => {
     const mockText = 'test text';
     spyOn(navigator.clipboard, 'writeText').and.returnValue(Promise.resolve());
 
     component.copyText(mockText);
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(mockText);
   });
-  
 });

@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TokenService {
   tokenExpiredHour: number = 1;
 
-  constructor() { }
+  constructor() {}
 
-  countDownDeleteTokenLocalStorage(){
+  countDownDeleteTokenLocalStorage() {
     let currentTime = new Date().getTime();
     // console.log("Waktu saat login:", Number(window.localStorage.getItem("tkn-exp"))+(this.tokenExpiredHour*60*60*1000));
     // console.log("Waktu saat ini:  ", currentTime);
     // console.log((Number(window.localStorage.getItem("tkn-exp"))+(this.tokenExpiredHour*60*60*1000))<currentTime);
-    if((Number(window.localStorage.getItem("tkn-exp"))+(this.tokenExpiredHour*60*60*1000))<currentTime){
+    if (
+      Number(window.localStorage.getItem('tkn-exp')) +
+        this.tokenExpiredHour * 60 * 60 * 1000 <
+      currentTime
+    ) {
       localStorage.clear();
     }
   }
 
-  isTokenInLocalStorage(){
-    if(window.localStorage.getItem("grn-tkn")==null){
+  isTokenInLocalStorage() {
+    if (window.localStorage.getItem('grn-tkn') == null) {
       return false;
-    }else{
+    } else {
       return true;
     }
   }

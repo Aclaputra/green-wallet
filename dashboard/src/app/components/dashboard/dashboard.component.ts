@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,50 +17,146 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    CurrencyPipe,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
+  // for line chart
   data: any;
   options: any;
 
-  ngOnInit() {
-    const textColor = '#333'; // hitam
-    const textColorSecondary = '#666'; // abu2
-    const surfaceBorder = '#ccc'; // abu2 muda
-    const greenChartColor = '#198b0e'; // hijau
-    const redChartColor = '#FF0000'; // merah
+  // for card
+  incomePerMonth!: number;
+  outcomePerMonth: number = 2_000_000;
+  currentMonth!: number;
+  previousMonth!: number;
+
+  constructor(private dashboard: DashboardService) {}
+
+  getDataForChart() {
+    this.dashboard
+      .getDataTransaction('http://localhost:8080/transaction')
+      .subscribe({
+        next: (resp: any) => {
+          this.processTransactionPerWeek(resp.data);
+          this.processReportPerMonth(resp.data);
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+  }
+
+  // for line chart
+  processTransactionPerWeek(transactions: any[]) {
+    const dailyIncome = new Array(7).fill(0);
+    const dailyOutcome = new Array(7).fill(0);
+
+    const today = new Date();
+    const oneDay = 24 * 60 * 60 * 1000; // in milliseconds
+    const dayNames = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+
+    for (const transaction of transactions) {
+      const transactionDate = new Date(transaction.transDetail.created_at);
+      const dayIndex = transactionDate.getDay();
+      const daysAgo = Math.floor(
+        (today.getTime() - transactionDate.getTime()) / oneDay
+      );
+      if (daysAgo < 7) {
+        // const dayIndex = 6 - daysAgo;
+        if (transaction.transDetail.type === 'TOP_UP') {
+          dailyIncome[dayIndex] += transaction.transDetail.amount;
+        } else if (transaction.transDetail.type === 'TRANSFER') {
+          dailyOutcome[dayIndex] += transaction.transDetail.amount;
+        }
+      }
+    }
 
     this.data = {
       labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
+        dayNames[0],
+        dayNames[1],
+        dayNames[2],
+        dayNames[3],
+        dayNames[4],
+        dayNames[5],
+        dayNames[6],
       ],
       datasets: [
         {
           label: 'Income',
-          backgroundColor: greenChartColor,
-          borderColor: greenChartColor,
-          data: [65000, 59000, 80000, 81000, 56000, 55000, 40000],
+          backgroundColor: '#198b0e',
+          borderColor: '#198b0e',
+          data: dailyIncome,
         },
         {
           label: 'Outcome',
-          backgroundColor: redChartColor,
-          borderColor: redChartColor,
-          data: [28000, 48000, 40000, 19000, 86000, 27000, 90000],
+          backgroundColor: '#9c1c13',
+          borderColor: '#9c1c13',
+          data: dailyOutcome,
         },
       ],
     };
+  }
+
+  // for card report/month
+  processReportPerMonth(transactions: any[]) {
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+    if (currentMonth !== this.previousMonth) {
+      this.incomePerMonth = 0;
+      this.outcomePerMonth = 0;
+    }
+
+    let incomePerMonth = this.incomePerMonth;
+    let outcomePerMonth = this.outcomePerMonth;
+
+    for (const transaction of transactions) {
+      const transactionDate = new Date(transaction.transDetail.created_at);
+      const transactionMonth = transactionDate.getMonth();
+      const transactionYear = transactionDate.getFullYear();
+
+      if (
+        transactionYear === currentYear &&
+        transactionMonth === currentMonth &&
+        transactionDate.getDate() <= lastDayOfMonth
+      ) {
+        if (transaction.transDetail.type === 'TOP_UP') {
+          incomePerMonth += transaction.transDetail.amount;
+        } else if (transaction.transDetail.type === 'TRANSFER') {
+          outcomePerMonth += transaction.transDetail.amount;
+        }
+      }
+    }
+
+    this.incomePerMonth = incomePerMonth;
+    this.outcomePerMonth = outcomePerMonth;
+    this.previousMonth = currentMonth;
+  }
+
+  ngOnInit() {
+    this.getDataForChart();
+    const textColor = '#333'; // hitam
+    const textColorSecondary = '#666'; // abu2
+    const surfaceBorder = '#ccc'; // abu2 muda
 
     this.options = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
+      locale: 'id-ID',
       plugins: {
         legend: {
           labels: {
@@ -82,6 +179,14 @@ export class DashboardComponent {
         },
         y: {
           ticks: {
+            callback: (value: number, index: number, values: number[]) => {
+              return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+              }).format(value);
+            },
             color: textColorSecondary,
           },
           grid: {

@@ -45,7 +45,7 @@ public class PartnerController {
 
     @PutMapping(ApplicationPath.UPDATE)
     public JsonResponse<Object> updatePartnerName(@RequestBody NewPartnerDTO req) {
-        if(!topupPartnerService.updatePartner(req)){
+        if(topupPartnerService.updatePartner(req)){
             return JsonResponse.builder()
                     .statusCode(200)
                     .data(req)

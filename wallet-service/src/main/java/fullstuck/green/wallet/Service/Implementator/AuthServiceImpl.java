@@ -68,11 +68,11 @@ public class AuthServiceImpl implements AuthService {
                     .role(role)
                     .user(user)
                     .balance(new BigDecimal("0.0"))
+                    .profileImageUrl("https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg")
                     .created_at(Date.from(Instant.now()))
                     .updated_at(Date.from(Instant.now()))
                     .isDeleted(Boolean.FALSE)
                     .isVerified(Boolean.FALSE)
-                    .point(new BigDecimal("0.0"))
                     .build();
             accountDetailService.createAccount(accountDetails);
 
