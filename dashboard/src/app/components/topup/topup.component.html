@@ -1,52 +1,50 @@
 <section class="p-4 p-md-5">
     <div class="row d-flex justify-content-center">
-      <div class="col-md-10 col-lg-8 col-xl-5">
-        <div class="card-wallet rounded-3">
-          <div class="card-body p-4">
-            <div class="text-center mb-4">
-              <p class="fs-3">Top Up</p>
-            </div>
-            <form action="">
-              <div class="d-grid justify-content-center">
-                @for (merchant of merchants.data; track $index) {
-                    <button
-                    type="submit"
-                    class="btn btn-success btn-lg btn-block my-2"
-                    (click)="test()"
-                    type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
-                    >
-                        <div class="row">
-                            <div class="col">
-                                <img [src]="merchant.image" class="image" alt="">
-                            </div>
-                            <div class="col">
-                                {{ merchant.name }}
-                            </div>
-                        </div>
-                    </button>
-                    <form class="dropdown-menu p-4">
-                        <div class="mb-3 text-center">
-                            <label for="exampleDropdownFormEmail2" class="form-label">Nomor akun</label>
-                            <p class="fs-4 number" id="myInput">{{ merchant.nomor }}</p>
-                        </div>
-                        <div class="mb-3 small-font text-center">
-                            <p>Saldo maksimum kamu {{(maxSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'})}}</p>
-                            <p class="margin-min">Masimal penambahan saldo adalah {{ (maxSaldo-currentSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }}</p>
-                            <p class="margin-min">Kamu masih bisa menambahkan saldo hingga {{ ((20000000-currentSaldo)*2).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }} bulan ini.</p>
-                        </div>
-                        <div class="container text-center">
-                            <button type="submit" class="btn btn-light" (click)="copyText(merchant.nomor)">SALIN KODE</button>
-                        </div>
-                        <div class="container py-3 medium-font">
-                            <p>How to topup?</p>
-                            <p>1. Go to merchant {{merchant.name}}</p>
-                            <p>2. Give the code to merchant Admin</p>
-                        </div>
-                    </form>
-                }
-              </div>
-            </form>
+      <div class="col-md-10 col-lg-8 col-xl-5 card-wallet rounded-3">
+        <div class="card-body p-4">
+          <div class="text-center mb-4">
+            <p class="fs-3">Top Up</p>
           </div>
+          <form action="">
+            <div class="d-grid justify-content-center">
+              @for (merchant of merchants.data; track $index) {
+                  <button
+                  type="submit"
+                  class="btn btn-success btn-lg btn-block my-2"
+                  (click)="test()"
+                  type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
+                  >
+                      <div class="row">
+                          <div class="col">
+                              <img [src]="merchant.image" class="image" alt="">
+                          </div>
+                          <div class="col">
+                              {{ merchant.name }}
+                          </div>
+                      </div>
+                  </button>
+                  <form class="dropdown-menu p-4">
+                      <div class="mb-3 text-center">
+                          <label for="exampleDropdownFormEmail2" class="form-label">Nomor akun</label>
+                          <p class="fs-4 number" id="myInput">{{ merchant.nomor }}</p>
+                      </div>
+                      <div class="mb-3 small-font text-center">
+                          <p>Saldo maksimum kamu {{(maxSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'})}}</p>
+                          <p class="margin-min">Masimal penambahan saldo adalah {{ (maxSaldo-currentSaldo).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }}</p>
+                          <p class="margin-min">Kamu masih bisa menambahkan saldo hingga {{ ((20000000-currentSaldo)*2).toLocaleString('id-ID', { style: 'currency', currency: 'IDR'}) }} bulan ini.</p>
+                      </div>
+                      <div class="container text-center">
+                          <button type="submit" class="btn btn-light" (click)="copyText(merchant.nomor)">SALIN KODE</button>
+                      </div>
+                      <div class="container py-3 medium-font">
+                          <p>How to topup?</p>
+                          <p>1. Go to merchant {{merchant.name}}</p>
+                          <p>2. Give the code to merchant Admin</p>
+                      </div>
+                  </form>
+              }
+            </div>
+          </form>
         </div>
       </div>
     </div>

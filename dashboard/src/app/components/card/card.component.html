@@ -1,17 +1,17 @@
 <div class="card shadow text-center mb-3 card-style">
     <div class="card-body">
         <h3 class="card-title text-dark">
-            {{item.transDetail.created_at|date}}
+            {{item.transDate|date}}
+            haha
         </h3>
-        <h4>{{item.transDetail.description}}</h4>
-        
+        <h4>
+            {{item.message}}
+            hihi
+        </h4>
     </div>
   
     <div class="card-footer">
         <div class="d-flex flex-wrap justify-content-center">
-            <!-- @for (item of project.tags; track $index) {
-                <div class="tag me-2 mb-1" [style]="{'background-color': item.color}">{{item}}</div>
-            } -->
             <button class="btn btn-primary me-3" (click)="open()">See details</button>
             <button class="btn btn-secondary" >Send report</button>
         </div>  

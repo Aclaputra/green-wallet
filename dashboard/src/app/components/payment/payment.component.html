@@ -1,121 +1,119 @@
 <section class="p-4 p-md-5">
   <div class="row d-flex justify-content-center">
-    <div class="col-md-10 col-lg-8 col-xl-5">
-      <div class="card-wallet rounded-3">
-        <div class="card-body p-4">
-          <div class="text-center mb-4">
-            <p class="fs-3">Payment</p>
-          </div>
-          <form action="">
-            <p class="fw-bold mb-4 pb-2">To:</p>
-            <div class="d-flex flex-row align-items-center mb-4 pb-1">
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="50" 
-                height="50" 
-                fill="currentColor" 
-                class="bi bi-shop" 
-                viewBox="0 0 16 16"
-              >
-                <path 
-                  d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z"
+    <div class="col-md-10 col-lg-8 col-xl-5 card-wallet rounded-3">
+      <div class="card-body p-4">
+        <div class="text-center mb-4">
+          <p class="fs-3">Payment</p>
+        </div>
+        <form action="">
+          <p class="fw-bold mb-4 pb-2">To:</p>
+          <div class="d-flex flex-row align-items-center mb-4 pb-1">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="50" 
+              height="50" 
+              fill="currentColor" 
+              class="bi bi-shop" 
+              viewBox="0 0 16 16"
+            >
+              <path 
+                d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5M4 15h3v-5H4zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zm3 0h-2v3h2z"
+              />
+            </svg>
+            <div class="flex-fill mx-3">
+              <div class="form-outline">
+                <input
+                  title="Phone"
+                  type="number"
+                  name="amount"
+                  id="formControlLgX"
+                  class="form-control form-control-lg"
+                  value=""
+                  [(ngModel)]="partnerCode"
                 />
-              </svg>
-              <div class="flex-fill mx-3">
-                <div class="form-outline">
-                  <input
-                    title="Phone"
-                    type="number"
-                    name="amount"
-                    id="formControlLgX"
-                    class="form-control form-control-lg"
-                    value=""
-                    [(ngModel)]="partnerCode"
-                  />
-                </div>
               </div>
             </div>
+          </div>
 
-            <div class="d-flex flex-row align-items-center mb-4 pb-1">
+          <div class="d-flex flex-row align-items-center mb-4 pb-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="50"
+              height="50"
+              fill="currentColor"
+              class="bi bi-cash-stack"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+              />
+              <path
+                d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"
+              />
+            </svg>
+            <div class="flex-fill mx-3">
+              <div class="form-outline">
+                <input
+                  title="Amount"
+                  type="number"
+                  step="1000"
+                  min="0"
+                  name="amount"
+                  id="formControlLgXs"
+                  class="form-control form-control-lg"
+                  value=""
+                  [(ngModel)]="amount"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Info</label>
+            <textarea [ngModelOptions]="{standalone: true}" class="form-control"  [(ngModel)]="info" id="exampleFormControlTextarea1" rows="2"></textarea>
+          </div>
+
+          <div class="form-outline mb-4">
+            <div class="saldo-display">
+              <div class="d-flex justify-content-between">
+                <p>Current saldo</p>
+                <p>{{ currentSaldo }}</p>
+              </div>
+              <div class="d-flex justify-content-between border-bottom">
+                <p>Amount</p>
+                <p>{{ amount>=0 ? amount : "Amount cannot min!" }}</p>
+              </div>
+
+              <div class="d-flex justify-content-between mt-3">
+                <p>Calculate</p>
+                <p>{{ currentSaldo-amount<-1 || amount<0 ? "Money not enough!" : currentSaldo-amount}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-grid justify-content-center">
+            <button
+              type="submit"
+              class="btn btn-success btn-lg btn-block"
+              (click)="pay()"
+              [disabled]="amount<0 || amount>currentSaldo ? true : false"
+            >
+              Pay
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="50"
-                height="50"
+                width="16"
+                height="16"
                 fill="currentColor"
-                class="bi bi-cash-stack"
+                class="bi bi-send-fill"
                 viewBox="0 0 16 16"
               >
                 <path
-                  d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
-                />
-                <path
-                  d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"
+                  d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"
                 />
               </svg>
-              <div class="flex-fill mx-3">
-                <div class="form-outline">
-                  <input
-                    title="Amount"
-                    type="number"
-                    step="1000"
-                    min="0"
-                    name="amount"
-                    id="formControlLgXs"
-                    class="form-control form-control-lg"
-                    value=""
-                    [(ngModel)]="amount"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">Info</label>
-              <textarea [ngModelOptions]="{standalone: true}" class="form-control"  [(ngModel)]="info" id="exampleFormControlTextarea1" rows="2"></textarea>
-            </div>
-
-            <div class="form-outline mb-4">
-              <div class="saldo-display">
-                <div class="d-flex justify-content-between">
-                  <p>Current saldo</p>
-                  <p>{{ currentSaldo }}</p>
-                </div>
-                <div class="d-flex justify-content-between border-bottom">
-                  <p>Amount</p>
-                  <p>{{ amount>=0 ? amount : "Amount cannot min!" }}</p>
-                </div>
-
-                <div class="d-flex justify-content-between mt-3">
-                  <p>Calculate</p>
-                  <p>{{ currentSaldo-amount<-1 || amount<0 ? "Money not enough!" : currentSaldo-amount}}</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="d-grid justify-content-center">
-              <button
-                type="submit"
-                class="btn btn-success btn-lg btn-block"
-                (click)="pay()"
-                [disabled]="amount<0 || amount>currentSaldo ? true : false"
-              >
-                Pay
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-send-fill"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"
-                  />
-                </svg>
-              </button>
-            </div>
-          </form>
-        </div>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
