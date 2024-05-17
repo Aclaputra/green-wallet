@@ -16,8 +16,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-@SQLSelect(sql = "SELECT * FROM master_merchant WHERE isDeleted = false")
-@SQLDelete(sql = "UPDATE master_merchant SET isDeleted = true WHERE id = ?")
 public class Merchant {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

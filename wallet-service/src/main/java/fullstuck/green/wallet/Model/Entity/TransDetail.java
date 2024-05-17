@@ -19,7 +19,7 @@ public class TransDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private TransactionType type;
+    private String type;
     private String target_id;
     private String source_id;
     private String description;
