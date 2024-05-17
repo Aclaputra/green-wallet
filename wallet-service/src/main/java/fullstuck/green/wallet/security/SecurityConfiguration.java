@@ -39,7 +39,8 @@ public class SecurityConfiguration {
             "/auth/create-merchant",
             "/transaction/history/all",
             "/transaction/history/id",
-            "/user/profile"
+            "/user/profile",
+            "/merchant/register"
     };
     
     @Bean

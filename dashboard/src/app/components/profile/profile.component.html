@@ -8,20 +8,20 @@
 				</div>
 				
 				<div class="col-lg-6 col-sm-12 mb-3">
-				  <label> Name</label>
+				  <label [style.color]="name.length<4 || name.length > 60 ? 'red' : 'black'"> Name {{name.length<4 || name.length > 60 ? "length at least 4 character and max 60 character" : ""}}</label>
 				  <input type="text" class="form-control" placeholder="Last name" name="name" [(ngModel)]="name" [disabled]="opt">
 				</div>
 				<div class="col-lg-6 col-sm-12 mb-3">
 				  <label> Email</label>
-				  <input type="text" class="form-control" placeholder="Last name" name="bio" [(ngModel)]="email" [disabled]="opt">
+				  <input type="text" class="form-control" placeholder="maksalmina@example.com" name="bio" [(ngModel)]="email" [disabled]="true">
 				</div> 
 				<div class="col-lg-6 col-sm-12 mb-3">
-					<label>Phone</label>
-					<input type="text" class="form-control" placeholder="Last name" name="name" [(ngModel)]="phone" [disabled]="opt">
+					<label [style.color]="phone.length <10 || phone.length >14 || phone[0]!='0' ? 'red' : 'black'">Phone{{phone.length <10 || phone.length >14 || phone[0]!='0' ? " character 11 - 12 digits and start with 0" : ""}}</label>
+					<input type="text" class="form-control" placeholder="Phone" name="name" [(ngModel)]="phone" [disabled]="opt">
 				  </div>
 				  <div class="col-lg-6 col-sm-12 mb-3">
 					<label> BOD</label>
-					<input type="text" class="form-control" placeholder="Last name" name="bio" [ngModel]="bod | date " [disabled]="true">
+					<input type="text" class="form-control" placeholder="12-12-2000" name="bio" [ngModel]="bod | date " [disabled]="true">
 				  </div>   
 				  <div class="d-flex justify-content-center gap-3 my-3">
 					
@@ -48,15 +48,25 @@
 			
 		</div>
 		<div class="d-flex justify-content-center mt-4">
-			<button class="btn fashion-studio fashion-studio-border px-3" (click)="navigateToUpdateProfile()">
+			<button 
+			class="btn fashion-studio fashion-studio-border px-3"
+			[hidden]="!opt"
+			id="update" 
+			(click)="navigateToUpdateProfile()
+			">
 				Update Profile
-			</button>	
+			</button>
+			@if (!opt) {
+				<div>
+					<button 
+						class="btn btn-success"
+						[disabled]="name.length<4 || phone.length <10 || phone.length >14 || phone[0]!='0'" 
+						(click)="updateProfile()">
+							Save
+					</button>
+				</div>
+			}
 		</div>
-		@if (!opt) {
-			<div>
-				<button class="btn btn-secondary">Test</button>
-			</div>
-		}
 
 	</div>
 </div>

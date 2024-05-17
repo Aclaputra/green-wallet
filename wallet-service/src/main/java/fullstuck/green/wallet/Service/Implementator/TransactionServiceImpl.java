@@ -139,7 +139,7 @@ public class TransactionServiceImpl implements TransactionService {
             transDetailService.saveTransactionDetail(transDetail);
 
             accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
-            merchantService.updateBalance(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId(), req.getAmount(), 2);
+            merchantService.updateBalance(merchantService.getByName(req.getDestination()).getId(), req.getAmount(), 2);
 
             Transaction transaction = Transaction.builder()
                     .user(user)
