@@ -15,11 +15,28 @@
   <a
     class="menu-item"
     mat-list-item
-    *ngFor="let item of menuItems()"
+    *ngFor="let item of menuFree()"
     [routerLink]="item.route"
     routerLinkActive="selected-menu-item"
     #rla="routerLinkActive"
     [activated]="rla.isActive"
+  >
+    <mat-icon
+      [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'"
+      matListItemIcon
+      >{{ item.icon }}</mat-icon
+    >
+    <span matListItemTitle *ngIf="!sideNavCollapsed()">{{ item.label }}</span>
+  </a>
+  <a
+    class="menu-item"
+    mat-list-item
+    *ngFor="let item of menuPro()"
+    [routerLink]="currentSaldo>0 ? item.route : 'topup'"
+    routerLinkActive="selected-menu-item"
+    #rla="routerLinkActive"
+    [activated]="rla.isActive"
+    [disabled]="currentSaldo>0 ? false : true"
   >
     <mat-icon
       [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'"

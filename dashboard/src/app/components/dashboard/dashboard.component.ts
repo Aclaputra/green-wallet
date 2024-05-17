@@ -6,6 +6,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardService } from '../../services/dashboard.service';
+import { RpCurrencyPipe } from '../../pipes/rp-currency.pipe';
+
+// interface Transaction {
+//   transDetail: {
+//     created_at: string;
+//     type: string;
+//     amount: number;
+//   }
+// }
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +26,7 @@ import { DashboardService } from '../../services/dashboard.service';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    CurrencyPipe,
+    RpCurrencyPipe,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
@@ -28,8 +37,9 @@ export class DashboardComponent {
   options: any;
 
   // for card
+  monthName!: string;
   incomePerMonth!: number;
-  outcomePerMonth: number = 2_000_000;
+  outcomePerMonth!: number;
   currentMonth!: number;
   previousMonth!: number;
 
@@ -37,22 +47,22 @@ export class DashboardComponent {
 
   getDataForChart() {
     this.dashboard
-      .getDataTransaction('http://localhost:8080/transaction')
+      .getDataTransaction('http://localhost:8080/transaction/history/all')
       .subscribe({
         next: (resp: any) => {
           this.processTransactionPerWeek(resp.data);
           this.processReportPerMonth(resp.data);
         },
         error: (err) => {
-          console.log(err);
+          console.error(err);
         },
       });
   }
 
   // for line chart
   processTransactionPerWeek(transactions: any[]) {
-    const dailyIncome = new Array(7).fill(0);
-    const dailyOutcome = new Array(7).fill(0);
+    const dailyIncome = new Array(7).fill(Number(0));
+    const dailyOutcome = new Array(7).fill(Number(0));
 
     const today = new Date();
     const oneDay = 24 * 60 * 60 * 1000; // in milliseconds
@@ -67,17 +77,19 @@ export class DashboardComponent {
     ];
 
     for (const transaction of transactions) {
-      const transactionDate = new Date(transaction.transDetail.created_at);
+      const transactionDate = new Date(transaction.transDate);
       const dayIndex = transactionDate.getDay();
       const daysAgo = Math.floor(
         (today.getTime() - transactionDate.getTime()) / oneDay
       );
       if (daysAgo < 7) {
-        // const dayIndex = 6 - daysAgo;
-        if (transaction.transDetail.type === 'TOP_UP') {
-          dailyIncome[dayIndex] += transaction.transDetail.amount;
-        } else if (transaction.transDetail.type === 'TRANSFER') {
-          dailyOutcome[dayIndex] += transaction.transDetail.amount;
+        const amount = Number(transaction.amount);
+        if (transaction.transType === 'TOP_UP') {
+          console.info('Income: ' + dailyIncome[dayIndex]);
+          dailyIncome[dayIndex] += amount;
+        } else if (transaction.transType === 'TRANSFER') {
+          console.info('Outcome:' + dailyOutcome[dayIndex]);
+          dailyOutcome[dayIndex] += amount;
         }
       }
     }
@@ -97,13 +109,13 @@ export class DashboardComponent {
           label: 'Income',
           backgroundColor: '#198b0e',
           borderColor: '#198b0e',
-          data: dailyIncome,
+          data: dailyIncome.map((value) => Number(value)),
         },
         {
           label: 'Outcome',
           backgroundColor: '#9c1c13',
           borderColor: '#9c1c13',
-          data: dailyOutcome,
+          data: dailyOutcome.map((value) => Number(value)),
         },
       ],
     };
@@ -117,15 +129,15 @@ export class DashboardComponent {
     const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
     if (currentMonth !== this.previousMonth) {
-      this.incomePerMonth = 0;
-      this.outcomePerMonth = 0;
+      this.incomePerMonth = Number(0);
+      this.outcomePerMonth = Number(0);
     }
 
     let incomePerMonth = this.incomePerMonth;
     let outcomePerMonth = this.outcomePerMonth;
 
     for (const transaction of transactions) {
-      const transactionDate = new Date(transaction.transDetail.created_at);
+      const transactionDate = new Date(transaction.transDate);
       const transactionMonth = transactionDate.getMonth();
       const transactionYear = transactionDate.getFullYear();
 
@@ -134,10 +146,11 @@ export class DashboardComponent {
         transactionMonth === currentMonth &&
         transactionDate.getDate() <= lastDayOfMonth
       ) {
-        if (transaction.transDetail.type === 'TOP_UP') {
-          incomePerMonth += transaction.transDetail.amount;
-        } else if (transaction.transDetail.type === 'TRANSFER') {
-          outcomePerMonth += transaction.transDetail.amount;
+        const amount = Number(transaction.amount);
+        if (transaction.transType === 'TOP_UP') {
+          incomePerMonth += amount;
+        } else if (transaction.transType === 'TRANSFER') {
+          outcomePerMonth += amount;
         }
       }
     }
@@ -148,6 +161,9 @@ export class DashboardComponent {
   }
 
   ngOnInit() {
+    const today = new Date();
+    this.monthName = today.toLocaleString('default', { month: 'long' });
+
     this.getDataForChart();
     const textColor = '#333'; // hitam
     const textColorSecondary = '#666'; // abu2

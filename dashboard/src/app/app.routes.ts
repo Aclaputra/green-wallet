@@ -13,6 +13,8 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { AuthNavNComponent } from './components/auth-nav-n/auth-nav-n.component';
 import { HistoryComponent } from './components/history/history.component';
 import { authGuard } from './guards/auth.guard';
+import { FeaturesComponent } from './components/auth-nav-n/features/features.component';
+import { PricingComponent } from './components/auth-nav-n/pricing/pricing.component';
 // import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
@@ -82,6 +84,14 @@ export const routes: Routes = [
         path: 'forgot-password',
         component: ForgotPasswordComponent,
       },
+      {
+        path: 'features',
+        component: FeaturesComponent
+      },
+      {
+        path: 'pricing',
+        component: PricingComponent
+      }
     ]
   },
   {

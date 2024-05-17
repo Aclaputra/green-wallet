@@ -1,14 +1,30 @@
 package fullstuck.green.wallet.Controller;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
+import fullstuck.green.wallet.Config.Helper;
+import fullstuck.green.wallet.Config.Patcher;
 import fullstuck.green.wallet.Model.DataTransferObject.MerchantDTO;
+import fullstuck.green.wallet.Model.Request.LoginRequest;
+import fullstuck.green.wallet.Model.Request.UpdateProfileRequest;
 import fullstuck.green.wallet.Model.Response.JsonResponse;
 import fullstuck.green.wallet.Service.AuthService;
 import fullstuck.green.wallet.Service.MerchantService;
 import fullstuck.green.wallet.Model.Response.ProfileDetailResponse;
 import fullstuck.green.wallet.Service.UserService;
 import fullstuck.green.wallet.security.JWTUtil;
+import jakarta.validation.ConstraintViolation;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
+
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 @CrossOrigin
 @RestController
@@ -22,23 +38,88 @@ public class UserController {
 
     @GetMapping("/profile")
     public JsonResponse<Object> profileDetail(@RequestHeader("Authorization") String authorizationHeader) {
-        String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
-        ProfileDetailResponse res = userService.getProfileDetail(userIdFromToken);
-        return JsonResponse.builder()
-                .statusCode(200)
-                .data(res)
-                .message("successfully get profile detail")
-                .build();
+        try {
+            String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
+            ProfileDetailResponse res = userService.getProfileDetail(userIdFromToken);
+            return JsonResponse.builder()
+                    .statusCode(200)
+                    .data(res)
+                    .message("successfully get profile detail")
+                    .build();
+        } catch (NoSuchElementException e) {
+            return JsonResponse.builder()
+                    .statusCode(500)
+                    .message("user not found")
+                    .data(e.getMessage())
+                    .build();
+        } catch (Exception e) {
+            return JsonResponse.builder()
+                    .statusCode(500)
+                    .message("failed to update")
+                    .data(e.getMessage())
+                    .build();
+        } finally {
+            Helper.factory.close();
+        }
+    }
+
+    @PatchMapping("/profile")
+    public JsonResponse<Object> updateProfileDetail(@RequestBody UpdateProfileRequest incompleteUpdateProfile, @RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
+            Set<ConstraintViolation<UpdateProfileRequest>> violations = Helper.validator.validate(incompleteUpdateProfile);
+            if (!violations.isEmpty()) {
+                ConstraintViolation<UpdateProfileRequest> violationMessage = violations.stream().findFirst().get();
+                return JsonResponse.builder()
+                        .statusCode(500)
+                        .data(violationMessage.getMessage())
+                        .message("failed to update profile")
+                        .build();
+            }
+            userService.updateProfileDetail(incompleteUpdateProfile, userIdFromToken);
+            return JsonResponse.builder()
+                    .statusCode(201)
+                    .message("successfully updated")
+                    .data(userIdFromToken)
+                    .build();
+        } catch (Exception e) {
+            return JsonResponse.builder()
+                    .statusCode(500)
+                    .message("failed to update profile")
+                    .data(e.getMessage())
+                    .build();
+        } finally {
+            Helper.factory.close();
+        }
     }
 
     @PostMapping("/create-merchant")
     public JsonResponse<Object> newMerchant(@RequestBody MerchantDTO merchantDTO, @RequestHeader("Authorization") String authorizationHeader) {
-        String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
-        merchantService.createMerchant(merchantDTO, userIdFromToken);
-        return JsonResponse.builder()
-                .statusCode(200)
-                .data(merchantDTO)
-                .message("success create new merchant !")
-                .build();
+        try {
+            Set<ConstraintViolation<MerchantDTO>> violations = Helper.validator.validate(merchantDTO);
+            if (!violations.isEmpty()) {
+                ConstraintViolation<MerchantDTO> violationMessage = violations.stream().findFirst().get();
+                return JsonResponse.builder()
+                        .statusCode(500)
+                        .data(violationMessage.getMessage())
+                        .message("failed to create merchant")
+                        .build();
+            }
+            String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
+            merchantService.createMerchant(merchantDTO, userIdFromToken);
+            return JsonResponse.builder()
+                    .statusCode(200)
+                    .data(merchantDTO)
+                    .message("success create new merchant !")
+                    .build();
+        } catch (Exception e) {
+            return JsonResponse.builder()
+                    .statusCode(500)
+                    .message("failed to create merchant")
+                    .data(e.getMessage())
+                    .build();
+        } finally {
+            Helper.factory.close();
+        }
     }
 }

@@ -22,10 +22,7 @@ export class TransferComponent {
   urlProfile: string = 'http://localhost:8080/user/profile';
   resp: any;
 
-  constructor(
-    private http: HttpClient,
-    private toastr: ToastrService,
-  ) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
@@ -43,16 +40,11 @@ export class TransferComponent {
         this.resp = data;
         this.currentSaldo = this.resp.data.balance;
       },
-<<<<<<< HEAD
       (error) => {
         console.error('Error fetch profile:', error);
-=======
-      (error)=>{
-        console.error("Error fetch profile:", error);
-        if(error.status==403){
+        if (error.status == 403) {
           window.localStorage.clear();
         }
->>>>>>> master
       }
     );
   }
@@ -70,32 +62,6 @@ export class TransferComponent {
       description: this.info,
     };
 
-<<<<<<< HEAD
-    if (this.phoneNumber == this.resp.data.phoneNumber) {
-      alert('Your just input other phone member');
-    } else {
-      this.http
-        .post(this.url, clientBody, { headers: clientHeaders })
-        .subscribe(
-          (response) => {
-            console.log(response);
-            this.toastr.success('Transfer successfuly', 'Success');
-            setInterval(() => {
-              location.reload();
-            }, 2000);
-          },
-          (error) => {
-            console.error('Error transfer:', error);
-            this.toastr.error(
-              'Make sure your phone number is member!',
-              'Error'
-            );
-            setInterval(() => {
-              location.reload();
-            }, 2000);
-          }
-        );
-=======
     if(this.phoneNumber==this.resp.data.phoneNumber){
       alert("Your just input other phone member");
     }else{
@@ -115,8 +81,6 @@ export class TransferComponent {
           }, 2000)
         }
       )
->>>>>>> master
     }
   }
-
 }
