@@ -40,7 +40,6 @@ export class TransferComponent {
         this.resp = data;
         this.currentSaldo = this.resp.data.balance;
       },
-
       (error) => {
         console.error('Error fetch profile:', error);
         if (error.status == 403) {
@@ -63,33 +62,25 @@ export class TransferComponent {
       description: this.info,
     };
 
-    if (this.phoneNumber == this.resp.data.phoneNumber) {
-      alert('Your just input other phone member');
-    } else {
-      this.http
-        .post(this.url, clientBody, { headers: clientHeaders })
-        .subscribe(
-          (response) => {
-            console.log(response);
-            this.toastr.success(
-              `Success transfer Rp${clientBody.amount} to ${clientBody.destination}`,
-              'Success'
-            );
-            setInterval(() => {
-              location.reload();
-            }, 2000);
-          },
-          (error) => {
-            console.error('Error transfer:', error);
-            this.toastr.error(
-              'Make sure your phone number is member!',
-              'Error'
-            );
-            setInterval(() => {
-              location.reload();
-            }, 2000);
-          }
-        );
+    if(this.phoneNumber==this.resp.data.phoneNumber){
+      alert("Your just input other phone member");
+    }else{
+      this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
+        (response)=>{
+          console.log(response);
+          this.toastr.success(`Success transfer Rp${clientBody.amount} to ${clientBody.destination}`, 'Success');
+          setInterval(()=>{
+            location.reload();
+          }, 2000)
+        },
+        (error)=>{
+          console.error("Error transfer:", error);
+          this.toastr.error("Make sure your phone number is member!", "Error");
+          setInterval(()=>{
+            location.reload();
+          }, 2000)
+        }
+      )
     }
   }
 }

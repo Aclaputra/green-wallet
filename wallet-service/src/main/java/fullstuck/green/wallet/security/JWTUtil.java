@@ -46,7 +46,7 @@ public class JWTUtil {
         return decodedJWT.getIssuer().equals(appName);
     }
 
-    public Map<String, String> getUserInfoByToken(String token) {
+    public Map<String, String> getUserInfoByToken(String token) throws JWTVerificationException {
         try {
             Algorithm algorithm = Algorithm.HMAC256(jwtSecret.getBytes(StandardCharsets.UTF_8));
             JWTVerifier verifier = JWT.require(algorithm).build();
