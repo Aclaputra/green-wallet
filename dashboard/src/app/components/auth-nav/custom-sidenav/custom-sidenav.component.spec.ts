@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomSidenavComponent } from './custom-sidenav.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
 
 describe('CustomSidenavComponent', () => {
   let component: CustomSidenavComponent;
@@ -8,7 +10,19 @@ describe('CustomSidenavComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomSidenavComponent]
+      imports: [CustomSidenavComponent, HttpClientTestingModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              queryParams: {
+                redirect: 'dashboard'
+              }
+            }
+          }
+        }
+      ]
     })
     .compileComponents();
     

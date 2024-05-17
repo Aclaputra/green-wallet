@@ -65,7 +65,7 @@
     
                       <div data-mdb-input-init class="form-outline mb-4">
                           <label class="form-label text-white px-1" for="birthDate">Birth Date</label>
-                          <input title="Birth Date" type="date" id="form2Example27" class="form-control form-control-lg"  formControlName="birthDate"/>
+                          <input title="Birth Date" type="date" id="form2Example27" class="form-control form-control-lg" [(ngModel)]="myDate" formControlName="birthDate"/>
                           @if (registerForm.get('birthDate')?.hasError('required') &&
                           registerForm.get('birthDate')?.touched) {
                         <div class="form-error" style="color: red;">Birth Date is required</div>
@@ -95,3 +95,4 @@
       </div>
     </div>
   </section>
+  <button (click)="test()">Test</button>

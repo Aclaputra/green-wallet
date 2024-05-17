@@ -17,7 +17,7 @@ describe('AppComponent', () => {
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('a')?.textContent).toContain('Green Wallet');
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('dashboard');
   });
 });

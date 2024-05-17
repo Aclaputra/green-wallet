@@ -1,13 +1,13 @@
 package fullstuck.green.wallet.Service.Implementator;
 
 import fullstuck.green.wallet.Model.Entity.*;
+import fullstuck.green.wallet.Model.Request.TopUpRequest;
 import fullstuck.green.wallet.Model.Request.TransferRequest;
+import fullstuck.green.wallet.Model.Response.TopupResponse;
 import fullstuck.green.wallet.Model.Response.TransferResponse;
 import fullstuck.green.wallet.Repository.TransDetailRepository;
 import fullstuck.green.wallet.Repository.TransactionRepository;
-import fullstuck.green.wallet.Service.AccountDetailService;
-import fullstuck.green.wallet.Service.TransactionService;
-import fullstuck.green.wallet.Service.UserService;
+import fullstuck.green.wallet.Service.*;
 import fullstuck.green.wallet.security.JWTUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,6 +20,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -31,11 +32,17 @@ class TransactionServiceImplTest {
     private TransactionService transactionService;
 
     @MockBean
+    private MerchantService merchantService;
+    @MockBean
+    private TopupPartnerService topupPartnerService;
+    @MockBean
     private AccountDetailService accountDetailService;
     @MockBean
     private TransactionRepository transactionRepository;
     @MockBean
     private TransDetailRepository transDetailRepository;
+    @MockBean
+    private TransDetailService transDetailService;
     @MockBean
     private UserService userService;
     @MockBean
@@ -59,36 +66,77 @@ class TransactionServiceImplTest {
 
     @Test
     void testTransfer() {
-//        String accountIdFromToken = "123";
-//        String phone = "0827382333";
-//
-//        TransDetail transDetail = TransDetail.builder().build();
-//        Transaction transaction = Transaction.builder().build();
-//        User user = User.builder().build();
-//        AccountDetails accountDetails = AccountDetails.builder()
-////                .id("123")
-//                .user(User.builder().build())
-//                .role(Role.builder().build())
-//                .build();
-//        BigDecimal amount = new BigDecimal("100000");
-//        int transType = 1;
-//
-//        TransferRequest transferRequest = TransferRequest.builder()
-//                .type(transType)
-//                .amount(amount)
-//                .destination("321")
-//                .build();
-////        when(accountDetailService.getAccountDetailById(accountIdFromToken)).thenReturn(accountDetails);
-////        when(userService.getUserById(accountDetails.getId())).thenReturn(user);
-////        when(userService.getByPhone(phone)).thenReturn(user);
-////        when(accountDetailService.getAccountData(user)).thenReturn(accountDetails);
-////        when(transactionRepository.save(transaction)).thenReturn(transaction);
-////        when(accountDetailService.updateBalance(accountDetails.getId(), amount, transType))
-//
-//        TransferResponse transferResponse = transactionService.transfer(transferRequest, accountIdFromToken);
-//        verify(accountDetailService, times(2)).updateBalance(any(), amount, transType);
-//        verify(accountDetailService, times(2)).getAccountData(user);
-//
-//        assertNotNull(transferResponse);
+        TransferRequest transferRequest = mock(TransferRequest.class, RETURNS_MOCKS);
+        AccountDetails mockAccounDetails = mock(AccountDetails.class, RETURNS_MOCKS);
+        User mockUser = mock(User.class, RETURNS_DEFAULTS);
+        TransDetail mockTransDetail = mock(TransDetail.class, RETURNS_DEFAULTS);
+        Transaction mockTransaction = mock(Transaction.class, RETURNS_MOCKS);
+
+        when(accountDetailService.getAccountDetailById(any())).thenReturn(mockAccounDetails);
+        when(accountDetailService.getAccountData(any())).thenReturn(mockAccounDetails);
+        when(userService.getUserById(anyString())).thenReturn(mockUser);
+        when(transactionRepository.save(any())).thenReturn(mockTransaction);
+
+        TransferResponse response = transactionService.transfer(transferRequest, "idToken");
+        assertNotNull(response);
+    }
+
+    @Test
+    void testTopUp() {
+        TopUpRequest topUpRequest = mock(TopUpRequest.class, RETURNS_MOCKS);
+        AccountDetails mockAccounDetails = mock(AccountDetails.class, RETURNS_MOCKS);
+        User mockUser = mock(User.class, RETURNS_DEFAULTS);
+        Transaction mockTransaction = mock(Transaction.class, RETURNS_MOCKS);
+
+        when(accountDetailService.getAccountDetailById(any())).thenReturn(mockAccounDetails);
+        when(userService.getUserById(any())).thenReturn(mockUser);
+        when(transactionRepository.save(any())).thenReturn(mockTransaction);
+
+        TopupResponse response = transactionService.topUp(topUpRequest, "tokenId");
+        assertNotNull(response);
+    }
+
+    @Test
+    void testPayment() {
+        TransferRequest transferRequest = mock(TransferRequest.class, RETURNS_MOCKS);
+        AccountDetails mockAccounDetails = mock(AccountDetails.class, RETURNS_MOCKS);
+        Merchant mockMerchant = mock(Merchant.class, RETURNS_MOCKS);
+        User mockUser = mock(User.class, RETURNS_MOCKS);
+        Transaction mockTransaction = mock(Transaction.class, RETURNS_MOCKS);
+
+        when(accountDetailService.getAccountDetailById(any())).thenReturn(mockAccounDetails);
+        when(merchantService.getByName(anyString())).thenReturn(mockMerchant);
+        when(userService.getUserById(any())).thenReturn(mockUser);
+        when(transactionRepository.save(any())).thenReturn(mockTransaction);
+        when(accountDetailService.getAccountData(any())).thenReturn(mockAccounDetails);
+
+        TransferResponse response = transactionService.payment(transferRequest, "idToken");
+        assertNotNull(response);
+    }
+
+    @Test
+    void testMerchantTransfer() {
+        TransferRequest transferRequest = mock(TransferRequest.class, RETURNS_MOCKS);
+        AccountDetails mockAccounDetails = mock(AccountDetails.class, RETURNS_MOCKS);
+        Merchant mockMerchant = mock(Merchant.class, RETURNS_MOCKS);
+        User mockUser = mock(User.class, RETURNS_MOCKS);
+        Transaction mockTransaction = mock(Transaction.class, RETURNS_MOCKS);
+
+        when(accountDetailService.getAccountDetailById(any())).thenReturn(mockAccounDetails);
+        when(userService.getUserById(any())).thenReturn(mockUser);
+        when(userService.getByPhone(any())).thenReturn(mockUser);
+        when(accountDetailService.getAccountData(any())).thenReturn(mockAccounDetails);
+        when(transactionRepository.save(any())).thenReturn(mockTransaction);
+
+        TransferResponse response = transactionService.merchantTransfer(transferRequest, "idToken");
+        assertNotNull(response);
+    }
+
+    @Test
+    void testGetById() {
+        Transaction transaction = mock(Transaction.class, RETURNS_SMART_NULLS);
+        when(transactionRepository.findById(any())).thenReturn(Optional.ofNullable(transaction));
+        Transaction result = transactionService.getById("id");
+        assertEquals(transaction, result);
     }
 }
