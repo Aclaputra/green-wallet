@@ -35,7 +35,7 @@ export class ProfileComponent {
       });
       this.http.get(this.url, { headers: clientHeaders }).subscribe(
         (data)=>{
-          console.log(data);
+          console.log('haha',data);
           this.resp=data;
           console.log(this.resp.statusCode)
           this.balance=this.resp.data.balance;

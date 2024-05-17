@@ -1,4 +1,4 @@
-package fullstuck.green.wallet.Service;
+package fullstuck.green.wallet.Service.Implementator;
 
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;

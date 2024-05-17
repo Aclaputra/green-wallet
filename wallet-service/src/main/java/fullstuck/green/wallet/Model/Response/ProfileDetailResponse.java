@@ -17,6 +17,7 @@ public class ProfileDetailResponse {
     private String phoneNumber;
     private String role;
     private String email;
+    private String profileImageUrl;
     private BigDecimal balance;
     private BigDecimal point;
     private Boolean isVerified;

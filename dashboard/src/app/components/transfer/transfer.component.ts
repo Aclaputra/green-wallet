@@ -15,11 +15,11 @@ export class TransferComponent {
   senderId!: string;
   receiverId!: string;
   amount: number = 0;
-  currentSaldo: number =120000;
-  phoneNumber: number =0;
-  info: string ="message";
-  url: string = "http://localhost:8080/transaction/transfer";
-  urlProfile: string= "http://localhost:8080/user/profile";
+  currentSaldo: number = 120000;
+  phoneNumber: number = 0;
+  info: string = 'message';
+  url: string = 'http://localhost:8080/transaction/transfer';
+  urlProfile: string = 'http://localhost:8080/user/profile';
   resp: any;
 
   constructor(
@@ -27,44 +27,75 @@ export class TransferComponent {
     private toastr: ToastrService,
   ) {}
 
-  ngOnInit(){
-    if(typeof window !== "undefined"){
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
       this.getData();
     }
   }
 
-  getData(){
+  getData() {
     const clientHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+      Authorization: `Bearer ${window.localStorage.getItem('grn-tkn')}`,
     });
     this.http.get(this.urlProfile, { headers: clientHeaders }).subscribe(
-      (data)=>{
-        this.resp=data;
-        this.currentSaldo=this.resp.data.balance
+      (data) => {
+        this.resp = data;
+        this.currentSaldo = this.resp.data.balance;
       },
+<<<<<<< HEAD
+      (error) => {
+        console.error('Error fetch profile:', error);
+=======
       (error)=>{
         console.error("Error fetch profile:", error);
         if(error.status==403){
           window.localStorage.clear();
         }
+>>>>>>> master
       }
-    )
+    );
   }
 
   transfer(): void {
-    console.log(this.amount, this.currentSaldo, this.phoneNumber)
+    console.log(this.amount, this.currentSaldo, this.phoneNumber);
     const clientHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+      Authorization: `Bearer ${window.localStorage.getItem('grn-tkn')}`,
     });
 
-    const clientBody ={
+    const clientBody = {
       destination: this.phoneNumber.toString(),
       amount: this.amount.toString(),
-      description: this.info
-    }
+      description: this.info,
+    };
 
+<<<<<<< HEAD
+    if (this.phoneNumber == this.resp.data.phoneNumber) {
+      alert('Your just input other phone member');
+    } else {
+      this.http
+        .post(this.url, clientBody, { headers: clientHeaders })
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.toastr.success('Transfer successfuly', 'Success');
+            setInterval(() => {
+              location.reload();
+            }, 2000);
+          },
+          (error) => {
+            console.error('Error transfer:', error);
+            this.toastr.error(
+              'Make sure your phone number is member!',
+              'Error'
+            );
+            setInterval(() => {
+              location.reload();
+            }, 2000);
+          }
+        );
+=======
     if(this.phoneNumber==this.resp.data.phoneNumber){
       alert("Your just input other phone member");
     }else{
@@ -84,6 +115,7 @@ export class TransferComponent {
           }, 2000)
         }
       )
+>>>>>>> master
     }
   }
 

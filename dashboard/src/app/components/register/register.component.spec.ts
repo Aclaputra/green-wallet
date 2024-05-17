@@ -50,6 +50,4 @@ describe('RegisterComponent', () => {
   it('should create username form control', () => {
     expect(component.registerForm.get('username')).toBeTruthy();
   });
-
-  
 });

@@ -1,7 +1,5 @@
 package fullstuck.green.wallet.Service.Implementator;
 
-import fullstuck.green.wallet.Model.DataTransferObject.AccountDetailDTO;
-import fullstuck.green.wallet.Model.DataTransferObject.BalanceDTO;
 import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.User;
 import fullstuck.green.wallet.Repository.AccountDetailsRepository;
@@ -17,7 +15,7 @@ import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
-public class AccountDetailImpl implements AccountDetailService {
+public class AccountDetailServiceImpl implements AccountDetailService {
     private final AccountDetailsRepository accountDetailsRepository;
 
     @Override
