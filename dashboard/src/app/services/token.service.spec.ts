@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { TokenService } from './token.service';
 
-fdescribe('TokenService', () => {
+describe('TokenService', () => {
   let service: TokenService;
 
   beforeEach(() => {
@@ -10,9 +10,9 @@ fdescribe('TokenService', () => {
     service = TestBed.inject(TokenService);
   });
 
-  afterEach(()=>{
+  afterEach(() => {
     localStorage.clear();
-  })
+  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -28,14 +28,14 @@ fdescribe('TokenService', () => {
   });
 
   it('should clear localStorage if token is expired', () => {
-    const pastTime = new Date().getTime() - (2 * 60 * 60 * 1000);
+    const pastTime = new Date().getTime() - 2 * 60 * 60 * 1000;
     localStorage.setItem('tkn-exp', pastTime.toString());
     service.countDownDeleteTokenLocalStorage();
     expect(localStorage.getItem('tkn-exp')).toBeNull();
   });
 
   it('should not clear localStorage if token is not expired', () => {
-    const futureTime = new Date().getTime() + (2 * 60 * 60 * 1000);
+    const futureTime = new Date().getTime() + 2 * 60 * 60 * 1000;
     localStorage.setItem('tkn-exp', futureTime.toString());
     localStorage.setItem('grn-tkn', 'test-token');
     service.countDownDeleteTokenLocalStorage();

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';
 
-fdescribe('RegisterComponent', () => {
+describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
 
@@ -47,6 +47,4 @@ fdescribe('RegisterComponent', () => {
   it('should create username form control', () => {
     expect(component.registerForm.get('username')).toBeTruthy();
   });
-
-  
 });
