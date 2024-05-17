@@ -7,6 +7,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DashboardService } from '../../services/dashboard.service';
 
+// interface Transaction {
+//   transDetail: {
+//     created_at: string;
+//     type: string;
+//     amount: number;
+//   }
+// }
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -29,7 +37,7 @@ export class DashboardComponent {
 
   // for card
   incomePerMonth!: number;
-  outcomePerMonth: number = 2_000_000;
+  outcomePerMonth!: number;
   currentMonth!: number;
   previousMonth!: number;
 
@@ -44,7 +52,7 @@ export class DashboardComponent {
           this.processReportPerMonth(resp.data);
         },
         error: (err) => {
-          console.log(err);
+          console.error(err);
         },
       });
   }
