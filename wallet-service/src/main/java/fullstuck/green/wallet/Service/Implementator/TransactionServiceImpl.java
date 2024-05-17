@@ -139,8 +139,16 @@ public class TransactionServiceImpl implements TransactionService {
                     .build();
             transDetailService.saveTransactionDetail(transDetail);
 
-            accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
-            merchantService.updateBalance(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId(), req.getAmount(), 2);
+            try {
+                accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
+            } catch (Exception e) {
+                throw new RuntimeException("Exception A: " + e);
+            }
+            try {
+                merchantService.updateBalance(merchantService.getByName(req.getDestination()).getId(), req.getAmount(), 2);
+            } catch (Exception e) {
+                throw new RuntimeException("Exception B: " + e);
+            }
 
             Transaction transaction = Transaction.builder()
                     .user(user)
@@ -177,7 +185,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .build();
         transDetailService.saveTransactionDetail(transDetail);
 
-        merchantService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
+        merchantService.updateBalance(merchant.getId(), req.getAmount(), 1);
         accountDetailService.updateBalance(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId(), req.getAmount(), 2);
 
         Transaction transaction = Transaction.builder()
@@ -218,6 +226,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Page<CustomHistoryInterface> getHistoryPerPage(Pageable pageable, String id) {
         AccountDetails accountDetails = accountDetailService.getAccountDetailById(id);
+
         return transactionRepository.findAllCustomPage(accountDetails.getUser().getId(), accountDetails.getId(), pageable);
     }
 }
