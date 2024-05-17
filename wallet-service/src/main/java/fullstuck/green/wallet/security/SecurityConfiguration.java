@@ -39,6 +39,7 @@ public class SecurityConfiguration {
             "/auth/create-merchant",
             "/transaction/history/all",
             "/transaction/history/id",
+            "/transaction/history/pages",
             "/user/profile"
     };
     

@@ -11,11 +11,11 @@ import java.util.Date;
 @Builder
 public class HistoryDetailResponse {
     private String id;
-    private String userId;
     private String transType;
     private Date transDate;
     private String message;
     private String target;
+    private String targetName;
     private String source;
     private BigDecimal amount;
     private BigDecimal currBalance;
