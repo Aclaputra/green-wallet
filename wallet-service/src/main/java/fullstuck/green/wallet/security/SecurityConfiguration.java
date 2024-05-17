@@ -31,7 +31,8 @@ public class SecurityConfiguration {
             "/transaction/top-up",
             "/transaction/get",
             "/auth/create-merchant",
-            "/user/profile"
+            "/user/profile",
+            "partner/register"
     };
     
     @Bean
