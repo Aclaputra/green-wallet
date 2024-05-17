@@ -1,27 +1,32 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, DatePipe],
+  imports: [ReactiveFormsModule, DatePipe, FormsModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
+  test() {
+    
+    
+  }
   opt: string|boolean = true;
   navigateToUpdateProfile() {
     this.opt = !this.opt
   }
   resp: any;
   url: string= "http://localhost:8080/user/profile";
-  balance = '1000';
-  name = 'Clarke Jeffery';
-  email = 'Cjg5N@example.com';
-  phone = '1234567890';
-  bod = '01-01-1990';
+  balance = '';
+  name = '';
+  email = '';
+  phone = '';
+  bod = '';
+  img = ''
 
   constructor(
     private http: HttpClient
@@ -37,12 +42,17 @@ export class ProfileComponent {
         (data)=>{
           console.log('haha',data);
           this.resp=data;
+          console.log('uang',this.resp.data.balance);
+          
           console.log(this.resp.statusCode)
-          this.balance=this.resp.data.balance;
+          this.balance = this.resp.data.balance;
+          console.log('blens',this.balance);
+          
           this.name=this.resp.data.name;
           this.email=this.resp.data.email;
           this.phone=this.resp.data.phoneNumber;
           this.bod=(this.resp.data.birthDate).toString().slice(0,10);
+          this.img=this.resp.data.profileImageUrl
         },
         (error)=>{
           console.error("Error fetch profile:", error);

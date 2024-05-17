@@ -24,6 +24,9 @@ export class HistoryComponent {
       {
         next: (data?)=>{
           this.histories=data
+          console.log('data', this.histories);
+          console.log('test',this.histories.data[0].transDate);
+          
         },
         error: (error)=>{
           console.error("Error fetch profile:", error);
