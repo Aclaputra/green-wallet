@@ -1,4 +1,4 @@
-package fullstuck.green.wallet.config;
+package fullstuck.green.wallet.Config;
 
 import net.sourceforge.tess4j.Tesseract;
 import org.springframework.context.annotation.Bean;

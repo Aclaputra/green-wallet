@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class TopupPartnerImpl implements TopupPartnerService {
+public class TopupPartnerServiceImpl implements TopupPartnerService {
     private final TopupPartnerRepository topupPartnerRepository;
 
     @Override
