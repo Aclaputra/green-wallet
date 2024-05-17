@@ -43,12 +43,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     @Transactional
-    public RegisterResponse register(RegisterRequest req) throws ResponseStatusException {
+    public RegisterResponse register(RegisterRequest req) throws Exception {
         try {
             Role role = roleService.getOrSave(RoleEnum.ROLE_USER);
 
             Date birthDate = DateUtils.parseDate(req.getBirthDate(),
-                    new String[] { "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd" });
+                    new String[] { "dd-MM-yyyy" });
             User user = User.builder()
                     .merchant(null)
                     .name(req.getName())
@@ -84,11 +84,13 @@ public class AuthServiceImpl implements AuthService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "user already exist");
         } catch (ParseException e) {
             throw new RuntimeException(e);
+        } catch (Exception e) {
+            throw new Exception(e);
         }
     }
 
     @Override
-    public LoginResponse login(LoginRequest req) {
+    public LoginResponse login(LoginRequest req) throws Exception{
         try {
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     req.getEmail(),
