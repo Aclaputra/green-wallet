@@ -18,7 +18,7 @@ import java.util.Date;
 @Setter
 @Builder
 @SQLSelect(sql = "SELECT * FROM master_account WHERE isDeleted = false")
-@SQLDelete(sql = "UPDATE master_account SET deleted = true WHERE email = ?")
+@SQLDelete(sql = "UPDATE master_account SET isDeleted = true WHERE email = ?")
 @ToString
 public class AccountDetails {
     @Id
@@ -45,8 +45,8 @@ public class AccountDetails {
     private BigDecimal point;
     private String profileImageUrl;
     private Boolean isVerified;
-    private Boolean isDeleted = Boolean.FALSE;
-    private Date created_at = Date.from(Instant.now());
-    private Date updated_at = Date.from(Instant.now());
+    private Boolean isDeleted;
+    private Date created_at;
+    private Date updated_at;
     private Date deleted_at;
 }

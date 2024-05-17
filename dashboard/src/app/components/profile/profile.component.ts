@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -5,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, DatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -41,10 +42,13 @@ export class ProfileComponent {
           this.name=this.resp.data.name;
           this.email=this.resp.data.email;
           this.phone=this.resp.data.phoneNumber;
-          this.bod=this.resp.data.birthDate;
+          this.bod=(this.resp.data.birthDate).toString().slice(0,10);
         },
         (error)=>{
           console.error("Error fetch profile:", error);
+          if(error.status==403){
+            window.localStorage.clear();
+          }
         }
       )
     }

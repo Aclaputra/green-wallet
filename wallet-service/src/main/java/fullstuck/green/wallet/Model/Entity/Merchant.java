@@ -3,9 +3,10 @@ package fullstuck.green.wallet.Model.Entity;
 import fullstuck.green.wallet.Strings.MerchantEnum;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLSelect;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -15,6 +16,8 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
+@SQLSelect(sql = "SELECT * FROM master_merchant WHERE isDeleted = false")
+@SQLDelete(sql = "UPDATE master_merchant SET isDeleted = true WHERE id = ?")
 public class Merchant {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -23,9 +26,9 @@ public class Merchant {
     private String name;
     private MerchantEnum type;
     private Boolean isGreen;
-    private BigDecimal balance = new BigDecimal("0.0");
-    private Date created_at = Date.from(Instant.now());
-    private Date updated_at = Date.from(Instant.now());
+    private BigDecimal balance;
+    private Date created_at;
+    private Date updated_at;
     private Date deleted_at;
-    private Boolean isDeleted = Boolean.FALSE;
+    private Boolean isDeleted;
 }

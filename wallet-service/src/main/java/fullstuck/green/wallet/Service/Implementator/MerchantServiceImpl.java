@@ -31,7 +31,7 @@ public class MerchantServiceImpl implements MerchantService {
     private final RoleRepository roleRepository;
 
     @Override
-    public void createMerchant(MerchantDTO merchantDTO, String id) {
+    public Merchant createMerchant(MerchantDTO merchantDTO, String id) {
         System.out.println("Masuk ke create merchant");
         if(accountDetailService.getAccountDetailById(id).getUser().getMerchant() == null){
             MerchantEnum temp = switch (merchantDTO.getType()) {
@@ -71,6 +71,7 @@ public class MerchantServiceImpl implements MerchantService {
             roleRepository.save(role);
             accountDetailService.updateAccountData(accountDetails);
 
+            return merchant;
         } else {
             throw new IllegalArgumentException("User can only have 1 merchant ! Or Merchant name must be unique");
         }
@@ -95,26 +96,28 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public void updateBalance(BalanceDTO balanceDTO) {
-        Merchant merchant = merchantRepository.findByname(balanceDTO.getData());
+    public void updateBalance(String id, BigDecimal amount, int type) {
+        Merchant merchant = merchantRepository.findById(id).get();
+
         if(merchant != null){
-            if(balanceDTO.getTransType() == 1){
-                if(merchant.getBalance().compareTo(balanceDTO.getAmount()) < 0){
+            if(type == 1){
+                if(merchant.getBalance().compareTo(amount) < 0){
                     throw new IllegalArgumentException("You don't have enough money !");
                 } else {
-                    merchant.setBalance(merchant.getBalance().subtract(balanceDTO.getAmount()));
+                    merchant.setBalance(merchant.getBalance().subtract(amount));
                 }
-            } else if (balanceDTO.getTransType() == 2){
-                merchant.setBalance(merchant.getBalance().add(balanceDTO.getAmount()));
+            } else if (type == 2){
+                merchant.setBalance(merchant.getBalance().add(amount));
             }
+            merchantRepository.save(merchant);
         } else {
-            throw new NoSuchElementException("Merchant with name : " + balanceDTO.getData() + " does not exist !");
+            throw new NoSuchElementException("Merchant with name : " + merchant.getName() + " does not exist !");
         }
     }
 
     @Override
-    public void deleteMerchant(String name) {
-        Merchant merchant = merchantRepository.findByname(name);
+    public void deleteMerchant(String id) {
+        Merchant merchant = merchantRepository.findById(id).get();
         if(!merchant.getIsDeleted()){
             merchant.setDeleted_at(Date.from(Instant.now()));
             merchant.setIsDeleted(Boolean.TRUE);
@@ -135,7 +138,12 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public Merchant getMerchantData(String name) {
+    public Merchant getMerchantData(String id) {
+        return merchantRepository.findById(id).get();
+    }
+
+    @Override
+    public Merchant getByName(String name) {
         return merchantRepository.findByname(name);
     }
 }

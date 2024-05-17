@@ -1,16 +1,16 @@
 package fullstuck.green.wallet.Service;
 
-import fullstuck.green.wallet.Model.DataTransferObject.BalanceDTO;
 import fullstuck.green.wallet.Model.DataTransferObject.MerchantDTO;
 import fullstuck.green.wallet.Model.Entity.Merchant;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 public interface MerchantService {
-    void createMerchant(MerchantDTO merchantDTO, String id);
+    Merchant createMerchant(MerchantDTO merchantDTO, String id);
     void updateMerchant(MerchantDTO merchantDTO);
-    void updateBalance(BalanceDTO balanceDTO);
+    void updateBalance(String id, BigDecimal amount, int type);
     void deleteMerchant(String name);
     void merchantGreen(String name);
-    Merchant getMerchantData(String name);
+    Merchant getMerchantData(String id);
+    Merchant getByName(String name);
 }

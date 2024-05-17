@@ -48,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
             Role role = roleService.getOrSave(RoleEnum.ROLE_USER);
 
             Date birthDate = DateUtils.parseDate(req.getBirthDate(),
-                    new String[] { "yyyy-MM-dd HH:mm:ss", "dd-MM-yyyy" });
+                    new String[] { "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd" });
             User user = User.builder()
                     .merchant(null)
                     .name(req.getName())
@@ -56,6 +56,7 @@ public class AuthServiceImpl implements AuthService {
                     .phone(req.getPhoneNumber())
                     .created_at(Date.from(Instant.now()))
                     .updated_at(Date.from(Instant.now()))
+                    .isDeleted(Boolean.FALSE)
                     .build();
             User savedUser = userRepository.save(user);
 

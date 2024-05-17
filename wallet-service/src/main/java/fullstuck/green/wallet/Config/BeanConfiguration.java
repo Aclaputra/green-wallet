@@ -1,4 +1,4 @@
-package fullstuck.green.wallet.config;
+package fullstuck.green.wallet.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

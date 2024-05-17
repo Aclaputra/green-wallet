@@ -15,7 +15,15 @@ public interface TransactionService {
 
     // Get All for Current User
     List<Transaction> getAllTransaction(String userIdFromToken);
-//    Transaction getTransactionById(String id);
+    //    Transaction getTransactionById(String id);
+
+    /*
+    User : Topup dana ke akun, transfer ke user lain, bayar merchant ( 3 )
+    Merchant : Transfer dana dari akun merchant ke akun pribad ( 1 )
+     */
     TransferResponse transfer(TransferRequest req, String accountDetailIdToken);
     TopupResponse topUp(TopUpRequest req, String accountDetailIdToken);
+    TransferResponse payment(TransferRequest req, String accountDetailIdToken);
+    TransferResponse merchantTransfer(TransferRequest req, String accountDetailIdToken);
+    Transaction getById(String id);
 }
