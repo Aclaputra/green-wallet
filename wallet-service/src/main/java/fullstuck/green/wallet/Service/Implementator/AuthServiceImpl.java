@@ -72,7 +72,6 @@ public class AuthServiceImpl implements AuthService {
                     .updated_at(Date.from(Instant.now()))
                     .isDeleted(Boolean.FALSE)
                     .isVerified(Boolean.FALSE)
-                    .point(new BigDecimal("0.0"))
                     .build();
             accountDetailService.createAccount(accountDetails);
 

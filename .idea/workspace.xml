@@ -5,29 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c6d017dc-ff6c-47c3-9467-3cc7624ee071" name="Changes" comment="feat. fix missing value on master_account &amp; user">
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/DataTransferObject/NewPartnerDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/DataTransferObject/UniversalIDDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/TopupPartner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/TopupPartnerRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TopupPartnerImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/TopupPartnerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/controller/MerchantController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/controller/PartnerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Response/CustomHistoryInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Response/PageResponseWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Response/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Response/TransactionHistoryResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wallet-service/src/main/resources/TODO List Davin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/PartnerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/PartnerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/TransactionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/AccountDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/AccountDetails.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/Merchant.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/Merchant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/TopupPartner.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/TopupPartner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/TransDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/TransDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Request/TransferRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Model/Request/TransferRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/TransactionRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/AuthServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/AuthServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/MerchantServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/MerchantServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TransDetailImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TransDetailImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TransactionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/MerchantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/MerchantService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/TransactionService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Strings/ApplicationPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Strings/ApplicationPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/controller/TransactionController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/security/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,8 +37,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -57,19 +56,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Application.executor": "Run",
-    "Maven.green.wallet [install].executor": "Run",
-    "Maven.green.wallet [validate].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "update__transaction__topup",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/natda/Documents/Enigma/Final Project/final-project/wallet-service/src/main/resources/tessdata"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.green.wallet [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.green.wallet [validate].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;transaction__pagination&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/natda/Documents/Enigma/Final Project/final-project/wallet-service/src/main/resources/tessdata&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\natda\Documents\Enigma\Final Project\final-project\wallet-service\src\main\resources\tessdata" />
