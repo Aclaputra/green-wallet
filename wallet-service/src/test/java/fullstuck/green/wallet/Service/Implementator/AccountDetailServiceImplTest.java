@@ -20,10 +20,10 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class AccountDetailImplTest {
+class AccountDetailServiceImplTest {
 
     @Autowired
-    private AccountDetailImpl accountDetailService;
+    private AccountDetailServiceImpl accountDetailService;
     @MockBean
     private AccountDetailsRepository accountDetailsRepository;
     private AccountDetails accountDetails;

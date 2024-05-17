@@ -1,7 +1,6 @@
 package fullstuck.green.wallet.Service.Implementator;
 
 import fullstuck.green.wallet.Model.DataTransferObject.NewPartnerDTO;
-import fullstuck.green.wallet.Model.Entity.TopupPartner;
 import fullstuck.green.wallet.Repository.TopupPartnerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class TopupPartnerImplTest {
+class TopupPartnerServiceImplTest {
 
     @Autowired
-    private TopupPartnerImpl topupPartnerService;
+    private TopupPartnerServiceImpl topupPartnerService;
     @MockBean
     private TopupPartnerRepository topupPartnerRepository;
 
