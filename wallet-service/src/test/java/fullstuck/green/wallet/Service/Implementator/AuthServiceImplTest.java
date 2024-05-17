@@ -82,7 +82,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void testRegister() {
+    void testRegister() throws Exception {
         User mockUser = mock(User.class, RETURNS_MOCKS);
         Role mockRole = mock(Role.class, RETURNS_MOCKS);
         when(roleService.getOrSave(RoleEnum.ROLE_USER)).thenReturn(mockRole);
@@ -92,7 +92,7 @@ class AuthServiceImplTest {
     }
 
     @Test
-    void testLogin() {
+    void testLogin() throws Exception {
         Authentication authentication = mock(Authentication.class, RETURNS_DEFAULTS);
         String token = "token";
         when(authenticationManager.authenticate(any())).thenReturn(authentication);

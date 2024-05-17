@@ -1,13 +1,18 @@
+
 <div class="card shadow text-center mb-3 card-style">
     <div class="card-body">
         <h3 class="card-title text-dark">
             {{item.transDate|date}}
-            haha
+            
         </h3>
         <h4>
             {{item.message}}
-            hihi
+            
         </h4>
+
+        <h1>
+            {{item | json}}
+        </h1>
     </div>
   
     <div class="card-footer">
@@ -16,4 +21,4 @@
             <button class="btn btn-secondary" >Send report</button>
         </div>  
     </div>
-  </div>
+</div>
