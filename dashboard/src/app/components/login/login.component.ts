@@ -22,10 +22,10 @@ export class LoginComponent {
   constructor(private httpClient: HttpClient, private router: Router, private toastr: ToastrService) {}
 
   login() {
-    console.log(this.username, this.password);
+    console.log(this.email, this.password);
     this.httpClient
       .post(this.url, {
-        email: this.email.toString(),
+        email: this.username.toString(),
         password: this.password.toString(),
       })
       .subscribe(

@@ -3,6 +3,7 @@ import { CardComponent } from '../card/card.component';
 import { TestService } from '../../services/test.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { HistoryService } from '../../services/history.service';
 
 @Component({
   selector: 'app-history',
@@ -12,28 +13,26 @@ import { DatePipe } from '@angular/common';
   styleUrl: './history.component.scss'
 })
 export class HistoryComponent {
-  
   histories:any
-  url: string= "http://localhost:8080/transaction";
 
   test = inject(TestService)
   http = inject(HttpClient)
+  
 
-  ngOnInit(){
-    if(typeof window !== "undefined"){}
-    const clientHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
-    });
-    this.http.get(this.url, { headers: clientHeaders }).subscribe(
-      (data)=>{
-        this.histories=data
-        console.log(this.histories);
-        console.log(this.histories.data[0].transDetail);
-      },
-      (error)=>{
-        console.error("Error fetch profile:", error);
+  constructor(private history: HistoryService) {
+    this.history.fetchData().subscribe(
+      {
+        next: (data?)=>{
+          this.histories=data
+          console.log('data', this.histories);
+          console.log('test',this.histories.data[0].transDate);
+          
+        },
+        error: (error)=>{
+          console.error("Error fetch profile:", error);
+        }
       }
     )
-  }
+   }
+
 }

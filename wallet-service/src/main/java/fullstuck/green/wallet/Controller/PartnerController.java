@@ -19,6 +19,7 @@ import java.util.Set;
 public class PartnerController {
     private final TopupPartnerService topupPartnerService;
 
+    // /partner/register
     @PostMapping(ApplicationPath.REGISTER)
     public JsonResponse<Object> registerPartner(@RequestBody NewPartnerDTO req) {
         try {

@@ -3,12 +3,9 @@ package fullstuck.green.wallet.Controller;
 import fullstuck.green.wallet.Config.Helper;
 import fullstuck.green.wallet.Model.DataTransferObject.UniversalIDDto;
 import fullstuck.green.wallet.Model.Entity.Transaction;
-import fullstuck.green.wallet.Model.Request.RegisterRequest;
-import fullstuck.green.wallet.Model.Response.JsonResponse;
 import fullstuck.green.wallet.Model.Request.TopUpRequest;
-import fullstuck.green.wallet.Model.Response.TopupResponse;
+import fullstuck.green.wallet.Model.Response.*;
 import fullstuck.green.wallet.Model.Request.TransferRequest;
-import fullstuck.green.wallet.Model.Response.TransferResponse;
 import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.TransactionService;
 import fullstuck.green.wallet.Strings.ApplicationPath;
@@ -19,9 +16,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 import java.util.Map;
 import java.util.Set;
-
 @CrossOrigin
 @RestController
 @AllArgsConstructor
@@ -142,6 +139,7 @@ public class TransactionController {
         }
     }
 
+
     @PostMapping(ApplicationPath.TOPUP)
     public JsonResponse<Object> topup(@RequestBody TopUpRequest req, @RequestHeader("Authorization") String authorizationHeader) {
         try {
@@ -176,7 +174,7 @@ public class TransactionController {
     public JsonResponse<Object> history(@RequestHeader("Authorization") String authorizationHeader) {
         try {
             String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
-            List<Transaction> data = transactionService.getAllTransaction(userIdFromToken);
+            List<CustomHistoryInterface> data = transactionService.findAllCustom(userIdFromToken);
             return JsonResponse.builder()
                     .statusCode(200)
                     .message("Found !")
@@ -186,7 +184,7 @@ public class TransactionController {
             return JsonResponse.builder()
                     .statusCode(500)
                     .data(e.getMessage())
-                    .message("failed to topup")
+                    .message("failed to get all history")
                     .build();
         } finally {
             Helper.factory.close();
@@ -196,26 +194,26 @@ public class TransactionController {
     @GetMapping(ApplicationPath.HISTORY + ApplicationPath.ID)
     public JsonResponse<Object> historyById(@RequestBody UniversalIDDto req) {
         try {
-            Transaction transaction = transactionService.getById(req.getId());
             Set<ConstraintViolation<UniversalIDDto>> violations = Helper.validator.validate(req);
             if (!violations.isEmpty()) {
                 ConstraintViolation<UniversalIDDto> violationMessage = violations.stream().findFirst().get();
                 return JsonResponse.builder()
                         .statusCode(500)
                         .data(violationMessage.getMessage())
-                        .message("failed to topup")
+                        .message("failed to get history by id")
                         .build();
             }
+            HistoryDetailResponse historyDetailResponse = transactionService.getById(req.getId());
             return JsonResponse.builder()
                     .statusCode(200)
                     .message("Found !")
-                    .data(transaction)
+                    .data(historyDetailResponse)
                     .build();
         } catch (Exception e) {
             return JsonResponse.builder()
                     .statusCode(500)
                     .data(e.getMessage())
-                    .message("failed to topup")
+                    .message("failed to get history by id")
                     .build();
         } finally {
             Helper.factory.close();

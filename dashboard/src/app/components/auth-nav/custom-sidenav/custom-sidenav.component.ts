@@ -9,6 +9,7 @@ export type MenuItem = {
   icon: string;
   label: string;
   route: string;
+  feature: boolean;
 };
 
 @Component({
@@ -30,53 +31,62 @@ export class CustomSidenavComponent {
     this.sideNavCollapsed.set(val);
   }
 
-  menuItems = signal<MenuItem[]>([
+  menuFree = signal<MenuItem[]>([
     {
       icon: 'dashboard',
       label: 'Dashboard',
       route: 'dashboard',
+      feature: false
     },
     {
       icon: 'account_box',
       label: 'Account',
       route: 'profile',
+      feature: false
     },
     {
       icon: 'money',
       label: 'Topup',
       route: 'topup',
-    },
+      feature: false
+    }
+  ])
+
+  menuPro = signal<MenuItem[]>([
     {
       icon: 'money',
       label: 'Transfer',
       route: 'transfer',
+      feature: true
     },
     {
       icon: 'money',
       label: 'Payment',
       route: 'payment',
+      feature: true
     },
     {
       icon: 'library_add',
       label: 'History',
       route: 'history',
+      feature: true
     }
   ]);
 
   profilePicSize = computed(() => (this.sideNavCollapsed() ? '32' : '100'));
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    if (typeof window !== 'undefined') {
+      this.getData();
+    }
+  }
 
   resp: any;
   urlProfile: string = 'http://localhost:8080/user/profile';
   point: number = 0;
   name: string = '';
-
-  ngOnInit() {
-    if (typeof window !== 'undefined') {
-      this.getData();
-    }
-  }
+  currentSaldo: number = 0;
+  features: boolean = true;
 
   getData() {
     const clientHeaders = new HttpHeaders({
@@ -88,6 +98,10 @@ export class CustomSidenavComponent {
         this.resp = data;
         this.point = this.resp.data.point;
         this.name = this.resp.data.name;
+        console.log("Saldo saat ini:", this.resp.data.balance);
+        console.log("Current Saldo:", this.currentSaldo)
+        this.currentSaldo=this.resp.data.balance;
+        console.log("After edit:", this.currentSaldo)
       },
       (error) => {
         console.error('Error fetch profile:', error);

@@ -30,7 +30,15 @@ public class SecurityConfiguration {
             "/transaction/transfer",
             "/transaction/top-up",
             "/transaction/get",
+            "/partner/register",
+            "/partner/id",
+            "/partner",
+            "/partner/update",
+            "/transaction/payment",
+            "/transaction/merchant/payment",
             "/auth/create-merchant",
+            "/transaction/history/all",
+            "/transaction/history/id",
             "/user/profile"
     };
     

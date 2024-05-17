@@ -29,7 +29,7 @@ export class DashboardComponent {
 
   // for card
   incomePerMonth!: number;
-  outcomePerMonth: number = 2_000_000;
+  outcomePerMonth!: number;
   currentMonth!: number;
   previousMonth!: number;
 
