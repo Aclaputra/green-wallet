@@ -3,12 +3,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RegisterService } from '../../services/register.service';
-import { RouterTestingModule } from '@angular/router/testing';
+//import { RouterTestingModule } from '@angular/router/testing';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule,RouterTestingModule],
+  imports: [RouterLink, ReactiveFormsModule,],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
