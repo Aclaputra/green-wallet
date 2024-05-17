@@ -13,6 +13,10 @@ import fullstuck.green.wallet.security.JWTUtil;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -203,7 +207,8 @@ public class TransactionController {
                         .message("failed to get history by id")
                         .build();
             }
-            HistoryDetailResponse historyDetailResponse = transactionService.getById(req.getId());
+            System.out.println("TEST");
+            HistoryDetailResponse historyDetailResponse = transactionService.getByIdSpecial(req.getId());
             return JsonResponse.builder()
                     .statusCode(200)
                     .message("Found !")
@@ -218,5 +223,21 @@ public class TransactionController {
         } finally {
             Helper.factory.close();
         }
+    }
+
+    // Jangan dipake cuma copas get yg di atas
+    @GetMapping(ApplicationPath.HISTORY + ApplicationPath.PAGES)
+    public PageResponseWrapper<CustomHistoryInterface> historyPagination(@RequestHeader("Authorization") String authorizationHeader,
+                                                                         @RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
+                                                                         @RequestParam(name = "size", defaultValue = "20") Integer pageSize,
+                                                                         @RequestParam(name = "sortBy", defaultValue = "transdate") String sortBy,
+                                                                         @RequestParam(name = "sortDir", defaultValue = "ASC") String sortDir) {
+        String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
+        List<Transaction> data = transactionService.getAllTransaction(userIdFromToken);
+
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortBy);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+        Page<CustomHistoryInterface> page = transactionService.getHistoryPerPage(pageable, userIdFromToken);
+        return new PageResponseWrapper<>(page);
     }
 }

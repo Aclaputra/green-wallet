@@ -4,6 +4,8 @@ import fullstuck.green.wallet.Model.Entity.Transaction;
 import fullstuck.green.wallet.Model.Request.TopUpRequest;
 import fullstuck.green.wallet.Model.Request.TransferRequest;
 import fullstuck.green.wallet.Model.Response.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 //import fullstuck.green.wallet.Model.Response.TransactionResponse;
 
 import java.util.List;
@@ -16,5 +18,7 @@ public interface TransactionService {
     TopupResponse topUp(TopUpRequest req, String accountDetailIdToken);
     TransferResponse payment(TransferRequest req, String accountDetailIdToken);
     TransferResponse merchantTransfer(TransferRequest req, String accountDetailIdToken);
-    HistoryDetailResponse getById(String id);
+    Transaction getById(String id);
+    HistoryDetailResponse getByIdSpecial(String id);
+    Page<CustomHistoryInterface> getHistoryPerPage(Pageable pageable, String id);
 }
