@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RegisterService } from '../../services/register.service';
 //import { RouterTestingModule } from '@angular/router/testing';
@@ -14,9 +14,6 @@ import { RegisterService } from '../../services/register.service';
 })
 export class RegisterComponent {
   resp: any;
-  myDate: string= "";
-  dateFormat: string=this.myDate.toString().substring(8,10)+"-"+this.myDate.toString().substring(5,7)+"-"+this.myDate.toString().substring(0,4);
-  data: any;
 
   constructor(
     private register: RegisterService,
@@ -41,15 +38,6 @@ export class RegisterComponent {
   
   }
 
-  test(){
-    console.log(this.myDate)
-    console.log(this.dateFormat)
-    this.data=this.registerForm.value
-    console.log(this.data)
-    this.data.birthDate=this.dateFormat
-    console.log(this.data)
-  }
-
   registerForm = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.required]),
@@ -60,5 +48,3 @@ export class RegisterComponent {
   })
 
 }
-
-// 

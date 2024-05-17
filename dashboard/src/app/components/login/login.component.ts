@@ -25,7 +25,7 @@ export class LoginComponent {
     console.log(this.email, this.password);
     this.httpClient
       .post(this.url, {
-        email: this.email.toString(),
+        email: this.username.toString(),
         password: this.password.toString(),
       })
       .subscribe(

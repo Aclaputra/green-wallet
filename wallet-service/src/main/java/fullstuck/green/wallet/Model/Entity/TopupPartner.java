@@ -16,7 +16,7 @@ import java.util.Date;
 @Setter
 @Builder
 //@SQLSelect(sql = "SELECT * FROM master_partner WHERE isDeleted = false")
-@SQLDelete(sql = "UPDATE master_partner SET isDeleted = true WHERE id = ?")
+//@SQLDelete(sql = "UPDATE master_partner SET isDeleted = true WHERE id = ?")
 public class TopupPartner {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
