@@ -34,7 +34,6 @@ export class DetailsComponent {
 
   ngOnInit() {
     this.id = this.historyS.getId();
-    console.log('lala', this.id);
 
     this.historyS.fetchDataById(this.id).subscribe({
       next: (data) => {
@@ -48,13 +47,13 @@ export class DetailsComponent {
         if (this.transType == 'TOP_UP') {
           this.class = 'alert alert-primary';
         } else if (this.transType == 'TRANSFER') {
-          this.class = 'alert alert-warning';
+          this.class = 'alert alert-danger';
         } else if (this.transType == 'PAYMENT') {
           this.class = 'alert alert-success'
         }
       },
       error: (error) => {
-        console.error('Error fetch profile:', error);
+        console.error('Error fetch history:', error);
       },
     });
   }
