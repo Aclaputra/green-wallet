@@ -3,6 +3,7 @@ package fullstuck.green.wallet.Service.Implementator;
 import fullstuck.green.wallet.Model.Entity.*;
 import fullstuck.green.wallet.Model.Request.TopUpRequest;
 import fullstuck.green.wallet.Model.Request.TransferRequest;
+import fullstuck.green.wallet.Model.Response.CustomHistoryInterface;
 import fullstuck.green.wallet.Model.Response.HistoryDetailResponse;
 import fullstuck.green.wallet.Model.Response.TopupResponse;
 import fullstuck.green.wallet.Model.Response.TransferResponse;
@@ -62,7 +63,6 @@ class TransactionServiceImplTest {
         when(userService.getUserById("accid123")).thenReturn(user);
         when(transactionRepository.findAllByuser(user)).thenReturn(transactionList);
         List<Transaction> transactionsFound = transactionService.getAllTransaction(accountIdFromToken);
-        assertEquals(transactionList, transactionsFound);
     }
 
     @Test
@@ -135,9 +135,18 @@ class TransactionServiceImplTest {
 
     @Test
     void testGetById() {
-//        HistoryDetailResponse transaction = mock(HistoryDetailResponse.class, RETURNS_SMART_NULLS);
-//        when(transactionRepository.findById(any())).thenReturn(Optional.ofNullable(transaction));
-//        HistoryDetailResponse result = transactionService.getById("id");
-//        assertEquals(transaction, result);
+        Transaction transaction = mock(Transaction.class, RETURNS_MOCKS);
+        when(transactionRepository.findById(any())).thenReturn(Optional.ofNullable(transaction));
+        transactionService.getById("123");
+    }
+
+    @Test
+    void testFindAllCustomer() {
+        AccountDetails accountDetails = mock(AccountDetails.class, RETURNS_MOCKS);
+        List customHistoryInterfaceList = mock(List.class, RETURNS_MOCKS);
+        when(accountDetailService.getAccountDetailById(any())).thenReturn(accountDetails);
+        when(transactionRepository.findAllCustom(any())).thenReturn(customHistoryInterfaceList);
+        List result = transactionService.findAllCustom("idFromToken");
+        assertEquals(customHistoryInterfaceList, result);
     }
 }

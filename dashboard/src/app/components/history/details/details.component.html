@@ -1,95 +1,146 @@
 <div class="container py-5">
-  
-    <div class="row">
-      <div class="col-lg-7 mx-auto">
-        <div class="bg-white rounded-lg shadow-sm p-5">
-          <!-- Credit card form tabs -->
-          <ul role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-3">
-            <li class="nav-item">
-              <a data-toggle="pill" href="#nav-tab-card" class="nav-link active rounded-pill">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-text-fill" viewBox="0 0 16 16">
-                    <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5M5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1"/>
-                  </svg>
-                    Details
-                </a>
-            </li>
-          </ul>
-          <!-- End -->
-  
-  
-          <!-- Credit card form content -->
-          <div class="tab-content">
-  
-            <!-- credit card info-->
-            <div id="nav-tab-card" class="tab-pane fade show active">
-              <p class="alert alert-success">{{"This transfer payment is success" | type}}</p>
-              <form role="form">
-                <div class="form-group">
-                  <label for="username">Date</label>
-                  <input type="text" [disabled]="true" name="date" placeholder="01-01-2024" required class="form-control">
+  <div class="row">
+    <div class="col-lg-7 mx-auto">
+      <div class="bg-white rounded-lg shadow-sm p-5">
+        <!-- Credit card form tabs -->
+        <ul
+          role="tablist"
+          class="nav bg-light nav-pills rounded-pill nav-fill mb-3"
+        >
+          <li class="nav-item">
+            <p
+              data-toggle="pill"
+              href="#nav-tab-card"
+              class="nav-link active rounded-pill"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-file-text-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M5 4h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m-.5 2.5A.5.5 0 0 1 5 6h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5M5 8h6a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1m0 2h3a.5.5 0 0 1 0 1H5a.5.5 0 0 1 0-1"
+                />
+              </svg>
+              Details
+            </p>
+          </li>
+        </ul>
+        <!-- End -->
+        <!-- Credit card form content -->
+        <div class="tab-content">
+          <!-- credit card info-->
+          <div id="nav-tab-card" class="tab-pane fade show active">
+            <p [class]="class">{{ transType | type }}</p>
+            <form role="form">
+              <div class="form-group">
+                <label for="username">Date</label>
+                <input
+                  type="text"
+                  [disabled]="true"
+                  name="date"
+                  [placeholder]="date"
+                  required
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group">
+                <label for="cardNumber">Description</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    [disabled]="true"
+                    name="cardNumber"
+                    [placeholder]="desc"
+                    class="form-control"
+                    required
+                  />
                 </div>
-                <div class="form-group">
-                  <label for="cardNumber">Description</label>
-                  <div class="input-group">
-                    <input type="text" [disabled]="true" name="cardNumber" placeholder="This is a description" class="form-control" required>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-8">
-                    <div class="form-group">
-                      <label><span class="hidden-xs">To</span></label>
-                      <div class="input-group">
-                        <input type="number" [disabled]="true" placeholder="MM" name="" class="form-control" required>
-                      </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="form-group">
+                    <label><span class="hidden-xs">To</span></label>
+                    <div class="input-group">
+                      <input
+                        type="number"
+                        [disabled]="true"
+                        [placeholder]="targetName"
+                        name=""
+                        class="form-control"
+                        required
+                      />
                     </div>
                   </div>
-                  <div class="col-sm-4">
-                    <div class="form-group mb-4">
-                      <label title="Three-digits code on the back of your card">Nominal                          
-                        </label>
-                      <input type="text" [disabled]="true" placeholder="XXX" name="" maxlength="3" required class="form-control">
-                    </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group mb-4">
+                    <label title="Three-digits code on the back of your card"
+                      >Nominal
+                    </label>
+                    <input
+                      type="text"
+                      [disabled]="true"
+                      [placeholder]="amount"
+                      name=""
+                      maxlength="3"
+                      required
+                      class="form-control"
+                    />
                   </div>
                 </div>
-                <button type="button" class="subscribe btn btn-primary btn-block rounded-pill shadow-sm" (click)="onConfirm()"> Confirm  </button>
-              </form>
-            </div>
-            <!-- End -->
-  
-            <!-- Paypal info -->
-            <div id="nav-tab-paypal" class="tab-pane fade">
-              <p>Paypal is easiest way to pay online</p>
-              <p>
-                <button type="button" class="btn btn-primary rounded-pill"><i class="fa fa-paypal mr-2"></i> Log into my Paypal</button>
-              </p>
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-            <!-- End -->
-  
-            <!-- bank transfer info -->
-            <div id="nav-tab-bank" class="tab-pane fade">
-              <h6>Bank account details</h6>
-              <dl>
-                <dt>Bank</dt>
-                <dd> THE WORLD BANK</dd>
-              </dl>
-              <dl>
-                <dt>Account number</dt>
-                <dd>7775877975</dd>
-              </dl>
-              <dl>
-                <dt>IBAN</dt>
-                <dd>CZ7775877975656</dd>
-              </dl>
-              <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              </p>
-            </div>
-            <!-- End -->
+              </div>
+              <button
+                type="button"
+                class="subscribe btn btn-primary btn-block rounded-pill shadow-sm"
+                (click)="onConfirm()"
+              >
+                Confirm
+              </button>
+            </form>
           </div>
           <!-- End -->
-  
+          <!-- Paypal info -->
+          <div id="nav-tab-paypal" class="tab-pane fade">
+            <p>Paypal is easiest way to pay online</p>
+            <p>
+              <button type="button" class="btn btn-primary rounded-pill">
+                <i class="fa fa-paypal mr-2"></i> Log into my Paypal
+              </button>
+            </p>
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <!-- End -->
+          <!-- bank transfer info -->
+          <div id="nav-tab-bank" class="tab-pane fade">
+            <h6>Bank account details</h6>
+            <dl>
+              <dt>Bank</dt>
+              <dd>THE WORLD BANK</dd>
+            </dl>
+            <dl>
+              <dt>Account number</dt>
+              <dd>7775877975</dd>
+            </dl>
+            <dl>
+              <dt>IBAN</dt>
+              <dd>CZ7775877975656</dd>
+            </dl>
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+          <!-- End -->
         </div>
+        <!-- End -->
       </div>
     </div>
   </div>
+</div>
