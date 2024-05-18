@@ -10,7 +10,6 @@ import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.TransactionService;
 import fullstuck.green.wallet.Strings.ApplicationPath;
 import fullstuck.green.wallet.security.JWTUtil;
-import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
