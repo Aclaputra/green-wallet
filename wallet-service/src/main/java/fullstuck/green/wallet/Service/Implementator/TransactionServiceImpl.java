@@ -139,6 +139,8 @@ public class TransactionServiceImpl implements TransactionService {
                     .build();
             transDetailService.saveTransactionDetail(transDetail);
 
+            accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
+            merchantService.updateBalance(merchantService.getByName(req.getDestination()).getId(), req.getAmount(), 2);
             try {
                 accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
             } catch (Exception e) {
