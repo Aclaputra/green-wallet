@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c6d017dc-ff6c-47c3-9467-3cc7624ee071" name="Changes" comment="feat. fix missing value on master_account &amp; user">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/TransactionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/TransactionRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TransactionServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/security/SecurityConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" afterDir="false" />
@@ -19,8 +21,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -45,7 +47,7 @@
     "Maven.green.wallet [validate].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "hotfix",
+    "git-widget-placeholder": "pagination",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/natda/Documents/Enigma/Final Project/final-project/wallet-service/src/main/resources/tessdata"

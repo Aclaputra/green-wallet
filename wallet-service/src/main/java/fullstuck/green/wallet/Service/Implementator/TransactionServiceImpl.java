@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -226,7 +227,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Page<CustomHistoryInterface> getHistoryPerPage(Pageable pageable, String id) {
         AccountDetails accountDetails = accountDetailService.getAccountDetailById(id);
-
-        return transactionRepository.findAllCustomPage(accountDetails.getUser().getId(), accountDetails.getId(), pageable);
+        return transactionRepository.findAllCustomPage(pageable, accountDetails.getUser().getId(), accountDetails.getId());
     }
 }
