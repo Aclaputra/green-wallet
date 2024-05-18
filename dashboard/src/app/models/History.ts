@@ -5,5 +5,6 @@ export interface History {
     amount: number | string
     balance: number
     targetId: string
+    targetName: string
     message: string
 }
