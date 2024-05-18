@@ -1,7 +1,8 @@
 <p-chart type="bar" [data]="data" [options]="options"></p-chart>
 
-<div class="card-container">
-  <mat-card class="card-class">
+<div class="d-flex align-content-start flex-wrap">
+
+  <mat-card class="card card-style">
     <mat-card-header>
       <mat-card-title>Income {{ monthName }}</mat-card-title>
       <mat-card-subtitle>description</mat-card-subtitle>
@@ -14,7 +15,7 @@
     </mat-card-footer>
   </mat-card>
 
-  <mat-card class="card-class">
+  <mat-card class="card-class card-style">
     <mat-card-header>
       <mat-card-title>Outcome {{ monthName }}</mat-card-title>
       <mat-card-subtitle>description</mat-card-subtitle>
@@ -27,7 +28,7 @@
     </mat-card-footer>
   </mat-card>
 
-  <mat-card class="card-class">
+  <mat-card class="card-class card-style">
     <mat-card-header>
       <mat-card-title>Difference {{ monthName }}</mat-card-title>
       <mat-card-subtitle>description</mat-card-subtitle>
@@ -41,4 +42,5 @@
       <!-- <mat-icon>bar_chart</mat-icon> -->
     </mat-card-footer>
   </mat-card>
+
 </div>

@@ -90,6 +90,8 @@ export class DashboardComponent {
         } else if (transaction.transType === 'TRANSFER') {
           console.info('Outcome:' + dailyOutcome[dayIndex]);
           dailyOutcome[dayIndex] += amount;
+        } else if (transaction.transType === 'PAYMENT') {
+          dailyOutcome[dayIndex] += amount;
         }
       }
     }
