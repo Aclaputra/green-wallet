@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ChartModule } from 'primeng/chart';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -88,7 +88,9 @@ export class DashboardComponent {
           console.info('Income: ' + dailyIncome[dayIndex]);
           dailyIncome[dayIndex] += amount;
         } else if (transaction.transType === 'TRANSFER') {
-          console.info('Outcome:' + dailyOutcome[dayIndex]);
+          console.info('Outcome: ' + dailyOutcome[dayIndex]);
+          dailyOutcome[dayIndex] += amount;
+        } else if (transaction.transType === 'PAYMENT') {
           dailyOutcome[dayIndex] += amount;
         }
       }
@@ -150,6 +152,8 @@ export class DashboardComponent {
         if (transaction.transType === 'TOP_UP') {
           incomePerMonth += amount;
         } else if (transaction.transType === 'TRANSFER') {
+          outcomePerMonth += amount;
+        } else if (transaction.transType === 'PAYMENT') {
           outcomePerMonth += amount;
         }
       }

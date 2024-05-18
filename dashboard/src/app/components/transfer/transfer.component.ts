@@ -3,11 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { RpCurrencyPipe } from '../../pipes/rp-currency.pipe';
+import { RpCurrencyDirective } from '../../directives/rp-currency.directive';
 
 @Component({
   selector: 'app-transfer',
   standalone: true,
-  imports: [FormsModule, CurrencyPipe],
+  imports: [FormsModule, RpCurrencyPipe, RpCurrencyDirective],
   templateUrl: './transfer.component.html',
   styleUrl: './transfer.component.scss',
 })
@@ -22,10 +24,7 @@ export class TransferComponent {
   urlProfile: string = 'http://localhost:8080/user/profile';
   resp: any;
 
-  constructor(
-    private http: HttpClient,
-    private toastr: ToastrService,
-  ) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   ngOnInit() {
     if (typeof window !== 'undefined') {
@@ -43,9 +42,9 @@ export class TransferComponent {
         this.resp = data;
         this.currentSaldo = this.resp.data.balance;
       },
-      (error)=>{
-        console.error("Error fetch profile:", error);
-        if(error.status==403){
+      (error) => {
+        console.error('Error fetch profile:', error);
+        if (error.status == 403) {
           window.localStorage.clear();
         }
       }
@@ -65,26 +64,33 @@ export class TransferComponent {
       description: this.info,
     };
 
-    if(this.phoneNumber==this.resp.data.phoneNumber){
-      alert("Your just input other phone member");
-    }else{
-      this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
-        (response)=>{
-          console.log(response);
-          this.toastr.success(`Success transfer Rp${clientBody.amount} to ${clientBody.destination}`, 'Success');
-          setInterval(()=>{
-            location.reload();
-          }, 2000)
-        },
-        (error)=>{
-          console.error("Error transfer:", error);
-          this.toastr.error("Make sure your phone number is member!", "Error");
-          setInterval(()=>{
-            location.reload();
-          }, 2000)
-        }
-      )
+    if (this.phoneNumber == this.resp.data.phoneNumber) {
+      alert('Your just input other phone member');
+    } else {
+      this.http
+        .post(this.url, clientBody, { headers: clientHeaders })
+        .subscribe(
+          (response) => {
+            console.log(response);
+            this.toastr.success(
+              `Success transfer Rp${clientBody.amount} to ${clientBody.destination}`,
+              'Success'
+            );
+            setInterval(() => {
+              location.reload();
+            }, 2000);
+          },
+          (error) => {
+            console.error('Error transfer:', error);
+            this.toastr.error(
+              'Make sure your phone number is member!',
+              'Error'
+            );
+            setInterval(() => {
+              location.reload();
+            }, 2000);
+          }
+        );
     }
   }
-
 }
