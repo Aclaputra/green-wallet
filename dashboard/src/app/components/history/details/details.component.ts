@@ -48,7 +48,7 @@ export class DetailsComponent {
         if (this.transType == 'TOP_UP') {
           this.class = 'alert alert-primary';
         } else if (this.transType == 'TRANSFER') {
-          this.class = 'alert alert-warning';
+          this.class = 'alert alert-danger';
         } else if (this.transType == 'PAYMENT') {
           this.class = 'alert alert-success'
         }
