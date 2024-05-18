@@ -9,6 +9,9 @@ import fullstuck.green.wallet.Service.*;
 import fullstuck.green.wallet.Strings.TransactionType;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -38,9 +41,8 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<CustomHistoryInterface> findAllCustom(String userIdFromToken) {
-        System.out.println("TEST ????");
         AccountDetails accountDetails = accountDetailService.getAccountDetailById(userIdFromToken);
-        return transactionRepository.findAllCustom(accountDetails.getUser().getId());
+        return transactionRepository.findAllCustom(accountDetails.getUser().getId(), accountDetails.getId());
     }
 
     @Override
@@ -139,7 +141,17 @@ public class TransactionServiceImpl implements TransactionService {
             transDetailService.saveTransactionDetail(transDetail);
 
             accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
-            merchantService.updateBalance(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId(), req.getAmount(), 2);
+            merchantService.updateBalance(merchantService.getByName(req.getDestination()).getId(), req.getAmount(), 2);
+            try {
+                accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
+            } catch (Exception e) {
+                throw new RuntimeException("Exception A: " + e);
+            }
+            try {
+                merchantService.updateBalance(merchantService.getByName(req.getDestination()).getId(), req.getAmount(), 2);
+            } catch (Exception e) {
+                throw new RuntimeException("Exception B: " + e);
+            }
 
             Transaction transaction = Transaction.builder()
                     .user(user)
@@ -176,7 +188,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .build();
         transDetailService.saveTransactionDetail(transDetail);
 
-        merchantService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
+        merchantService.updateBalance(merchant.getId(), req.getAmount(), 1);
         accountDetailService.updateBalance(accountDetailService.getAccountData(userService.getByPhone(req.getDestination())).getId(), req.getAmount(), 2);
 
         Transaction transaction = Transaction.builder()
@@ -193,16 +205,30 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public HistoryDetailResponse getById(String id) {
+    public Transaction getById(String id) {
+        return transactionRepository.findById(id).get();
+    }
+
+    @Override
+    public HistoryDetailResponse getByIdSpecial(String id) {
         Transaction transaction = transactionRepository.findById(id).get();
+
         return HistoryDetailResponse.builder()
+                .id(id)
                 .transType(transaction.getTransDetail().getType().toString())
                 .transDate(transaction.getTransDetail().getCreated_at())
                 .message(transaction.getTransDetail().getDescription())
                 .target(transaction.getTransDetail().getTarget_id())
+                .targetName(accountDetailService.getAccountDetailById(transaction.getTransDetail().getTarget_id()).getUser().getName())
                 .source(transaction.getTransDetail().getSource_id())
                 .amount(transaction.getTransDetail().getAmount())
                 .currBalance(transaction.getTransDetail().getCurr_balance())
                 .build();
+    }
+
+    @Override
+    public Page<CustomHistoryInterface> getHistoryPerPage(Pageable pageable, String id) {
+        AccountDetails accountDetails = accountDetailService.getAccountDetailById(id);
+        return transactionRepository.findAllCustomPage(pageable, accountDetails.getUser().getId(), accountDetails.getId());
     }
 }

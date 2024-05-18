@@ -2,6 +2,8 @@ package fullstuck.green.wallet.Model.Response;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Data
 @Setter
 @Getter
@@ -11,7 +13,7 @@ import lombok.*;
 public class TransactionResponse {
     private String id;
     private String description;
-    private String amount;
+    private BigDecimal amount;
     private String type;
     private String from;
     private String destination;
