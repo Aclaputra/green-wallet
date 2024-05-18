@@ -8,14 +8,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { DashboardService } from '../../services/dashboard.service';
 import { RpCurrencyPipe } from '../../pipes/rp-currency.pipe';
 
-// interface Transaction {
-//   transDetail: {
-//     created_at: string;
-//     type: string;
-//     amount: number;
-//   }
-// }
-
 @Component({
   selector: 'app-dashboard',
   standalone: true,

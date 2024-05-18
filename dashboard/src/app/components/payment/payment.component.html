@@ -24,7 +24,7 @@
               <div class="form-outline">
                 <input
                   title="Merchant Name"
-                  type="text"
+                  type="tel"
                   name="amount"
                   id="formControlLgX"
                   class="form-control form-control-lg"
@@ -54,7 +54,7 @@
               <div class="form-outline">
                 <input
                   title="Amount"
-                  type="number"
+                  type="tel"
                   step="1000"
                   min="0"
                   name="amount"
@@ -62,6 +62,13 @@
                   class="form-control form-control-lg"
                   value=""
                   [(ngModel)]="amount"
+                  currencyMask
+                  [options]="{
+                    prefix: 'Rp ',
+                    thousands: '.',
+                    precision: 0,
+                    allowNegative: false
+                  }"
                 />
               </div>
             </div>

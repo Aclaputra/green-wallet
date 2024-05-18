@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RpCurrencyPipe } from '../../pipes/rp-currency.pipe';
 import { ToastrService } from 'ngx-toastr';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [FormsModule, RpCurrencyPipe],
+  imports: [FormsModule, RpCurrencyPipe, NgxCurrencyDirective],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.scss',
 })

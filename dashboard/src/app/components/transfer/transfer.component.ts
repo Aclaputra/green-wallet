@@ -1,15 +1,21 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { CurrencyPipe } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { RpCurrencyPipe } from '../../pipes/rp-currency.pipe';
-import { RpCurrencyDirective } from '../../directives/rp-currency.directive';
+import { NgxCurrencyDirective } from 'ngx-currency';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input-gg';
 
 @Component({
   selector: 'app-transfer',
   standalone: true,
-  imports: [FormsModule, RpCurrencyPipe, RpCurrencyDirective],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    RpCurrencyPipe,
+    NgxCurrencyDirective,
+    NgxIntlTelInputModule,
+  ],
   templateUrl: './transfer.component.html',
   styleUrl: './transfer.component.scss',
 })
@@ -17,7 +23,7 @@ export class TransferComponent {
   senderId!: string;
   receiverId!: string;
   amount: number = 0;
-  currentSaldo: number = 120000;
+  currentSaldo!: number;
   phoneNumber: number = 0;
   info: string = 'message';
   url: string = 'http://localhost:8080/transaction/transfer';
