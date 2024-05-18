@@ -40,5 +40,5 @@ public interface TransactionRepository extends JpaRepository<Transaction, String
                     "WHERE t.user_id=:A " +
                     "OR td.target_id=:B"
     )
-    Page<CustomHistoryInterface> findAllCustomPage(@Param("A")String A, @Param("B")String B, Pageable pageable);
+    Page<CustomHistoryInterface> findAllCustomPage(Pageable pageable, @Param("A")String A, @Param("B")String B);
 }
