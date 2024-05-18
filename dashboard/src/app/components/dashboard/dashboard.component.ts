@@ -92,6 +92,8 @@ export class DashboardComponent {
           dailyOutcome[dayIndex] += amount;
         } else if (transaction.transType === 'PAYMENT') {
           dailyOutcome[dayIndex] += amount;
+        } else if (transaction.transType === 'PAYMENT') {
+          dailyOutcome[dayIndex] += amount;
         }
       }
     }
