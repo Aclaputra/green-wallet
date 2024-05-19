@@ -1,0 +1,60 @@
+<div class="d-flex align-content-start flex-wrap">
+    <div class="p-1">
+      <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-sm">Number of List</span>
+        <input type="text" class="form-control input-style" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" title="Size" [(ngModel)]="size" type="number" (input)="fetchData()">
+      </div>
+    </div>
+    <div class="p-1">
+      <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text input-style" id="inputGroup-sizing-sm">Page: {{page+1}}</span>
+      </div>
+    </div>
+    <div class="p-1">
+      <div class="dropdown">
+        <button class="btn btn-success dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+          {{sortBy}}
+        </button>
+        <div class="dropdown-menu">
+          <button class="dropdown-item" (click)="handleSelection('ASC')">ASC</button>
+          <button class="dropdown-item" (click)="handleSelection('DESC')">DESC</button>
+        </div>
+      </div>    
+    </div>
+  </div>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Message</th>
+        <th scope="col">Transaction</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of pageList; track $index) {
+        <tr>
+          <th scope="row">{{item.transDate|date}}</th>
+          <td>{{item.amount|rpCurrency}}</td>
+          <td>{{item.message}}</td>
+          <td>{{item.transType}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" (click)="previous()">
+          <button [disabled]="page==0 ? true : false">Previous</button>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="next()">
+          <button [disabled]="pageList.length<size ? true : false">Next</button>
+        </a>
+      </li>
+    </ul>
+  </nav>

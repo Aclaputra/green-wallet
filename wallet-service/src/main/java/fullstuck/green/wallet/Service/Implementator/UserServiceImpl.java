@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
             System.out.println(incompleteRequest);
             System.out.println(existingUpdateProfile);
             Date birthDate = DateUtils.parseDate(existingUpdateProfile.getBirthDate(),
-                    new String[] {"yyyy-MM-dd" });
+                    new String[] {"dd-MM-yyy" }); //Change from yyyy-MM-dd to dd-MM-yyyy
             existingAccount.getUser().setName(existingUpdateProfile.getName());
             existingAccount.getUser().setPhone(existingUpdateProfile.getPhoneNumber());
             existingAccount.getUser().setUpdated_at(Date.from(Instant.now()));

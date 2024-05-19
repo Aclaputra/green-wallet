@@ -3,9 +3,11 @@ package fullstuck.green.wallet.Service.Implementator;
 import fullstuck.green.wallet.Model.Entity.*;
 import fullstuck.green.wallet.Model.Request.LoginRequest;
 import fullstuck.green.wallet.Model.Request.RegisterRequest;
+import fullstuck.green.wallet.Model.Response.ResetResponse;
+import fullstuck.green.wallet.Model.Response.ForgotPasswordResponse;
 import fullstuck.green.wallet.Model.Response.LoginResponse;
 import fullstuck.green.wallet.Model.Response.RegisterResponse;
-import fullstuck.green.wallet.Repository.MerchantRepository;
+import fullstuck.green.wallet.Repository.PasswordResetRepository;
 import fullstuck.green.wallet.Repository.UserRepository;
 import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.AuthService;
@@ -27,6 +29,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 
@@ -35,11 +38,11 @@ import java.text.ParseException;
 public class AuthServiceImpl implements AuthService {
     private final RoleService roleService;
     private final UserRepository userRepository;
-    private final MerchantRepository merchantRepository;
     private final JWTUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     private final AccountDetailService accountDetailService;
     private final AuthenticationManager authenticationManager;
+    private final PasswordResetRepository passwordResetRepository;
 
     @Override
     @Transactional
@@ -107,5 +110,58 @@ public class AuthServiceImpl implements AuthService {
         } catch (Exception e) {
             throw new Error("Error: " + e.getMessage());
         }
+    }
+
+    @Override
+    public ForgotPasswordResponse resetPassword(AccountDetails accountDetails, String token) {
+        Date date = Date.from(Instant.now());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+
+        passwordResetRepository.save(PasswordResetToken.builder()
+                .accountDetails(accountDetails)
+                .email(accountDetails.getEmail())
+                .token(token)
+                .expired_at(calendar.getTime())
+                .build());
+        return ForgotPasswordResponse.builder()
+                .message("Generate token success !")
+                .email(accountDetails.getEmail())
+                .build();
+    }
+
+    @Override
+    public ResetResponse validateResetToken(String token) {
+        PasswordResetToken reset = passwordResetRepository.findBytoken(token);
+        System.out.println(reset.toString());
+        String email = reset.getEmail();
+        if(reset == null){
+            throw new RuntimeException("Request Invalid !");
+        } else {
+            if(reset.getExpired_at().before(Date.from(Instant.now()))){
+                ResetResponse response = ResetResponse.builder()
+                        .email(email)
+                        .message("Request failed / token expired !")
+                        .status(Boolean.FALSE)
+                        .build();
+                System.out.println(response);
+                return response;
+            } else {
+                ResetResponse response = ResetResponse.builder()
+                        .email(email)
+                        .message("Token validated !")
+                        .status(Boolean.TRUE)
+                        .build();
+                System.out.println(response);
+                return response;
+            }
+        }
+    }
+
+    @Override
+    public void deleteOldToken(String token) {
+        PasswordResetToken reset = passwordResetRepository.findBytoken(token);
+        passwordResetRepository.delete(reset);
     }
 }

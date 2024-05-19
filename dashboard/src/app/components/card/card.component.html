@@ -1,20 +1,19 @@
-
 <div class="card shadow text-center mb-3 card-style">
     <div class="card-body">
         <h3 class="card-title text-dark">
             {{item.transDate|date}}
-            
+
         </h3>
         <h4>
             {{item.message}}
-            
+
         </h4>
     </div>
-  
+
     <div class="card-footer">
         <div class="d-flex flex-wrap justify-content-center">
-            <button class="btn btn-primary me-3" (click)="open()">See details</button>
-            <button class="btn btn-secondary" >Send report</button>
+            <button class="btn btn-success me-3" (click)="open()">See details</button>
+            <!-- <button class="btn btn-secondary" >Send report</button> -->
         </div>  
     </div>
 </div>

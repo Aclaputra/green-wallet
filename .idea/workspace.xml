@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c6d017dc-ff6c-47c3-9467-3cc7624ee071" name="Changes" comment="feat. fix missing value on master_account &amp; user">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/TransactionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/TransactionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Repository/TransactionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TransactionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Service/Implementator/TransactionServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/security/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/security/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/wallet-service/src/main/java/fullstuck/green/wallet/Controller/AuthController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,22 +36,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Application.executor": "Run",
-    "Maven.green.wallet [install].executor": "Run",
-    "Maven.green.wallet [validate].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "pagination",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/natda/Documents/Enigma/Final Project/final-project/wallet-service/src/main/resources/tessdata"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.green.wallet [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.green.wallet [validate].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;forgot-password&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/natda/Documents/Enigma/Final Project/final-project/wallet-service/src/main/resources/tessdata&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\natda\Documents\Enigma\Final Project\final-project\wallet-service\src\main\resources\tessdata" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="fullstuck.green.wallet.Service.Implementator" />
     </key>
   </component>
   <component name="RunManager">
@@ -90,8 +89,18 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="63182a28-8467-4a46-83ee-b574f67d2d0f" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
+        <entry key="63182a28-8467-4a46-83ee-b574f67d2d0f">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>

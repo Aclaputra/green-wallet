@@ -2,7 +2,7 @@
   <img
     [width]="profilePicSize()"
     [height]="profilePicSize()"
-    src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202212/messiworldcupkiss-one_one.jpg?VersionId=nV8J5D9Au5Gj0B055xhDiyokfUBzy.eO"
+    [src]="img"
     alt="profile-picture"
   />
   <div class="header-text" [class.hide-header-text]="sideNavCollapsed()">
@@ -32,11 +32,11 @@
     class="menu-item"
     mat-list-item
     *ngFor="let item of menuPro()"
-    [routerLink]="currentSaldo>0 ? item.route : 'topup'"
+    [routerLink]="currentSaldo > 0 ? item.route : 'topup'"
     routerLinkActive="selected-menu-item"
     #rla="routerLinkActive"
     [activated]="rla.isActive"
-    [disabled]="currentSaldo>0 ? false : true"
+    [disabled]="currentSaldo > 0 ? false : true"
   >
     <mat-icon
       [fontSet]="rla.isActive ? 'material-icons' : 'material-icons-outlined'"
