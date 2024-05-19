@@ -4,7 +4,6 @@ import fullstuck.green.wallet.Config.Helper;
 import fullstuck.green.wallet.Model.DataTransferObject.UniversalIDDto;
 import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.PasswordResetToken;
-import fullstuck.green.wallet.Model.Entity.User;
 import fullstuck.green.wallet.Model.Request.LoginRequest;
 import fullstuck.green.wallet.Model.Request.RegisterRequest;
 import fullstuck.green.wallet.Model.Request.ResetRequest;
@@ -13,13 +12,12 @@ import fullstuck.green.wallet.Repository.PasswordResetRepository;
 import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.AuthService;
 import fullstuck.green.wallet.Service.Implementator.MailingService;
+import fullstuck.green.wallet.Strings.ApplicationPath;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.Instant;
 import java.util.Date;
@@ -29,7 +27,7 @@ import java.util.UUID;
 @CrossOrigin
 @RestController
 @AllArgsConstructor
-@RequestMapping("/auth")
+@RequestMapping(ApplicationPath.AUTH)
 public class AuthController {
     private final AuthService authService;
     private final AccountDetailService accountDetailService;
@@ -38,7 +36,7 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
 
 
-    @PostMapping("/register")
+    @PostMapping(ApplicationPath.REGISTER)
     public JsonResponse<Object> register(@RequestBody RegisterRequest request) {
         try {
             Set<ConstraintViolation<RegisterRequest>> violations = Helper.validator.validate(request);
@@ -67,7 +65,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping(ApplicationPath.LOGIN)
     public JsonResponse<Object> login(@RequestBody LoginRequest request) {
         try {
             Set<ConstraintViolation<LoginRequest>> violations = Helper.validator.validate(request);
@@ -96,7 +94,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/reset")
+    @PostMapping(ApplicationPath.RESET)
     public ForgotPasswordResponse resetPassword(HttpServletResponse response, @RequestBody UniversalIDDto req) throws Exception {
         AccountDetails accountDetails = accountDetailService.getByEmail(req.getId());
         PasswordResetToken passwordResetToken = passwordResetRepository.findByemail(req.getId());
@@ -138,7 +136,7 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/user/reset-password")
+    @PostMapping(ApplicationPath.USER + ApplicationPath.RESET_PASSWORD)
     public JsonResponse<Object> changePasswordPage(HttpServletResponse res, @RequestBody ResetRequest req){
         ResetResponse response = authService.validateResetToken(req.getToken());
         if(response.getStatus()){

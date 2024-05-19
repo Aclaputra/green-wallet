@@ -3,11 +3,8 @@ package fullstuck.green.wallet.Model.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLSelect;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -17,8 +14,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-//@SQLSelect(sql = "SELECT * FROM master_account WHERE isDeleted = false")
-//@SQLDelete(sql = "UPDATE master_account SET isDeleted = true WHERE email = ?")
 @ToString
 public class AccountDetails {
     @Id

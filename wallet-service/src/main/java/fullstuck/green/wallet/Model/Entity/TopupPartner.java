@@ -2,8 +2,6 @@ package fullstuck.green.wallet.Model.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.SQLSelect;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,8 +13,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Builder
-//@SQLSelect(sql = "SELECT * FROM master_partner WHERE isDeleted = false")
-//@SQLDelete(sql = "UPDATE master_partner SET isDeleted = true WHERE id = ?")
 public class TopupPartner {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

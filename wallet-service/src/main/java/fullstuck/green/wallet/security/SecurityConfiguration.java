@@ -45,7 +45,9 @@ public class SecurityConfiguration {
             "/transaction/history/id",
             "/transaction/history/page",
             "/user/profile",
-            "/merchant/register"
+            "/merchant/register",
+            "/transaction/all/count",
+            "/transaction/all/sum"
     };
     
     @Bean
