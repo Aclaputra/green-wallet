@@ -26,7 +26,7 @@ export type MenuItem = {
   styleUrl: './custom-sidenav.component.scss',
 })
 export class CustomSidenavComponent {
-  sideNavCollapsed = signal(false);
+  sideNavCollapsed = signal(true);
   @Input() set collapsed(val: boolean) {
     this.sideNavCollapsed.set(val);
   }
@@ -97,7 +97,7 @@ export class CustomSidenavComponent {
     this.http.get(this.urlProfile, { headers: clientHeaders }).subscribe(
       (data) => {
         console.log('kendrick', data);
-        
+
         this.resp = data;
         this.point = this.resp.data.point;
         this.name = this.resp.data.name;
