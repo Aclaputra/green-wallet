@@ -35,6 +35,7 @@
     "ngx-currency": "^17.0.0",
     "ngx-intl-tel-input-gg": "^1.0.10",
     "ngx-mask": "^17.0.8",
+    "ngx-skeleton-loader": "^9.0.0",
     "ngx-toastr": "^18.0.0",
     "popper.js": "^1.16.1",
     "primeng": "^17.16.1",

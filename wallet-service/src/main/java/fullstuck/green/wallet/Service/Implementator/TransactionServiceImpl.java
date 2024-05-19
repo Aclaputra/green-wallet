@@ -15,11 +15,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.*;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -338,7 +336,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public List<List<BigDecimal>> getDailySum(String id) {
         LocalDate today = LocalDate.now();
-        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
         LocalDate endOfWeek = startOfWeek.plusDays(6);
         Date start = java.sql.Date.valueOf(startOfWeek);
         Date end = java.sql.Date.valueOf(endOfWeek);
@@ -353,120 +351,48 @@ public class TransactionServiceImpl implements TransactionService {
         List<BigDecimal> inResult = new ArrayList<>();
         List<BigDecimal> outResult = new ArrayList<>();
 
-        BigDecimal monIn = new BigDecimal("0.0");
-        BigDecimal teuIn = new BigDecimal("0.0");
-        BigDecimal wedIn = new BigDecimal("0.0");
-        BigDecimal thuIn = new BigDecimal("0.0");
-        BigDecimal friIn = new BigDecimal("0.0");
-        BigDecimal satIn = new BigDecimal("0.0");
-        BigDecimal sunIn = new BigDecimal("0.0");
-        BigDecimal sumIn = new BigDecimal("0.0");
+        BigDecimal[] dailyIn = new BigDecimal[7];
+        BigDecimal[] dailyOut = new BigDecimal[7];
+        BigDecimal sumIn = BigDecimal.ZERO;
+        BigDecimal sumOut = BigDecimal.ZERO;
 
-        BigDecimal mon = new BigDecimal("0.0");
-        BigDecimal teu = new BigDecimal("0.0");
-        BigDecimal wed = new BigDecimal("0.0");
-        BigDecimal thu = new BigDecimal("0.0");
-        BigDecimal fri = new BigDecimal("0.0");
-        BigDecimal sat = new BigDecimal("0.0");
-        BigDecimal sun = new BigDecimal("0.0");
-        BigDecimal sumOut = new BigDecimal("0.0");
+        for (int i = 0; i < 7; i++) {
+            dailyIn[i] = BigDecimal.ZERO;
+            dailyOut[i] = BigDecimal.ZERO;
+        }
 
         for (DailySum dailyTrans : test) {
-//            System.out.println("TYPE : " + dailyTrans.getType());
-            if (dailyTrans.getTransDate().equals((startOfWeek.plusDays(0).toString()))) {
-                if (dailyTrans.getType() == "TRANSFER" || dailyTrans.getType() == "PAYMENT") {
-                    mon = dailyTrans.getTotal();
+            LocalDate transDate = LocalDate.parse(dailyTrans.getTransDate());
+            int dayIndex = (int) ChronoUnit.DAYS.between(startOfWeek, transDate);
+
+            if (dayIndex >= 0 && dayIndex < 7) {
+                if ("TRANSFER".equals(dailyTrans.getType()) || "PAYMENT".equals(dailyTrans.getType())) {
+                    dailyOut[dayIndex] = dailyOut[dayIndex].add(dailyTrans.getTotal());
                     sumOut = sumOut.add(dailyTrans.getTotal());
-                } else if(dailyTrans.getType() == "TOP_UP"){
-                    monIn = dailyTrans.getTotal();
-                    sumOut = sumIn.add(dailyTrans.getTotal());
-                }
-            }
-            if (dailyTrans.getTransDate().equals((startOfWeek.plusDays(1).toString()))) {
-                if (dailyTrans.getType() == "TRANSFER" || dailyTrans.getType() == "PAYMENT") {
-                    teu = dailyTrans.getTotal();
-                    sumOut = sumOut.add(dailyTrans.getTotal());
-                } else if(dailyTrans.getType() == "TOP_UP"){
-                    teuIn = dailyTrans.getTotal();
-                    sumIn = sumIn.add(dailyTrans.getTotal());
-                }
-            }
-            if (dailyTrans.getTransDate().equals((startOfWeek.plusDays(2).toString()))) {
-                if (dailyTrans.getType() == "TRANSFER" || dailyTrans.getType() == "PAYMENT") {
-                    wed = dailyTrans.getTotal();
-                    sumOut = sumOut.add(dailyTrans.getTotal());
-                } else if(dailyTrans.getType() == "TOP_UP"){
-                    wedIn = dailyTrans.getTotal();
-                    sumIn = sumIn.add(dailyTrans.getTotal());
-                }
-            }
-            if (dailyTrans.getTransDate().equals((startOfWeek.plusDays(3).toString()))) {
-                if (dailyTrans.getType() == "TRANSFER" || dailyTrans.getType() == "PAYMENT") {
-                    thu = dailyTrans.getTotal();
-                    sumOut = sumOut.add(dailyTrans.getTotal());
-                } else if(dailyTrans.getType() == "TOP_UP"){
-                    thuIn = dailyTrans.getTotal();
-                    sumIn = sumIn.add(dailyTrans.getTotal());
-                }
-            }
-            if (dailyTrans.getTransDate().equals((startOfWeek.plusDays(4).toString()))) {
-                if (dailyTrans.getType() == "TRANSFER" || dailyTrans.getType() == "PAYMENT") {
-                    fri = dailyTrans.getTotal();
-                    sumOut = sumOut.add(dailyTrans.getTotal());
-                } else if(dailyTrans.getType() == "TOP_UP"){
-                    friIn = dailyTrans.getTotal();
-                    sumIn = sumIn.add(dailyTrans.getTotal());
-                }
-            }
-            if (dailyTrans.getTransDate().equals((startOfWeek.plusDays(5).toString()))) {
-                if (dailyTrans.getType() == "TRANSFER" || dailyTrans.getType() == "PAYMENT") {
-                    sat = dailyTrans.getTotal();
-                    sumOut = sumOut.add(dailyTrans.getTotal());
-                } else if(dailyTrans.getType() == "TOP_UP"){
-                    satIn = dailyTrans.getTotal();
-                    sumIn = sumIn.add(dailyTrans.getTotal());
-                }
-            }
-            if (dailyTrans.getTransDate().equals((startOfWeek.plusDays(6).toString()))) {
-                if (dailyTrans.getType() == "TRANSFER" || dailyTrans.getType() == "PAYMENT") {
-                    sun = dailyTrans.getTotal();
-                    sumOut = sumOut.add(dailyTrans.getTotal());
-                } else if(dailyTrans.getType() == "TOP_UP"){
-                    sunIn = dailyTrans.getTotal();
+                } else if ("TOP_UP".equals(dailyTrans.getType())) {
+                    dailyIn[dayIndex] = dailyIn[dayIndex].add(dailyTrans.getTotal());
                     sumIn = sumIn.add(dailyTrans.getTotal());
                 }
             }
         }
 
-        BigDecimal countIn = new BigDecimal("0.0");
-        BigDecimal countOut = new BigDecimal("0.0");
+        BigDecimal countIn = BigDecimal.ZERO;
+        BigDecimal countOut = BigDecimal.ZERO;
 
         List<DailySum> monthly = transactionRepository.findAllCustomSum(startMonth, endMonth, id);
         for (DailySum monthlyTrans : monthly) {
-            if(monthlyTrans.getType() == "TRANSFER" || monthlyTrans.getType() == "PAYMENT"){
+            if ("TRANSFER".equals(monthlyTrans.getType()) || "PAYMENT".equals(monthlyTrans.getType())) {
                 countOut = countOut.add(monthlyTrans.getTotal());
             } else {
                 countIn = countIn.add(monthlyTrans.getTotal());
             }
         }
 
-        inResult.add(monIn);
-        inResult.add(teuIn);
-        inResult.add(wedIn);
-        inResult.add(thuIn);
-        inResult.add(friIn);
-        inResult.add(satIn);
-        inResult.add(sunIn);
+        Collections.addAll(inResult, dailyIn);
         inResult.add(sumIn);
         inResult.add(countIn);
 
-        outResult.add(mon);
-        outResult.add(teu);
-        outResult.add(wed);
-        outResult.add(thu);
-        outResult.add(fri);
-        outResult.add(sat);
-        outResult.add(sun);
+        Collections.addAll(outResult, dailyOut);
         outResult.add(sumOut);
         outResult.add(countOut);
 

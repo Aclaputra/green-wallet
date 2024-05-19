@@ -20,6 +20,7 @@ export class CardComponent {
   open() {
     const modalRef = this.modal.open(DetailsComponent);
     modalRef.componentInstance.project = this.item;
-    this.history.setId(this.item.id)
+    this.history.setId(this.item.id);
+    console.info(this.item.id);
   }
 }
