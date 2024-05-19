@@ -142,16 +142,16 @@ public class TransactionServiceImpl implements TransactionService {
 
             accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
             merchantService.updateBalance(merchantService.getByName(req.getDestination()).getId(), req.getAmount(), 2);
-            try {
-                accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
-            } catch (Exception e) {
-                throw new RuntimeException("Exception A: " + e);
-            }
-            try {
-                merchantService.updateBalance(merchantService.getByName(req.getDestination()).getId(), req.getAmount(), 2);
-            } catch (Exception e) {
-                throw new RuntimeException("Exception B: " + e);
-            }
+//            try {
+//                accountDetailService.updateBalance(accountDetails.getId(), req.getAmount(), 1);
+//            } catch (Exception e) {
+//                throw new RuntimeException("Exception A: " + e);
+//            }
+//            try {
+//                merchantService.updateBalance(merchantService.getByName(req.getDestination()).getId(), req.getAmount(), 2);
+//            } catch (Exception e) {
+//                throw new RuntimeException("Exception B: " + e);
+//            }
 
             Transaction transaction = Transaction.builder()
                     .user(user)

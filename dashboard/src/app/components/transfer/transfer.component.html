@@ -29,17 +29,10 @@
                     type="tel"
                     name="amount"
                     id="formControlLgX"
-                    class="form-control form-control-lg"
+                    class="form-control form-control-lg text-end"
                     value=""
                     [(ngModel)]="phoneNumber"
-                    currencyMask
-                    [options]="{
-                      prefix: '',
-                      thousands: '',
-                      precision: 0,
-                      allowNegative: false,
-                      inputMode: 1
-                    }"
+                    placeholder="Phone.."
                   />
                 </div>
                 <!-- <p class="fw-lighter">ex. 085888121212</p> -->

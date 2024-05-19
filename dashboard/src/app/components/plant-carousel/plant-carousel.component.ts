@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { PlantDataService } from '../../services/plant-data.service';
 import { CommonModule } from '@angular/common';
+import {
+  NgxSkeletonLoaderComponent,
+  NgxSkeletonLoaderModule,
+} from 'ngx-skeleton-loader';
 
 export interface DataPlant {
   common_name: string;
@@ -12,7 +16,7 @@ export interface DataPlant {
 @Component({
   selector: 'app-plant-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgxSkeletonLoaderModule],
   templateUrl: './plant-carousel.component.html',
   styleUrl: './plant-carousel.component.scss',
 })
@@ -21,7 +25,7 @@ export class PlantCarouselComponent {
   date: Date = new Date();
   datePage: number = this.date.getDate();
 
-  // get data
+  // data
   dataPlants: DataPlant[] = [];
 
   constructor(private plantDataService: PlantDataService) {}
@@ -34,21 +38,12 @@ export class PlantCarouselComponent {
       .subscribe({
         next: (resp: any) => {
           this.dataPlants = resp.data;
-          console.info('arr data plants', this.dataPlants);
-          // this.dataCarousel(resp.data);
         },
         error: (err) => {
           console.error(err);
         },
       });
   }
-
-  // dataCarousel(dataPlants: any[]) {
-  //   const dataIndex = dataPlants.map((data) => {
-  //     console.info(data.id);
-  //     return data.id;
-  //   });
-  // }
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.

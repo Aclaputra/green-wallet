@@ -24,7 +24,7 @@ export class TransferComponent {
   receiverId!: string;
   amount: number = 0;
   currentSaldo!: number;
-  phoneNumber: number = 0;
+  phoneNumber: string = '';
   info: string = 'message';
   url: string = 'http://localhost:8080/transaction/transfer';
   urlProfile: string = 'http://localhost:8080/user/profile';
@@ -65,7 +65,7 @@ export class TransferComponent {
     });
 
     const clientBody = {
-      destination: this.phoneNumber.toString(),
+      destination: this.phoneNumber,
       amount: this.amount.toString(),
       message: this.info,
     };
