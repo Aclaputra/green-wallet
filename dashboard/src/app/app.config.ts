@@ -11,12 +11,18 @@ import {
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
+import { retryInterceptor } from './interceptors/retry.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        retryInterceptor
+      ])
+    ),
     provideAnimationsAsync(),
     provideAnimations(),
     provideToastr(),

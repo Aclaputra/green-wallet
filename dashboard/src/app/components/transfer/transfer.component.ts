@@ -67,7 +67,7 @@ export class TransferComponent {
     const clientBody = {
       destination: this.phoneNumber.toString(),
       amount: this.amount.toString(),
-      description: this.info,
+      message: this.info,
     };
 
     if (this.phoneNumber == this.resp.data.phoneNumber) {

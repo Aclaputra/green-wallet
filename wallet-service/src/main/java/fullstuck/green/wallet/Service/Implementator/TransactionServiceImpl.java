@@ -155,6 +155,7 @@ public class TransactionServiceImpl implements TransactionService {
 
             Transaction transaction = Transaction.builder()
                     .user(user)
+                    .merchant(merchant)
                     .transDetail(transDetail)
                     .build();
 
@@ -193,6 +194,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         Transaction transaction = Transaction.builder()
                 .merchant(merchant)
+                .user(accountDetails.getUser())
                 .transDetail(transDetail)
                 .build();
 
@@ -212,14 +214,21 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public HistoryDetailResponse getByIdSpecial(String id) {
         Transaction transaction = transactionRepository.findById(id).get();
-
+        String name = null;
+        if(transaction.getTransDetail().getType().equals("PAYMENT")) {
+            name = transaction.getMerchant().getName();
+        } else if(transaction.getTransDetail().getType().equals("TRANSFER")){
+            name = transaction.getUser().getName();
+        } else if (transaction.getTransDetail().getType().equals("TOP_UP")) {
+            name = topupPartnerService.getPartnerData(transaction.getTransDetail().getSource_id()).getName();
+        }
         return HistoryDetailResponse.builder()
                 .id(id)
-                .transType(transaction.getTransDetail().getType().toString())
+                .transType(transaction.getTransDetail().getType())
                 .transDate(transaction.getTransDetail().getCreated_at())
                 .message(transaction.getTransDetail().getDescription())
                 .target(transaction.getTransDetail().getTarget_id())
-                .targetName(accountDetailService.getAccountDetailById(transaction.getTransDetail().getTarget_id()).getUser().getName())
+                .targetName(name)
                 .source(transaction.getTransDetail().getSource_id())
                 .amount(transaction.getTransDetail().getAmount())
                 .currBalance(transaction.getTransDetail().getCurr_balance())
