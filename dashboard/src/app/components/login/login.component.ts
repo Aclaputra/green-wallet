@@ -47,4 +47,14 @@ export class LoginComponent {
         }
       );
   }
+
+  ngOnInit(){
+    if(typeof window !== "undefined"){
+      if(window.localStorage.getItem("grn-tkn")){
+        location.reload();
+        // console.log("Token present");
+        // this.router.navigate(['/account/dashboard']);
+      }
+    }
+  }
 }
