@@ -57,7 +57,7 @@ export const routes: Routes = [
       {
         path: 'history',
         title: 'History',
-        component: HistoryComponent
+        loadComponent: ()=> import('./components/history/history.component').then(m=>m.HistoryComponent)
       }
     ],
   },
