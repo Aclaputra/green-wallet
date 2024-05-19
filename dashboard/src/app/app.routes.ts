@@ -25,7 +25,7 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'auth',
+    path: 'account',
     component: AuthNavComponent,
     canActivateChild: [authGuard],
     children: [
@@ -62,7 +62,7 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'nauth',
+    path: 'greenpay',
     component: AuthNavNComponent,
     children: [
       {

@@ -25,7 +25,7 @@ export class RegisterComponent {
 
   constructor(
     private register: RegisterService,
-    private router: Router, 
+    private router: Router,
     private toastr: ToastrService
   ) { }
   regist() {
@@ -46,15 +46,15 @@ export class RegisterComponent {
         phoneNumber:this.phoneNumber
       }
       console.log(dataReg);
-      
 
-      
+
+
       this.register.registUser(
       dataReg).subscribe({
         next: (data) => {
           this.resp = data
           if (this.resp.statusCode == 201) {
-            this.router.navigate(['/nauth/login']);
+            this.router.navigate(['/greenpay/login']);
             this.toastr.success('Register success!');
           }
         },
@@ -63,7 +63,7 @@ export class RegisterComponent {
         }
       })
     }
-  
+
   }
 
   registerForm = new FormGroup({

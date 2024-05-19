@@ -15,6 +15,6 @@ export class PricingComponent {
   ){}
 
   register(){
-    this.router.navigate(['/nauth/register']);
+    this.router.navigate(['/greenpay/register']);
   }
 }

@@ -24,9 +24,9 @@ export class AppComponent {
     if(typeof window !== "undefined"){
       if(window.localStorage.getItem("grn-tkn")){
         console.log("Token present");
-        this.router.navigate(['/auth/dashboard']);
+        this.router.navigate(['/account/dashboard']);
       }else{
-        this.router.navigate(['/nauth/home']);
+        this.router.navigate(['/greenpay/home']);
       }
     }
   }
