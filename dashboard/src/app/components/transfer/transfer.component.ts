@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { RpCurrencyPipe } from '../../pipes/rp-currency.pipe';
 
 @Component({
   selector: 'app-transfer',
   standalone: true,
-  imports: [FormsModule, CurrencyPipe],
+  imports: [FormsModule, CurrencyPipe, RpCurrencyPipe],
   templateUrl: './transfer.component.html',
   styleUrl: './transfer.component.scss',
 })
@@ -59,7 +60,7 @@ export class TransferComponent {
     const clientBody = {
       destination: this.phoneNumber.toString(),
       amount: this.amount.toString(),
-      description: this.info,
+      message: this.info,
     };
 
     if(this.phoneNumber==this.resp.data.phoneNumber){
