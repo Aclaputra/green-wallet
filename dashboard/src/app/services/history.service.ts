@@ -1,6 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
+import { History } from '../models/History';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,7 @@ export class HistoryService {
   urll: string = 'http://localhost:8080/transaction/history/id';
   id: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private apiService: ApiService) {}
 
   fetchData(): Observable<History[]> {
     if (typeof window !== 'undefined') {

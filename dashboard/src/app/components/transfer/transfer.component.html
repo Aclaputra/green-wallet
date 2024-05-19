@@ -32,6 +32,14 @@
                     class="form-control form-control-lg"
                     value=""
                     [(ngModel)]="phoneNumber"
+                    currencyMask
+                    [options]="{
+                      prefix: '',
+                      thousands: '',
+                      precision: 0,
+                      allowNegative: false,
+                      inputMode: 1
+                    }"
                   />
                 </div>
               </div>
