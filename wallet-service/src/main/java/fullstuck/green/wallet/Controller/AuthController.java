@@ -127,7 +127,7 @@ public class AuthController {
 
     public ForgotPasswordResponse reset(AccountDetails accountDetails, String email){
         String token = UUID.randomUUID().toString();
-        String url = "http://localhost:8080/user/resetPassword?token=" + token;
+        String url = "http://localhost:4200/nauth/forgot-password?token=" + token;
         ForgotPasswordResponse forgotPasswordResponse = null;
         try {
             forgotPasswordResponse = authService.resetPassword(accountDetails, token);
@@ -138,33 +138,27 @@ public class AuthController {
         }
     }
 
-    @GetMapping("/user/resetPassword")
-    public RedirectView changePasswordPage(@RequestParam("token") String token){
-        ResetResponse response = authService.validateResetToken(token);
-        if(response.getStatus()){
-            return new RedirectView("https://localhost:8080/index.html");
-        } else {
-            throw new IllegalArgumentException("Illegal !");
-        }
-    }
-
-    @PostMapping("/user/resetPassword/confirm")
-    public JsonResponse<Object> saveResetPassword(@RequestBody ResetRequest req, @RequestParam("token") String token){
-        ResetResponse response = authService.validateResetToken(token);
-
+    @GetMapping("/user/reset-password")
+    public JsonResponse<Object> changePasswordPage(HttpServletResponse res, @RequestBody ResetRequest req){
+        ResetResponse response = authService.validateResetToken(req.getToken());
         if(response.getStatus()){
             AccountDetails accountDetails = accountDetailService.getByEmail(req.getEmail());
             accountDetails.setPassword(passwordEncoder.encode(req.getPassword()));
             accountDetailService.updateAccountData(accountDetails);
-            authService.deleteOldToken(token);
+            authService.deleteOldToken(req.getToken());
 
             return JsonResponse.builder()
-                    .statusCode(403)
+                    .statusCode(200)
                     .data(response)
                     .message("Success updating data !")
                     .build();
         } else {
-            throw new IllegalArgumentException("Illegal !");
+            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return JsonResponse.builder()
+                    .statusCode(403)
+                    .data(response)
+                    .message("Token expired / request not exist !")
+                    .build();
         }
     }
 }
