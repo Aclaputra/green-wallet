@@ -24,26 +24,29 @@ import { RpCurrencyPipe } from '../../pipes/rp-currency.pipe';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  // for line chart
+  // data sum for line chart
   data: any;
   options: any;
+  incomeDay: string[] = Array(7).fill('');
+  outcomeDay: string[] = Array(7).fill('');
 
-  // for card
   monthName!: string;
-  incomePerMonth!: number;
-  outcomePerMonth!: number;
-  currentMonth!: number;
-  previousMonth!: number;
+
+  // count
+  totalTransactionPerWeek!: number;
+
+  // sum
+  totalIncomePermonth!: number;
+  totalOutcomePermonth!: number;
 
   constructor(private dashboard: DashboardService) {}
 
-  getDataForChart() {
+  getCountTrans() {
     this.dashboard
-      .getDataTransaction('http://localhost:8080/transaction/history/all')
+      .getDataTransaction('http://localhost:8080/transaction/all/count')
       .subscribe({
         next: (resp: any) => {
-          this.processTransactionPerWeek(resp.data);
-          this.processReportPerMonth(resp.data);
+          this.totalTransactionPerWeek = resp.data[7];
         },
         error: (err) => {
           console.error(err);
@@ -51,122 +54,62 @@ export class DashboardComponent {
       });
   }
 
-  // for line chart
-  processTransactionPerWeek(transactions: any[]) {
-    const dailyIncome = new Array(7).fill(Number(0));
-    const dailyOutcome = new Array(7).fill(Number(0));
-
-    const today = new Date();
-    const oneDay = 24 * 60 * 60 * 1000; // in milliseconds
-    const dayNames = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ];
-
-    for (const transaction of transactions) {
-      const transactionDate = new Date(transaction.transDate);
-      const dayIndex = transactionDate.getDay();
-      const daysAgo = Math.floor(
-        (today.getTime() - transactionDate.getTime()) / oneDay
-      );
-      if (daysAgo < 7) {
-        const amount = Number(transaction.amount);
-        if (transaction.transType === 'TOP_UP') {
-          console.info('Income: ' + dailyIncome[dayIndex]);
-          dailyIncome[dayIndex] += amount;
-        } else if (transaction.transType === 'TRANSFER') {
-          console.info('Outcome: ' + dailyOutcome[dayIndex]);
-          dailyOutcome[dayIndex] += amount;
-        } else if (transaction.transType === 'PAYMENT') {
-          dailyOutcome[dayIndex] += amount;
-        } else if (transaction.transType === 'PAYMENT') {
-          dailyOutcome[dayIndex] += amount;
-        }
-      }
-    }
-
-    this.data = {
-      labels: [
-        dayNames[0],
-        dayNames[1],
-        dayNames[2],
-        dayNames[3],
-        dayNames[4],
-        dayNames[5],
-        dayNames[6],
-      ],
-      datasets: [
-        {
-          label: 'Income',
-          backgroundColor: '#198b0e',
-          borderColor: '#198b0e',
-          data: dailyIncome.map((value) => Number(value)),
+  getSumTrans() {
+    this.dashboard
+      .getDataTransaction('http://localhost:8080/transaction/all/sum')
+      .subscribe({
+        next: (resp: any) => {
+          // sum per week
+          for (let i = 0; i < 7; i++) {
+            this.incomeDay[i] = resp.data[0][i];
+            this.outcomeDay[i] = resp.data[1][i];
+          }
+          // sum total permont
+          this.totalIncomePermonth = resp.data[0][8];
+          this.totalOutcomePermonth = resp.data[1][8];
         },
-        {
-          label: 'Outcome',
-          backgroundColor: '#9c1c13',
-          borderColor: '#9c1c13',
-          data: dailyOutcome.map((value) => Number(value)),
+        error: (err) => {
+          console.error(err);
         },
-      ],
-    };
-  }
-
-  // for card report/month
-  processReportPerMonth(transactions: any[]) {
-    const today = new Date();
-    const currentMonth = today.getMonth();
-    const currentYear = today.getFullYear();
-    const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-    if (currentMonth !== this.previousMonth) {
-      this.incomePerMonth = Number(0);
-      this.outcomePerMonth = Number(0);
-    }
-
-    let incomePerMonth = this.incomePerMonth;
-    let outcomePerMonth = this.outcomePerMonth;
-
-    for (const transaction of transactions) {
-      const transactionDate = new Date(transaction.transDate);
-      const transactionMonth = transactionDate.getMonth();
-      const transactionYear = transactionDate.getFullYear();
-
-      if (
-        transactionYear === currentYear &&
-        transactionMonth === currentMonth &&
-        transactionDate.getDate() <= lastDayOfMonth
-      ) {
-        const amount = Number(transaction.amount);
-        if (transaction.transType === 'TOP_UP') {
-          incomePerMonth += amount;
-        } else if (transaction.transType === 'TRANSFER') {
-          outcomePerMonth += amount;
-        } else if (transaction.transType === 'PAYMENT') {
-          outcomePerMonth += amount;
-        }
-      }
-    }
-
-    this.incomePerMonth = incomePerMonth;
-    this.outcomePerMonth = outcomePerMonth;
-    this.previousMonth = currentMonth;
+      });
   }
 
   ngOnInit() {
     const today = new Date();
     this.monthName = today.toLocaleString('default', { month: 'long' });
 
-    this.getDataForChart();
+    this.getCountTrans();
+    this.getSumTrans();
+
     const textColor = '#333'; // hitam
     const textColorSecondary = '#666'; // abu2
     const surfaceBorder = '#ccc'; // abu2 muda
 
+    this.data = {
+      labels: [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ],
+      datasets: [
+        {
+          label: 'Income',
+          backgroundColor: '#198b0e',
+          borderColor: '#198b0e',
+          data: this.incomeDay,
+        },
+        {
+          label: 'Outcome',
+          backgroundColor: '#9c1c13',
+          borderColor: '#9c1c13',
+          data: this.outcomeDay,
+        },
+      ],
+    };
     this.options = {
       maintainAspectRatio: false,
       aspectRatio: 0.8,
