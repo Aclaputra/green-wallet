@@ -14,7 +14,7 @@ class HistoryDetailResponseTest {
         HistoryDetailResponse response = HistoryDetailResponse.builder()
                 .id("id")
                 .currBalance(new BigDecimal("2183213"))
-                .userId("id")
+                // .userId("id")
                 .transType("type")
                 .transDate(Date.from(Instant.now()))
                 .source("1")
@@ -31,7 +31,7 @@ class HistoryDetailResponseTest {
         responseGetSet.setCurrBalance(response.getCurrBalance());
         responseGetSet.setTransType(response.getTransType());
         responseGetSet.setTransDate(response.getTransDate());
-        responseGetSet.setUserId(response.getUserId());
+        // responseGetSet.setUserId(response.getUserId());
 
         assertNotNull(response);
         assertNotNull(responseGetSet);
