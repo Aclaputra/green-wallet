@@ -47,7 +47,7 @@ export const routes: Routes = [
       {
         path: 'payment',
         title: 'Payment',
-        component: PaymentComponent
+        component: PaymentComponent,
       },
       {
         path: 'transfer',
@@ -86,13 +86,13 @@ export const routes: Routes = [
       },
       {
         path: 'features',
-        component: FeaturesComponent
+        component: FeaturesComponent,
       },
       {
         path: 'pricing',
-        component: PricingComponent
-      }
-    ]
+        component: PricingComponent,
+      },
+    ],
   },
   {
     path: '**',

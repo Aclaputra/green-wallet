@@ -1,90 +1,97 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { RpCurrencyPipe } from '../../pipes/rp-currency.pipe';
+import { ToastrService } from 'ngx-toastr';
+import { NgxCurrencyDirective } from 'ngx-currency';
 
 @Component({
   selector: 'app-payment',
   standalone: true,
-  imports: [FormsModule, RpCurrencyPipe],
+  imports: [FormsModule, RpCurrencyPipe, NgxCurrencyDirective],
   templateUrl: './payment.component.html',
-  styleUrl: './payment.component.scss'
+  styleUrl: './payment.component.scss',
 })
 export class PaymentComponent {
-  merchantName: string= "";
+  merchantName: string = '';
   amount: number = 0;
-  currentSaldo: number =120000;
-  phoneNumber: number =0;
-  info: string ="message";
-  url: string = "http://localhost:8080/transaction/transfer";
-  urlProfile: string= "http://localhost:8080/user/profile";
-  urlPayment: string = "http://localhost:8080/transaction/payment";
+  currentSaldo: number = 120000;
+  phoneNumber: number = 0;
+  info: string = 'message';
+  url: string = 'http://localhost:8080/transaction/transfer';
+  urlProfile: string = 'http://localhost:8080/user/profile';
+  urlPayment: string = 'http://localhost:8080/transaction/payment';
   resp: any;
 
-  constructor(
-    private http: HttpClient,
-    private toastr: ToastrService
-  ){}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
-  ngOnInit(){
-    if(typeof window !== "undefined"){
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
       this.getData();
     }
   }
 
-  getData(){
+  getData() {
     const clientHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+      Authorization: `Bearer ${window.localStorage.getItem('grn-tkn')}`,
     });
     this.http.get(this.urlProfile, { headers: clientHeaders }).subscribe(
-      (data)=>{
-        this.resp=data;
-        this.currentSaldo=this.resp.data.balance
+      (data) => {
+        this.resp = data;
+        this.currentSaldo = this.resp.data.balance;
       },
-      (error)=>{
-        console.error("Error fetch profile:", error);
-        if(error.status==403){
+      (error) => {
+        console.error('Error fetch profile:', error);
+        if (error.status == 403) {
           window.localStorage.clear();
         }
       }
-    )
+    );
   }
 
-  pay(){
-    console.log(this.merchantName, this.amount, this.info)
-    if(typeof window !== "undefined"){
+  pay() {
+    console.log(this.merchantName, this.amount, this.info);
+    if (typeof window !== 'undefined') {
       const clientHeaders = new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${window.localStorage.getItem("grn-tkn")}`
+        Authorization: `Bearer ${window.localStorage.getItem('grn-tkn')}`,
       });
-      this.http.post(this.urlPayment, {
-        destination: this.merchantName,
-        amount: this.amount,
-        message: this.info
-      }, { headers: clientHeaders}).subscribe(
-        (response)=>{
-          this.resp={};
-          this.resp=response;
-          console.log(response);
-          console.log(this.resp.statusCode)
-          if(this.resp.statusCode==500){
-            this.toastr.error("Failed to pay, check merchant!");
+      this.http
+        .post(
+          this.urlPayment,
+          {
+            destination: this.merchantName,
+            amount: this.amount,
+            message: this.info,
+          },
+          { headers: clientHeaders }
+        )
+        .subscribe(
+          (response) => {
+            this.resp = {};
+            this.resp = response;
+            console.log(response);
+            console.log(this.resp.statusCode);
+            if (this.resp.statusCode == 500) {
+              this.toastr.error('Failed to pay, check merchant!');
+            }
+            if (this.resp.statusCode == 200) {
+              this.toastr.success(
+                `Payment via ${this.merchantName} for IDR${this.amount}`,
+                'Success'
+              );
+            }
+
+            setInterval(() => {
+              location.reload();
+            }, 2000);
+          },
+          (error) => {
+            this.toastr.error('Failed to pay, check merchant!');
+            console.log(error);
           }
-          if(this.resp.statusCode==200){
-            this.toastr.success(`Payment via ${this.merchantName} for IDR${this.amount}`, 'Success');
-          }
-          
-          setInterval(()=>{
-            location.reload();
-          }, 2000)
-        },
-        (error)=>{
-          this.toastr.error("Failed to pay, check merchant!");
-          console.log(error);
-        }
-      )
+        );
     }
   }
 }

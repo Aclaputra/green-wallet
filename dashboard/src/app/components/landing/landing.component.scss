@@ -1,0 +1,17 @@
+.typing-text {
+  overflow: hidden;
+  // border-right: 0.08em solid black;
+  white-space: pre-line;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  text-align: left;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}

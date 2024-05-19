@@ -1,0 +1,425 @@
+<section class="pt-5 pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-6">
+        <h3 class="mb-3">Carousel cards title</h3>
+      </div>
+      <div class="col-6 text-right">
+        <a
+          class="btn btn-primary mb-3 mr-1 bg-success"
+          href="#carouselExampleIndicators2"
+          role="button"
+          data-slide="prev"
+        >
+          <i class="fa fa-arrow-left"></i>
+        </a>
+        <a
+          class="btn btn-primary mb-3 bg-success"
+          href="#carouselExampleIndicators2"
+          role="button"
+          data-slide="next"
+        >
+          <i class="fa fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="col-12">
+        <div
+          id="carouselExampleIndicators2"
+          class="carousel slide"
+          data-ride="carousel"
+        >
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[0].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <b>{{ dataPlants[0].common_name }}</b>
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[0].scientific_name }}
+                      </p>
+                      <p class="card-text">
+                        {{ dataPlants[0].bibliography }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[1].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <b>{{ dataPlants[1].common_name }}</b>
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[1].scientific_name }}
+                      </p>
+                      <p class="card-text">
+                        {{ dataPlants[1].bibliography }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[2].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <b>{{ dataPlants[2].common_name }}</b>
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[2].scientific_name }}
+                      </p>
+                      <p class="card-text">
+                        {{ dataPlants[2].bibliography }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[3].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <b>{{ dataPlants[3].common_name }}</b>
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[3].scientific_name }}
+                      </p>
+                      <p class="card-text">
+                        {{ dataPlants[3].bibliography }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[4].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <b>{{ dataPlants[4].common_name }}</b>
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[4].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[4].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[5].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[5].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[5].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[5].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[6].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[6].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[6].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[6].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[7].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[7].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[7].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[7].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[8].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <b>{{ dataPlants[8].common_name }}</b>
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[8].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[8].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[9].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[9].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[9].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[9].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[10].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[10].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[10].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[10].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[11].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[11].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[11].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[11].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[12].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <b>{{ dataPlants[12].common_name }}</b>
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[12].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[12].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[13].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[13].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[13].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[13].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[14].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[14].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[14].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[14].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[15].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[15].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[15].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[15].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="row">
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[16].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <b>{{ dataPlants[16].common_name }}</b>
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[16].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[16].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[17].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[17].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[17].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[17].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[18].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[18].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[18].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[18].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                  <div class="card">
+                    <img
+                      class="img-fluid"
+                      alt="100%x280"
+                      [src]="dataPlants[19].image_url"
+                    />
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        {{ dataPlants[19].common_name }}
+                      </h4>
+                      <p class="card-text">
+                        {{ dataPlants[19].scientific_name }}
+                      </p>
+                      <p class="card-text">{{ dataPlants[19].bibliography }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
