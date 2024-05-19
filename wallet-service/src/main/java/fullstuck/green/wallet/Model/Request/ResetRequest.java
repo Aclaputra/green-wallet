@@ -10,4 +10,5 @@ import lombok.*;
 public class ResetRequest {
     private String email;
     private String password;
+    private String token;
 }
