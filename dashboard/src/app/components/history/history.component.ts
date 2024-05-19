@@ -1,14 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { CardComponent } from '../card/card.component';
 import { TestService } from '../../services/test.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { HistoryService } from '../../services/history.service';
+import { RouterLink } from '@angular/router';
+import { CardListComponent } from '../card-list/card-list.component';
 
 @Component({
   selector: 'app-history',
   standalone: true,
-  imports: [CardComponent, DatePipe],
+  imports: [CardComponent, DatePipe, RouterLink, CardListComponent],
   templateUrl: './history.component.html',
   styleUrl: './history.component.scss'
 })

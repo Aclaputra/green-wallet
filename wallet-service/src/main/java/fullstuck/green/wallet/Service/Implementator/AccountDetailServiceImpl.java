@@ -102,4 +102,9 @@ public class AccountDetailServiceImpl implements AccountDetailService {
         accountDetails.setUpdated_at(Date.from(Instant.now()));
         accountDetailsRepository.save(accountDetails);
     }
+
+    @Override
+    public AccountDetails getByEmail(String email) {
+        return accountDetailsRepository.findByemail(email);
+    }
 }

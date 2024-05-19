@@ -14,7 +14,10 @@ import { DatePipe } from '@angular/common';
 })
 export class DetailsComponent {
   transType!: string;
-  class: any;
+  classType: any;
+  onConfirm() {
+    this.modal.dismissAll();
+  }
   url = 'http://localhost:8080/transaction';
   histories: any;
   id: string = '';
@@ -29,31 +32,24 @@ export class DetailsComponent {
     private historyS: HistoryService
   ) {}
 
-  onConfirm() {
-    this.modal.dismissAll();
-  }
-
   ngOnInit() {
     this.id = this.historyS.getId();
 
     this.historyS.fetchDataById(this.id).subscribe({
       next: (data) => {
         this.histories = data;
-        this.date = new DatePipe('en-US').transform(
-          this.histories.data.transDate,
-          'MM/dd/yyyy, h:mm a'
-        );
+        this.date = new DatePipe('en-US').transform(this.histories.data.transDate, 'MM/dd/yyyy, h:mm a');
         this.desc = this.histories.data.message;
         this.amount = this.histories.data.amount;
         this.transType = this.histories.data.transType;
         this.targetName = this.histories.data.targetName;
 
         if (this.transType == 'TOP_UP') {
-          this.class = 'alert alert-primary';
+          this.classType = 'alert alert-primary';
         } else if (this.transType == 'TRANSFER') {
-          this.class = 'alert alert-danger';
+          this.classType = 'alert alert-danger';
         } else if (this.transType == 'PAYMENT') {
-          this.class = 'alert alert-success';
+          this.classType = 'alert alert-success'
         }
       },
       error: (error) => {
