@@ -34,10 +34,16 @@ export class AuthNavComponent {
 
   constructor(private router: Router) {}
 
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.collapsed = signal(true);
+  }
+
   logout(): void {
     window.localStorage.removeItem('grn-tkn');
     window.localStorage.removeItem('tkn-exp');
 
-    this.router.navigate(['/nauth/home']);
+    this.router.navigate(['/greenpay/home']);
   }
 }

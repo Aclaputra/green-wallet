@@ -15,7 +15,7 @@ import java.io.File;
 @RequiredArgsConstructor
 public class MailingService implements EmailService {
     private final JavaMailSender emailSender;
-    private final static String subject = "Password Reset - Green Wallet";
+    private final static String subject = "Password Reset - GreenPay";
 
     @Override
     public void simpleResetPassword(String to, String url) {
@@ -24,10 +24,10 @@ public class MailingService implements EmailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText("Dear " + to +
-        " you have requested a password reset for your account at Green Wallet.\n\n" +
+        " you have requested a password reset for your account at GreenPay.\n\n" +
         "If this was an accident or you have never requested such action, please ignore this message.\n\n"
                 + "Here's your password reset token for " + to + ". Please note that the link will only available for 1 hours.\n\n"
-        + url + "\n\n" + "Best regards, \nGreen Wallet Team"
+        + url + "\n\n" + "Best regards, \nGreenPay Team"
         );
         emailSender.send(message);
     }
@@ -40,10 +40,10 @@ public class MailingService implements EmailService {
             message.setRecipients(MimeMessage.RecipientType.TO, to);
             message.setSubject(subject);
             message.setText("Dear " + to +
-                    " you have requested a password reset for your account at Green Wallet.\n\n" +
+                    " you have requested a password reset for your account at GreenPay.\n\n" +
                     "If this was an accident or you have never requested such action, please ignore this message.\n\n"
                     + "Here's your password reset token for " + to + ". Please note that the link will only available for 1 hours.\n\n"
-                    + url + "\n\n" + "Best regards, \nGreen Wallet Team"
+                    + url + "\n\n" + "Best regards, \nGreenPay Team"
             );
             // https://mailtrap.io/blog/spring-send-email/
             String htmlContent = "<H2>TESTING H2 PARAGRAF<H2>";
