@@ -194,7 +194,9 @@ public class TransactionController {
         }
     }
 
-    @GetMapping(ApplicationPath.HISTORY + ApplicationPath.ID)
+
+    //Change this from get to post
+    @PostMapping(ApplicationPath.HISTORY + ApplicationPath.ID)
     public JsonResponse<Object> historyById(@RequestBody UniversalIDDto req) {
         try {
             Set<ConstraintViolation<UniversalIDDto>> violations = Helper.validator.validate(req);

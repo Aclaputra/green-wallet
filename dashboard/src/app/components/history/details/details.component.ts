@@ -14,7 +14,7 @@ import { DatePipe } from '@angular/common';
 })
 export class DetailsComponent {
   transType!: string;
-  class: any;
+  classType: any;
   onConfirm() {
     this.modal.dismissAll();
   }
@@ -45,11 +45,11 @@ export class DetailsComponent {
         this.targetName = this.histories.data.targetName;
         
         if (this.transType == 'TOP_UP') {
-          this.class = 'alert alert-primary';
+          this.classType = 'alert alert-primary';
         } else if (this.transType == 'TRANSFER') {
-          this.class = 'alert alert-danger';
+          this.classType = 'alert alert-danger';
         } else if (this.transType == 'PAYMENT') {
-          this.class = 'alert alert-success'
+          this.classType = 'alert alert-success'
         }
       },
       error: (error) => {
