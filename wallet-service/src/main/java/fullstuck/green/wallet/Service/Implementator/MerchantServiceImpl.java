@@ -132,6 +132,7 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = merchantRepository.findByname(name);
         if(merchant != null){
             merchant.setIsGreen(Boolean.TRUE);
+            merchantRepository.save(merchant);
         } else {
             throw new NoSuchElementException("Merchant with name : " + name + " does not exist !");
         }

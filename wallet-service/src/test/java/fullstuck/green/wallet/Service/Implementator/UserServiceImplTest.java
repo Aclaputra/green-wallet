@@ -1,12 +1,15 @@
 package fullstuck.green.wallet.Service.Implementator;
 
+import fullstuck.green.wallet.Config.Patcher;
 import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.Role;
 import fullstuck.green.wallet.Model.Entity.User;
+import fullstuck.green.wallet.Model.Request.UpdateProfileRequest;
 import fullstuck.green.wallet.Model.Response.ProfileDetailResponse;
 import fullstuck.green.wallet.Repository.AccountDetailsRepository;
 import fullstuck.green.wallet.Repository.UserRepository;
 import fullstuck.green.wallet.Service.UserService;
+import org.hibernate.sql.Update;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -85,5 +88,22 @@ public class UserServiceImplTest {
             userService.loadUserByUsername("hacker@gmail.com");
         });
     }
+
+    @Test
+    void testUpdateProfileDetail() throws Exception {
+        AccountDetails accountDetails = mock(AccountDetails.class, RETURNS_MOCKS);
+        UpdateProfileRequest updateProfileRequest = UpdateProfileRequest.builder()
+                .id("id")
+                .phoneNumber("8263986215")
+                .profileImageUrl("url")
+                .name("name")
+                .birthDate("12-11-2000")
+                .build();
+        String token = "token";
+        when(accountDetailsRepository.findById(anyString())).thenReturn(Optional.ofNullable(accountDetails));
+        userService.updateProfileDetail(updateProfileRequest, token);
+        verify(accountDetailsRepository, times(1)).findAll();
+    }
+
 
 }

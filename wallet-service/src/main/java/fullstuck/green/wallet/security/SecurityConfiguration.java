@@ -26,6 +26,9 @@ public class SecurityConfiguration {
     private static final String[] WHITELIST_URL = {
             "/auth/register",
             "/auth/login",
+            "/auth/reset",
+            "/auth/user/resetPassword",
+            "/auth/user/resetPassword/confirm",
             "/transaction",
             "/transaction/transfer",
             "/transaction/top-up",
@@ -40,7 +43,7 @@ public class SecurityConfiguration {
             "/auth/create-merchant",
             "/transaction/history/all",
             "/transaction/history/id",
-            "/transaction/history/pages",
+            "/transaction/history/page",
             "/user/profile",
             "/merchant/register"
     };

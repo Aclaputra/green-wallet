@@ -34,7 +34,6 @@ export class DetailsComponent {
 
   ngOnInit() {
     this.id = this.historyS.getId();
-    console.log('lala', this.id);
 
     this.historyS.fetchDataById(this.id).subscribe({
       next: (data) => {
@@ -54,7 +53,7 @@ export class DetailsComponent {
         }
       },
       error: (error) => {
-        console.error('Error fetch profile:', error);
+        console.error('Error fetch history:', error);
       },
     });
   }

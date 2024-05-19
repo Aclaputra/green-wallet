@@ -10,7 +10,6 @@ import fullstuck.green.wallet.Service.AccountDetailService;
 import fullstuck.green.wallet.Service.TransactionService;
 import fullstuck.green.wallet.Strings.ApplicationPath;
 import fullstuck.green.wallet.security.JWTUtil;
-import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -232,13 +231,11 @@ public class TransactionController {
     public PageResponseWrapper<CustomHistoryInterface> historyPagination(@RequestHeader("Authorization") String authorizationHeader,
                                                                          @RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
                                                                          @RequestParam(name = "size", defaultValue = "20") Integer pageSize,
-                                                                         @RequestParam(name = "sortBy", defaultValue = "transdate") String sortBy,
-                                                                         @RequestParam(name = "sortDir", defaultValue = "ASC") String sortDir) {
+                                                                         @RequestParam(name = "sortBy", defaultValue = "DESC") String sortDir) {
         String userIdFromToken = jwtUtil.getUserInfoByToken(authorizationHeader.substring(7)).get("userId");
         List<Transaction> data = transactionService.getAllTransaction(userIdFromToken);
-
-        Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortBy);
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+        System.out.println("Masuk pak eko");
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.fromString(sortDir), "transDate"));
         Page<CustomHistoryInterface> page = transactionService.getHistoryPerPage(pageable, userIdFromToken);
         return new PageResponseWrapper<>(page);
     }

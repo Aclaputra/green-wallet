@@ -87,6 +87,7 @@ export class CustomSidenavComponent {
   name: string = '';
   currentSaldo: number = 0;
   features: boolean = true;
+  img = ''
 
   getData() {
     const clientHeaders = new HttpHeaders({
@@ -95,9 +96,12 @@ export class CustomSidenavComponent {
     });
     this.http.get(this.urlProfile, { headers: clientHeaders }).subscribe(
       (data) => {
+        console.log('kendrick', data);
+        
         this.resp = data;
         this.point = this.resp.data.point;
         this.name = this.resp.data.name;
+        this.img = this.resp.data.profileImageUrl
         console.log("Saldo saat ini:", this.resp.data.balance);
         console.log("Current Saldo:", this.currentSaldo)
         this.currentSaldo=this.resp.data.balance;

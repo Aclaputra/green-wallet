@@ -20,4 +20,5 @@ public interface AccountDetailService {
     void createAccount(AccountDetails account);
     void updateBalance(String accountId, BigDecimal amount, int transType);
     void updatePoints(String accountId, BigDecimal amount, int transType);
+    AccountDetails getByEmail(String email);
 }

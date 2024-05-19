@@ -68,7 +68,7 @@ export class TransferComponent {
       this.http.post(this.url, clientBody, {headers: clientHeaders}).subscribe(
         (response)=>{
           console.log(response);
-          this.toastr.success(`Success transfer Rp${clientBody.amount} to ${clientBody.destination}`, 'Success');
+          this.toastr.success(`Success transfer Rp${clientBody.amount} to +62${clientBody.destination}`, 'Success');
           setInterval(()=>{
             location.reload();
           }, 2000)

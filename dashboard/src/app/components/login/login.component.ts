@@ -41,10 +41,9 @@ export class LoginComponent {
           if (this.resp.statusCode == 200) {
             this.router.navigate(['auth/dashboard']);
             this.toastr.success('Login success!');
+          }else {
+            this.toastr.error('Login failed!');
           }
-        },
-        (error) => {
-          this.toastr.error('Login failed!');
         }
       );
   }
