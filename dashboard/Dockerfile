@@ -1,14 +1,14 @@
-FROM node:alpine as build
+# FROM node:alpine as build
 
-WORKDIR /app
+# WORKDIR /app
 
-COPY package.json package-lock.json ./
+# COPY package.json package-lock.json ./
 
-RUN npm install
+# RUN npm install
 
-COPY . .
+# COPY . .
 
-RUN npm run build --prod
+# RUN npm run build --prod
 
 FROM nginx:latest
 
@@ -19,7 +19,8 @@ RUN apt-get update \
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=build /app/dist/dashboard/browser /usr/share/nginx/html
+# COPY --from=build /app/dist/dashboard/browser /usr/share/nginx/html
+COPY /dist/dashboard/browser /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
 

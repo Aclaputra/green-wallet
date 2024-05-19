@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
   standalone: true,
   imports: [RouterLink, ReactiveFormsModule,DatePipe],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss', './register-new.component.scss']
 })
 export class RegisterComponent {
   resp: any;
