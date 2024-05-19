@@ -2,9 +2,6 @@ package fullstuck.green.wallet.Controller;
 
 import fullstuck.green.wallet.Config.Helper;
 import fullstuck.green.wallet.Model.DataTransferObject.MerchantDTO;
-import fullstuck.green.wallet.Model.DataTransferObject.UniversalIDDto;
-import fullstuck.green.wallet.Model.Entity.Transaction;
-import fullstuck.green.wallet.Model.Request.RegisterRequest;
 import fullstuck.green.wallet.Model.Response.JsonResponse;
 import fullstuck.green.wallet.Service.MerchantService;
 import fullstuck.green.wallet.Strings.ApplicationPath;
