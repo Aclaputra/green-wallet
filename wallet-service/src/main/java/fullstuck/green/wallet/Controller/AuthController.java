@@ -125,7 +125,7 @@ public class AuthController {
 
     public ForgotPasswordResponse reset(AccountDetails accountDetails, String email){
         String token = UUID.randomUUID().toString();
-        String url = "http://localhost:4200/greenpay/forgot-password?token=" + token;
+        String url = "http://localhost:4200/greenpay/forgot-password?token=" + token + "&email=" + email;
         ForgotPasswordResponse forgotPasswordResponse = null;
         try {
             forgotPasswordResponse = authService.resetPassword(accountDetails, token);

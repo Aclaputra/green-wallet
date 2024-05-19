@@ -34,6 +34,10 @@ export class AuthNavComponent {
 
   constructor(private router: Router) {}
 
+  ngOnInit(){
+    this.collapsed = signal(true);
+  }
+
   logout(): void {
     window.localStorage.removeItem('grn-tkn');
     window.localStorage.removeItem('tkn-exp');

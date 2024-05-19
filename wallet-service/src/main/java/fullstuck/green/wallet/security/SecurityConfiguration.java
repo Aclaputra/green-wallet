@@ -27,7 +27,7 @@ public class SecurityConfiguration {
             "/auth/register",
             "/auth/login",
             "/auth/reset",
-            "/auth/user/resetPassword",
+            "/auth/user/reset-password",
             "/auth/user/resetPassword/confirm",
             "/transaction",
             "/transaction/transfer",
