@@ -1,13 +1,7 @@
 package fullstuck.green.wallet.Controller;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.fge.jsonpatch.JsonPatch;
-import com.github.fge.jsonpatch.JsonPatchException;
 import fullstuck.green.wallet.Config.Helper;
-import fullstuck.green.wallet.Config.Patcher;
 import fullstuck.green.wallet.Model.DataTransferObject.MerchantDTO;
-import fullstuck.green.wallet.Model.Request.LoginRequest;
 import fullstuck.green.wallet.Model.Request.UpdateProfileRequest;
 import fullstuck.green.wallet.Model.Response.JsonResponse;
 import fullstuck.green.wallet.Service.AuthService;
@@ -17,11 +11,7 @@ import fullstuck.green.wallet.Service.UserService;
 import fullstuck.green.wallet.security.JWTUtil;
 import jakarta.validation.ConstraintViolation;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import java.util.NoSuchElementException;
 import java.util.Set;

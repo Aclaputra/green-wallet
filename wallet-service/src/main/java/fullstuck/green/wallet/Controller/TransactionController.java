@@ -2,6 +2,7 @@ package fullstuck.green.wallet.Controller;
 
 import fullstuck.green.wallet.Config.Helper;
 import fullstuck.green.wallet.Model.DataTransferObject.UniversalIDDto;
+import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.Transaction;
 import fullstuck.green.wallet.Model.Request.TopUpRequest;
 import fullstuck.green.wallet.Model.Response.*;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import java.util.Map;
 import java.util.Set;
 @CrossOrigin
 @RestController
@@ -226,7 +226,7 @@ public class TransactionController {
         }
     }
 
-    // Jangan dipake cuma copas get yg di atas
+    // Pagination uda work
     @GetMapping(ApplicationPath.HISTORY + ApplicationPath.PAGES)
     public PageResponseWrapper<CustomHistoryInterface> historyPagination(@RequestHeader("Authorization") String authorizationHeader,
                                                                          @RequestParam(name = "page", defaultValue = "0") Integer pageNumber,
@@ -238,5 +238,27 @@ public class TransactionController {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.fromString(sortDir), "transDate"));
         Page<CustomHistoryInterface> page = transactionService.getHistoryPerPage(pageable, userIdFromToken);
         return new PageResponseWrapper<>(page);
+    }
+
+    @GetMapping(ApplicationPath.ALL + ApplicationPath.COUNT)
+    public JsonResponse<Object> getDailyTrans(@RequestHeader("Authorization") String token){
+        String id = jwtUtil.getUserInfoByToken(token.substring(7)).get("userId");
+        AccountDetails accountDetails = accountDetailService.getAccountDetailById(id);
+        return JsonResponse.builder()
+                .statusCode(200)
+                .data(transactionService.getTransCount(accountDetails.getUser().getId()))
+                .message("Result")
+                .build();
+    }
+
+    @GetMapping(ApplicationPath.ALL + ApplicationPath.SUM)
+    public JsonResponse<Object> getDailySum(@RequestHeader("Authorization") String token){
+        String id = jwtUtil.getUserInfoByToken(token.substring(7)).get("userId");
+        AccountDetails accountDetails = accountDetailService.getAccountDetailById(id);
+        return JsonResponse.builder()
+                .statusCode(200)
+                .data(transactionService.getDailySum(accountDetails.getUser().getId()))
+                .message("Result")
+                .build();
     }
 }
