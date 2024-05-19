@@ -24,7 +24,7 @@ public class TransDetail {
     private String description;
     private BigDecimal amount;
     private BigDecimal curr_balance;
-    private Date created_at = Date.from(Instant.now());
-    private Date updated_at = Date.from(Instant.now());
+    private Date created_at;
+    private Date updated_at;
     private Date deleted_at;
 }
