@@ -26,7 +26,7 @@ export type MenuItem = {
   styleUrl: './custom-sidenav.component.scss',
 })
 export class CustomSidenavComponent {
-  sideNavCollapsed = signal(false);
+  sideNavCollapsed = signal(true);
   @Input() set collapsed(val: boolean) {
     this.sideNavCollapsed.set(val);
   }

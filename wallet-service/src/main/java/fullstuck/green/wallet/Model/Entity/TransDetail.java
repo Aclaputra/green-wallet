@@ -1,6 +1,5 @@
 package fullstuck.green.wallet.Model.Entity;
 
-import fullstuck.green.wallet.Strings.TransactionType;
 import jakarta.persistence.*;
 import lombok.*;
 

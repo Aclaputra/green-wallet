@@ -4,4 +4,5 @@ public enum TransactionType {
     PAYMENT,
     TRANSFER,
     TOP_UP,
+    ADMIN_FEE
 }
