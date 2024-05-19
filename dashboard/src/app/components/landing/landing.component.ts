@@ -33,7 +33,7 @@ export class LandingComponent {
       if (charIndex < text.length) {
         typingText.textContent += text.charAt(charIndex);
         charIndex++;
-        setTimeout(type, 30);
+        setTimeout(type, 15);
       }
     };
 
