@@ -1,14 +1,28 @@
 <p-chart type="bar" [data]="data" [options]="options"></p-chart>
 
-<div class="d-flex align-content-start flex-wrap">
+<div class="d-flex align-content-start flex-wrap card-container">
+  <mat-card class="card-class card-style">
+    <mat-card-header>
+      <mat-card-title>Transaction/week</mat-card-title>
+      <mat-card-subtitle>description</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <h1>
+        {{ totalTransactionPerWeek }}
+      </h1>
+    </mat-card-content>
+    <mat-card-footer>
+      <!-- <mat-icon>bar_chart</mat-icon> -->
+    </mat-card-footer>
+  </mat-card>
 
-  <mat-card class="card card-style pb-4">
+  <mat-card class="card-class card-style">
     <mat-card-header>
       <mat-card-title>Income {{ monthName }}</mat-card-title>
       <mat-card-subtitle>description</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <h1>{{ incomePerMonth | rpCurrency }}</h1>
+      <h1>{{ totalIncomePermonth | rpCurrency }}</h1>
     </mat-card-content>
     <mat-card-footer>
       <!-- <mat-icon>bar_chart</mat-icon> -->
@@ -21,7 +35,7 @@
       <mat-card-subtitle>description</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <h1>{{ outcomePerMonth | rpCurrency }}</h1>
+      <h1>{{ totalOutcomePermonth | rpCurrency }}</h1>
     </mat-card-content>
     <mat-card-footer>
       <!-- <mat-icon>bar_chart</mat-icon> -->
@@ -35,12 +49,11 @@
     </mat-card-header>
     <mat-card-content>
       <h1>
-        {{ incomePerMonth - outcomePerMonth | rpCurrency }}
+        {{ totalIncomePermonth - totalOutcomePermonth | rpCurrency }}
       </h1>
     </mat-card-content>
     <mat-card-footer>
       <!-- <mat-icon>bar_chart</mat-icon> -->
     </mat-card-footer>
   </mat-card>
-
 </div>

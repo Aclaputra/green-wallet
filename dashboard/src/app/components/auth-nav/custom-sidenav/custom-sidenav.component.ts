@@ -36,41 +36,41 @@ export class CustomSidenavComponent {
       icon: 'dashboard',
       label: 'Dashboard',
       route: 'dashboard',
-      feature: false
+      feature: false,
     },
     {
       icon: 'account_box',
       label: 'Account',
       route: 'profile',
-      feature: false
+      feature: false,
     },
     {
-      icon: 'money',
+      icon: 'how_to_vote',
       label: 'Topup',
       route: 'topup',
-      feature: false
-    }
-  ])
+      feature: false,
+    },
+  ]);
 
   menuPro = signal<MenuItem[]>([
     {
-      icon: 'money',
+      icon: 'send',
       label: 'Transfer',
       route: 'transfer',
-      feature: true
+      feature: true,
     },
     {
-      icon: 'money',
+      icon: 'payment',
       label: 'Payment',
       route: 'payment',
-      feature: true
+      feature: true,
     },
     {
       icon: 'library_add',
       label: 'History',
       route: 'history',
-      feature: true
-    }
+      feature: true,
+    },
   ]);
 
   profilePicSize = computed(() => (this.sideNavCollapsed() ? '32' : '100'));
@@ -87,7 +87,7 @@ export class CustomSidenavComponent {
   name: string = '';
   currentSaldo: number = 0;
   features: boolean = true;
-  img = ''
+  img = '';
 
   getData() {
     const clientHeaders = new HttpHeaders({
@@ -105,15 +105,15 @@ export class CustomSidenavComponent {
         }
         this.point = this.resp.data.point;
         this.name = this.resp.data.name;
-        this.img = this.resp.data.profileImageUrl
-        console.log("Saldo saat ini:", this.resp.data.balance);
-        console.log("Current Saldo:", this.currentSaldo)
-        this.currentSaldo=this.resp.data.balance;
-        console.log("After edit:", this.currentSaldo)
+        this.img = this.resp.data.profileImageUrl;
+        console.log('Saldo saat ini:', this.resp.data.balance);
+        console.log('Current Saldo:', this.currentSaldo);
+        this.currentSaldo = this.resp.data.balance;
+        console.log('After edit:', this.currentSaldo);
       },
       (error) => {
         console.error('Error fetch profile:', error);
-        if(error.status==403){
+        if (error.status == 403) {
           window.localStorage.clear();
         }
       }

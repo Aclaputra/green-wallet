@@ -43,7 +43,7 @@ export class DetailsComponent {
         this.amount = this.histories.data.amount;
         this.transType = this.histories.data.transType;
         this.targetName = this.histories.data.targetName;
-        
+
         if (this.transType == 'TOP_UP') {
           this.classType = 'alert alert-primary';
         } else if (this.transType == 'TRANSFER') {
