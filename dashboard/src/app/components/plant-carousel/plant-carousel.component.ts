@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 import { PlantDataService } from '../../services/plant-data.service';
 import { CommonModule } from '@angular/common';
-import {
-  NgxSkeletonLoaderComponent,
-  NgxSkeletonLoaderModule,
-} from 'ngx-skeleton-loader';
 
 export interface DataPlant {
   common_name: string;
@@ -16,7 +12,7 @@ export interface DataPlant {
 @Component({
   selector: 'app-plant-carousel',
   standalone: true,
-  imports: [CommonModule, NgxSkeletonLoaderModule],
+  imports: [CommonModule],
   templateUrl: './plant-carousel.component.html',
   styleUrl: './plant-carousel.component.scss',
 })
