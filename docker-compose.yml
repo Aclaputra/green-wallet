@@ -2,22 +2,22 @@ version: '3.9'
 
 # x-kong-config:
 #   &kong-env
-#   KONG_DATABASE: ${KONG_DATABASE:-off}
+#   # KONG_DATABASE: ${KONG_DATABASE:-off}
 #   KONG_PG_DATABASE: ${KONG_PG_DATABASE:-kong}
 #   KONG_PG_HOST: db
 #   KONG_PG_USER: ${KONG_PG_USER:-kong}
 #   KONG_PG_PASSWORD_FILE: /run/secrets/kong_postgres_password
 
-volumes:
-  kong_data: {}
-  # kong_prefix_vol:
-  #   driver_opts:
-  #     type: tmpfs
-  #     device: tmpfs
-  # kong_tmp_vol:
-  #   driver_opts:
-  #     type: tmpfs
-  #     device: tmpfs
+# volumes:
+  # kong_data: {}
+#   kong_prefix_vol:
+#     driver_opts:
+#       type: tmpfs
+#       device: tmpfs
+#   kong_tmp_vol:
+#     driver_opts:
+#       type: tmpfs
+#       device: tmpfs
 
 networks:
   kong-net:
@@ -35,6 +35,8 @@ services:
     build: ./wallet-service/
     ports:
       - 8080:8080
+    depends_on:
+      - db
     networks:
       - kong-net
 
@@ -113,7 +115,7 @@ services:
 
   db:
     image: postgres:13.15
-    profiles: [ "database" ]
+    # profiles: [ "database" ]
     environment:
       POSTGRES_DB: ${KONG_PG_DATABASE:-kong}
       POSTGRES_USER: ${KONG_PG_USER:-kong}
@@ -138,8 +140,8 @@ services:
     tty: true
     networks:
       - kong-net
-    volumes:
-      - kong_data:/var/lib/postgresql/data
+    # volumes:
+      # - kong_data:/var/lib/postgresql/data
 
 secrets:
   kong_postgres_password:

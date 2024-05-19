@@ -96,9 +96,13 @@ export class CustomSidenavComponent {
     });
     this.http.get(this.urlProfile, { headers: clientHeaders }).subscribe(
       (data) => {
-        console.log('kendrick', data);
-
         this.resp = data;
+        if(this.resp.statusCode==500){
+          window.localStorage.clear();
+          setInterval(()=>{
+            location.reload();
+          }, 2000)
+        }
         this.point = this.resp.data.point;
         this.name = this.resp.data.name;
         this.img = this.resp.data.profileImageUrl;

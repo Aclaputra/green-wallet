@@ -15,15 +15,17 @@ import { HistoryComponent } from './components/history/history.component';
 import { authGuard } from './guards/auth.guard';
 import { FeaturesComponent } from './components/auth-nav-n/features/features.component';
 import { PricingComponent } from './components/auth-nav-n/pricing/pricing.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { publicGuard } from './guards/public.guard';
 // import { HistoryComponent } from './components/history/history.component';
 
 export const routes: Routes = [
-  {
-    path: '',
-    title: 'Default',
-    redirectTo: 'nauth',
-    pathMatch: 'full',
-  },
+  // {
+  //   path: '',
+  //   title: 'Default',
+  //   redirectTo: 'nauth',
+  //   pathMatch: 'full',
+  // },
   {
     path: 'account',
     component: AuthNavComponent,
@@ -93,6 +95,11 @@ export const routes: Routes = [
         component: PricingComponent,
       },
     ],
+  },
+  {
+    path: 'reset-password',
+    canActivate: [publicGuard],
+    component: ResetPasswordComponent
   },
   {
     path: '**',
