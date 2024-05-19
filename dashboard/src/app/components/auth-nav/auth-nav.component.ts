@@ -38,6 +38,6 @@ export class AuthNavComponent {
     window.localStorage.removeItem('grn-tkn');
     window.localStorage.removeItem('tkn-exp');
 
-    this.router.navigate(['/nauth/home']);
+    this.router.navigate(['/greenpay/home']);
   }
 }

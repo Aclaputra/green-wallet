@@ -145,7 +145,7 @@ class TransactionServiceImplTest {
         AccountDetails accountDetails = mock(AccountDetails.class, RETURNS_MOCKS);
         List customHistoryInterfaceList = mock(List.class, RETURNS_MOCKS);
         when(accountDetailService.getAccountDetailById(any())).thenReturn(accountDetails);
-        when(transactionRepository.findAllCustom(any())).thenReturn(customHistoryInterfaceList);
+        when(transactionRepository.findAllCustom(any(), any())).thenReturn(customHistoryInterfaceList);
         List result = transactionService.findAllCustom("idFromToken");
         assertEquals(customHistoryInterfaceList, result);
     }

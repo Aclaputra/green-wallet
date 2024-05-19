@@ -4,7 +4,11 @@
   white-space: pre-line;
   margin: 0 auto;
   letter-spacing: 0.15em;
-  text-align: left;
+  text-align: justify;
+  text-justify: auto;
+  // background-color: #182D35;
+  padding: 10px;
+  // border-radius: 20px;
 }
 
 @keyframes typing {
