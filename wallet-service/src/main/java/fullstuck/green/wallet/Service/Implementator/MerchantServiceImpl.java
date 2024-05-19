@@ -1,12 +1,10 @@
 package fullstuck.green.wallet.Service.Implementator;
 
-import fullstuck.green.wallet.Model.DataTransferObject.BalanceDTO;
 import fullstuck.green.wallet.Model.DataTransferObject.MerchantDTO;
 import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.Merchant;
 import fullstuck.green.wallet.Model.Entity.Role;
 import fullstuck.green.wallet.Model.Entity.User;
-import fullstuck.green.wallet.Repository.AccountDetailsRepository;
 import fullstuck.green.wallet.Repository.MerchantRepository;
 import fullstuck.green.wallet.Repository.RoleRepository;
 import fullstuck.green.wallet.Service.AccountDetailService;

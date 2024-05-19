@@ -17,5 +17,12 @@ public class ApplicationPath {
     public final static String MERCHANT = "/merchant";
     public final static String ALL = "/all";
     public final static String PAGES = "/page";
+    public final static String LOGIN = "/login";
+    public final static String RESET = "/reset";
+    public final static String USER = "/user";
+    public final static String RESET_PASSWORD = "/reset-password";
+    public final static String SUM = "/sum";
+    public final static String COUNT = "/count";
+//    public final static String  = "";
 //    public final static String  = "";
 }
