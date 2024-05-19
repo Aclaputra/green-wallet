@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 //import fullstuck.green.wallet.Model.Response.TransactionResponse;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface TransactionService {
@@ -21,4 +22,6 @@ public interface TransactionService {
     Transaction getById(String id);
     HistoryDetailResponse getByIdSpecial(String id);
     Page<CustomHistoryInterface> getHistoryPerPage(Pageable pageable, String id);
+    List<Integer> getTransCount(String id);
+    List<List<BigDecimal>> getDailySum(String id);
 }

@@ -1,9 +1,5 @@
 package fullstuck.green.wallet.Service.Implementator;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.github.fge.jsonpatch.JsonPatch;
-import com.github.fge.jsonpatch.JsonPatchException;
 import fullstuck.green.wallet.Config.Patcher;
 import fullstuck.green.wallet.Model.Entity.AccountDetails;
 import fullstuck.green.wallet.Model.Entity.AppUser;
@@ -15,12 +11,9 @@ import fullstuck.green.wallet.Repository.UserRepository;
 import fullstuck.green.wallet.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
-import org.hibernate.sql.Update;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import java.time.Instant;
 import java.util.Date;
@@ -100,11 +93,7 @@ public class UserServiceImpl implements UserService {
                     .birthDate(String.valueOf(existingAccount.getUser().getBirthDate()))
                     .phoneNumber(existingAccount.getUser().getPhone())
                     .build();
-            System.out.println(incompleteRequest);
-            System.out.println(existingUpdateProfile);
             Patcher.profilePatcher(existingUpdateProfile, incompleteRequest);
-            System.out.println(incompleteRequest);
-            System.out.println(existingUpdateProfile);
             Date birthDate = DateUtils.parseDate(existingUpdateProfile.getBirthDate(),
                     new String[] {"dd-MM-yyy" }); //Change from yyyy-MM-dd to dd-MM-yyyy
             existingAccount.getUser().setName(existingUpdateProfile.getName());

@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class TopUpRequest {
     @NotNull
-    @DecimalMin(value = "1", inclusive = false)
+//   @DecimalMin(value = "1", inclusive = false)
     private BigDecimal amount;
     @NotNull
     private String sourceOfFundId;
